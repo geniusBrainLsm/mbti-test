@@ -30,3 +30,4 @@ public class MemberDTO { //회원 정보를 필드로 정의
         return memberDTO;
     }
 }
+//MemberDTO.java

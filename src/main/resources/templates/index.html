@@ -21,8 +21,8 @@
     <li><a href="/setting/join">회원가입</a></li>
 </ul>
 
-<h2 class="page-subtitle">
-    닉네임
+<h2 class="page-subtitle" th:text="${#strings.isEmpty(session.loggedNickname) ? '닉네임' : session.loggedNickname}">닉네임>
+
 </h2>
 
 <h1 class="page-title">

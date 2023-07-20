@@ -6,6 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>joinpage</title>
     <link rel="stylesheet" href="../MBTI_test/css/join.css">
+    <script>
+        function validateForm() {
+            var nickname = document.forms["joinForm"]["memberNickname"].value;
+            var email = document.forms["joinForm"]["memberEmail"].value;
+            var password = document.forms["joinForm"]["memberPassword"].value;
+
+            // 닉네임 조건 검사
+            if (nickname.length < 3 || nickname.length > 20 || !/^[a-zA-Z0-9]+$/.test(nickname)) {
+                alert("닉네임은 3자 이상 20자 이내의 문자와 숫자로만 입력해주세요.");
+                return false;
+            }
+
+            // 이메일 형식 검사
+            var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(email)) {
+                alert("유효한 이메일 형식으로 입력해주세요.");
+                return false;
+            }
+
+            // 비밀번호 조건 검사
+            if (password.length < 8 || password.length > 50) {
+                alert("비밀번호는 8자 이상 50자 이내로 입력해주세요.");
+                return false;
+            }
+
+            // 모든 조건을 만족하면 폼을 제출합니다.
+            return true;
+        }
+    </script>
 </head>
 <body>
 <form action="/setting/join" method="post">
@@ -16,21 +45,21 @@
     <!-- <h2 class="sch">학교선택</h2> -->
     <div class="input">
         <div class="label"><label>닉네임</label></div>
-        <input type="text" name="nickname" class="campus_name search" maxlength="20" placeholder="닉네임을 입력하세요" autocomplete="off" >
+        <input type="text" name="memberNickname" class="campus_name search" maxlength="20" placeholder="닉네임을 입력하세요" autocomplete="off" >
         <input type="hidden" name="camppus_id">
         <p>공백없이 문자와 숫자로만 3자 이상 20자 이내로 입력하세요. </p>
 
     </div>
     <div class="input">
         <div class="label"><label>이메일</label></div>
-        <input type="text" name="email" class="campus_name search" maxlength="20" placeholder="이메일을 입력하세요" autocomplete="off">
+        <input type="text" name="memberEmail" class="campus_name search" maxlength="20" placeholder="이메일을 입력하세요" autocomplete="off">
         <input type="hidden" name="camppus_id">
         <p>사용자의 이메일을 공개하지 않습니다.</p>
 
     </div>
     <div class="input">
         <div class="label"><label>비밀번호</label></div>
-        <input type="text" name="password" class="campus_name search" maxlength="20" placeholder="패스워드를 입력하세요" autocomplete="off">
+        <input type="text" name="memberPassword" class="campus_name search" maxlength="20" placeholder="패스워드를 입력하세요" autocomplete="off">
         <input type="hidden" name="camppus_id">
         <p>8자 이상 50자 이내로 입력하세요. </p>
     </div>
