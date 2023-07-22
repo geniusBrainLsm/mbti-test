@@ -9,38 +9,60 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Member;
 import java.util.Optional;
 
-@Service //스프링이 관리해주는 객체 == 스프링 빈
-@RequiredArgsConstructor //controller와 같이. final 멤버변수 생성자 만드는 역할
+@Service
+@RequiredArgsConstructor
 public class MemberService {
 
-    private final MemberRepository memberRepository; // 먼저 jpa, mysql dependency 추가
+    private final MemberRepository memberRepository;
 
     public void join(MemberDTO memberDTO) {
-        // repsitory의 save 메서드 호출
+
+
+        // 아이디 중복 체크
+        if (isMemberExists(memberDTO.getMemberEmail())) {
+            throw new IllegalArgumentException("이미 존재하는 아이디입니다. 다른 아이디를 사용해주세요.");
+        }
+
         MemberEntity memberEntity = MemberEntity.toMemberEntity(memberDTO);
         memberRepository.save(memberEntity);
-//        //Repository의 save메서드 호출 (조건. entity객체를 넘겨줘야 함)
-
     }
 
-    public MemberDTO login(MemberDTO memberDTO){ //entity객체는 service에서만
+    public MemberDTO login(MemberDTO memberDTO) {
         Optional<MemberEntity> byMemberEmail = memberRepository.findByMemberEmail(memberDTO.getMemberEmail());
-        if(byMemberEmail.isPresent()){
-            // 조회 결과가 있다
-            MemberEntity memberEntity = byMemberEmail.get(); // Optional에서 꺼냄
-            if(memberEntity.getMemberPassword().equals(memberDTO.getMemberPassword())) {
-                //비밀번호 일치
-                //entity -> dto 변환 후 리턴
+        if (byMemberEmail.isPresent()) {
+            MemberEntity memberEntity = byMemberEmail.get();
+            if (memberEntity.getMemberPassword().equals(memberDTO.getMemberPassword())) {
                 MemberDTO dto = MemberDTO.toMemberDTO(memberEntity);
                 return dto;
             } else {
-                //비밀번호 불일치
                 return null;
             }
         } else {
-            // 조회 결과가 없다
             return null;
         }
     }
+
+
+
+    public boolean isNicknameExists(String nickname) {
+        return memberRepository.existsByMemberNickname(nickname);
+    }
+
+    public boolean isNicknameLengthValid(String nickname) {
+        return nickname.length() >= 3 && nickname.length() <= 20;
+    }
+
+    public boolean isMemberExists(String memberEmail) {
+        return memberRepository.existsByMemberEmail(memberEmail);
+    }
+    public boolean isEmailValid(String email) {
+        if (email == null) {
+            return false;
+        }
+        // 간단한 이메일 형식 체크 (실제로는 더 정교한 검사가 필요할 수 있음)
+        return email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+    }
+    public boolean isPasswordLengthValid(String password) {
+        return password != null && password.length() >= 8 && password.length() <= 50;
+    }
 }
-//MemberService.class

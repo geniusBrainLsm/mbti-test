@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>joinpage</title>
-    <link rel="stylesheet" href="../MBTI_test/css/join.css">
+    <link rel="stylesheet" href="../static/MBTI_test/css/join.css">
     <script>
         function validateForm() {
             var nickname = document.forms["joinForm"]["memberNickname"].value;
@@ -48,8 +48,8 @@
             <input type="text" name="memberNickname" class="campus_name search" maxlength="20" placeholder="닉네임을 입력하세요" autocomplete="off" >
             <input type="hidden" name="camppus_id">
             <p>공백없이 문자와 숫자로만 3자 이상 20자 이내로 입력하세요. </p>
-
         </div>
+
         <div class="input">
             <div class="label"><label>이메일</label></div>
             <input type="text" name="memberEmail" class="campus_name search" maxlength="20" placeholder="이메일을 입력하세요" autocomplete="off">
@@ -63,6 +63,12 @@
             <input type="hidden" name="camppus_id">
             <p>8자 이상 50자 이내로 입력하세요. </p>
         </div>
+        <div class="input">
+            <div th:if="${errorMessage}" class="error-message">
+                <p th:text="${errorMessage}"></p>
+            </div>
+        </div>
+
         <ol class="campuses"></ol>
 
         <input type="submit" value="가입하기" id="btn">
