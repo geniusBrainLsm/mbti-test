@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class mbtiApplication {
+public class settingApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(mbtiApplication.class, args);
+        SpringApplication.run(settingApplication.class, args);
     }
 
 }
