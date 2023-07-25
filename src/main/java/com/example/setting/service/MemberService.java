@@ -42,22 +42,8 @@ public class MemberService {
         return memberRepository.existsByMemberNickname(nickname);
     }
 
-    public boolean isNicknameLengthValid(String nickname) {
-        return nickname.length() >= 3 && nickname.length() <= 20;
-    }
-
     public boolean isMemberExists(String memberEmail) {
         return memberRepository.existsByMemberEmail(memberEmail);
     }
 
-    public boolean isEmailValid(String email) {
-        if (email == null) {
-            return false;
-        }
-        // 간단한 이메일 형식 체크
-        return email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
-    }
-    public boolean isPasswordLengthValid(String password) {
-        return password != null && password.length() >= 8 && password.length() <= 50;
-    }
 }
