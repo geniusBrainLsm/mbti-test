@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,14 +8,15 @@
     <title>login</title>
     <link rel="stylesheet" href="../static/css/login.css">
 </head>
+
 <body>
     <section class="login-form">
         <div class=about-info>
-         <h1>MBTI 로그인</h1>
-         <form action="/setting/login" method="post">
+            <h1>MBTI 로그인</h1>
+            <form action="/setting/login" method="post">
                 <div class="int-area">
                     <input type="text" name="memberEmail" id="id" autocomplete="off" required placeholder="아이디">
-                    
+
                 </div>
                 <div class="int-area">
                     <input type="password" name="memberPassword" id="pw" autocomplete="off" required placeholder="비밀번호">
@@ -25,14 +27,16 @@
                 </div>
 
                 <div>
-                <a href="#none">아이디 / 비밀번호 찾기</a>
-                <a href="/setting/join"><h4>아직 계정이 없으신가요?<span>회원가입</span></h4></a>
+                    <a href="#none">아이디 / 비밀번호 찾기</a>
+                    <a href="/setting/join">
+                        <h4>아직 계정이 없으신가요?<span>회원가입</span></h4>
+                    </a>
                 </div>
-            </div>
-            <!-- <p>아이디/비밀번호 찾기</p>
+        </div>
+        <!-- <p>아이디/비밀번호 찾기</p>
             <h4>---계정이 없으신가요?<span>회원가입</span></h4> -->
 
-            <!-- <div class="login-type">
+        <!-- <div class="login-type">
                 <h3>더욱 간편한 로그인</h3>
                 <a href="{{ route('social.login',['naver']) }}">
                     <img src="/image/naver.png" width="360px" height="56px">
@@ -49,4 +53,5 @@
     </section>
 
 </body>
+
 </html>

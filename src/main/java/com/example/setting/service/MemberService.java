@@ -17,12 +17,6 @@ public class MemberService {
 
     public void join(MemberDTO memberDTO) {
 
-
-        // 아이디 중복 체크
-        if (isMemberExists(memberDTO.getMemberEmail())) {
-            throw new IllegalArgumentException("이미 존재하는 아이디입니다. 다른 아이디를 사용해주세요.");
-        }
-
         MemberEntity memberEntity = MemberEntity.toMemberEntity(memberDTO);
         memberRepository.save(memberEntity);
     }
@@ -48,21 +42,8 @@ public class MemberService {
         return memberRepository.existsByMemberNickname(nickname);
     }
 
-    public boolean isNicknameLengthValid(String nickname) {
-        return nickname.length() >= 3 && nickname.length() <= 20;
-    }
-
     public boolean isMemberExists(String memberEmail) {
         return memberRepository.existsByMemberEmail(memberEmail);
     }
-    public boolean isEmailValid(String email) {
-        if (email == null) {
-            return false;
-        }
-        // 간단한 이메일 형식 체크 (실제로는 더 정교한 검사가 필요할 수 있음)
-        return email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
-    }
-    public boolean isPasswordLengthValid(String password) {
-        return password != null && password.length() >= 8 && password.length() <= 50;
-    }
+
 }
