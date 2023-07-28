@@ -2,6 +2,7 @@ package com.example.setting.controller;
 
 import com.example.setting.entity.Reply;
 import com.example.setting.repository.ReplyRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,21 @@ public class BoardController {
     public BoardController(ReplyRepository replyRepository) {
         this.replyRepository = replyRepository;
     }
+
+    @GetMapping("/setting/board")
+    public String index() {
+        return "notice_board"; // 예시로 notice_board.html로 이동하도록 설정
+    }
+
+
+
+    @GetMapping("/setting/board/logout")
+    public String logout(HttpSession session) {
+        session.invalidate(); // 세션 무효화하여 로그아웃 처리
+        return "redirect: notice-board";
+    }
+
+
 
     @GetMapping("/setting/board/{mbti}")
     public String board(@PathVariable("mbti") String mbti, Model model) {
