@@ -30,44 +30,36 @@
     <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
     <script defer src="../static/js/share.js"></script>
     <script type="module" defer src="../static/js/results.js"></script>
-
-
 </head>
 <body>
+<h2 class="page-subtitle">
+    내 본캐는?!
+</h2>
+<h1 class="page-title"></h1>
+<img src="" alt="캐릭터" class="character">
+<div class="result">
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+</div>
+<div class="result">
+    <h3>이런 내가 직업을 갖는다면?</h3>
+    <div class="jobs">
+        <div class="job"></div>
+        <div class="job"></div>
+    </div>
+</div>
 
-    <h2 class="page-subtitle">
-        내 본캐는?!
-    </h2>
-    <h1 class="page-title"></h1>
-    <img src="" alt="캐릭터" class="character">
-    <div class="result">
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-    </div>
-    <div class="result">
-        <h3>이런 내가 직업을 갖는다면?</h3>
-        <div class="jobs">
-            <div class="job"></div>
-            <div class="job"></div>
-        </div>
-    </div>
+<div class="result">
+    <h3></h3>
+    <a></a>
+</div>
+<a th:href="@{/setting/board/{mbti}(mbti=${mbti})}" class="reply btn btn-green btn-small">
+    게시판에 댓글 남기기
+<a href="/" class="btn btn-gray btn-small">
+    다시 테스트하기
+</a>
 
-    <div class="result">
-        <h3>이런 직업 강의는 어떤가요?</h3>
-        <a href="" target="_blank" class="lecture">
-            <img src="" alt="강의">
-        </a>
-    </div>
-    <div class="btn btn-green btn-small share-or-copy">
-        결과 공유하기
-    </div>
-    <a href="/" class="btn btn-gray btn-small">
-        다시 테스트하기
-    </a>
 </body>
-
-
-
 </html>
