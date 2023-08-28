@@ -6,9 +6,9 @@ body {
     justify-content: center;
     height: 100vh;
     background: #e3f4f1;
-    background-image: url(..../static/images/main_bg.jpg);
+    background-image: url(../images/main_bg.jpg);
 }
-  
+
 * {
     padding: 0;
     margin: 0;
@@ -75,61 +75,89 @@ section {
     border-radius: 10px;
     font-size: 15px; color: #01755c;
 }
-.information {
-    font-size:18px; color: #01755c;
+
+
+#form-commentInfo{
+    width: 100%;
 }
 
-.enter{
-    width: 900px;
-    height: auto;
+#comment-count{
+    margin-bottom: 10px; 
+}
+
+#comment-input{
+    width: 750px;
+    height: 50px;
     text-align: left;
     float: center;
 }
-.share {
-    width: 80px;
-    height:30px;
+
+#submit{
     background-color: #86ba98;
-    float: right;
+    width: 140px;
+    height: 50px;
+    font-size: 15px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+
 }
 
-.img-sm {
-    width: 46px;
-    height: 46px;
-    border-radius: 15px;
-}
-
-.media-block .media-left {
-    display: block;
-    float: left
-  }
-  
-  .media-block .media-right {
-    float: right
-  }
-  
-  .media-block .media-body {
-    display: block;
-    overflow: hidden;
-    width: auto
-  }
-  
-  .middle .media-left,
-  .middle .media-right,
-  .middle .media-body {
-    vertical-align: middle
-  }
-
-  .text-muted, a.text-muted:hover, a.text-muted:focus {
-    color: #acacac;
-  }
-
-  .thumbs-up,
-  .thumbs-down,
-  .reply {
-    border: 1px solid #929292;
+.voteUp, .voteDown{
     padding: 3px 5px; 
     border-radius: 5px; 
     display: inline-block; 
     width: auto;
-    height:20px;
-  }
+    height: auto;
+    color:#01755c;
+    border: 2px solid #c5c4c4;
+    background-color: #ffffff;
+}
+
+
+#comments{
+    margin-top: 10px;
+    display : center;
+}
+
+.eachComment {
+    width: 90%; 
+    margin: 10px auto; 
+    padding: 0.5em; 
+    border-bottom: 1px solid #c1bcba;
+}
+
+
+.eachComment .name{
+    font-size: 1.7em;
+    font-weight: bold;
+    margin-bottom: 0.3em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.eachComment .inputValue{
+    font-size: 1.0em;
+    font-style: italic;    
+}
+
+.eachComment .time{
+    font-size: 0.8em;
+    color: #c1bcba;
+    font-style: oblique;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    
+}
+
+.eachComment .voteDiv{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.eachComment .deleteComment{
+    border-radius: 5px; 
+    background-color: rgb(255, 255, 255);
+    border: 2px solid #c5c4c4;
+    color: rgb(255, 0, 0);
+    width: 50px;
+}
