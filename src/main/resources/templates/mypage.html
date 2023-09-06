@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mypage</title>
+    <link rel="stylesheet" href="../static/css/mypage.css">
+    <script src="https://kit.fontawesome.com/9260b29719.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Dongle:wght@700&display=swap" rel="stylesheet"></head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>MBTI-test</h1>
+            <div class="move">
+                <a href="">마이페이지로</a>
+                <a href="">로그아웃</a>
+            </div>
+        </header>
+
+        <main>
+            <section class="maininfo">
+                <div class="tabmain">
+                    <ul class="tab">
+                        <li><a href="#">프로필</a></li>
+                        <li><a href="#">내가 쓴 글</a></li>
+                        <li><a href="#">내가 쓴 댓글</a></li>
+                    </ul>
+                </div>
+                <div class="userinfo">
+                    <div class="usermbti">회원님의 mbti는 'estj' 입니다. </div>
+                    <section>
+                        <div class="user-avatar">
+                            <!-- <img src="" alt=""> -->
+                            <div class="user-details">
+                                <div class="user-name">
+                                    <div class="subtitle">이름</div>
+                                    <div class="subcontent">백민주</div>
+                                </div>
+                                <div class="user-email">
+                                    <div class="subtitle">이메일</div>
+                                    <div class="subcontent">qoralswn1205@daum.net</div>
+                                </div>
+                                <div class="user-phone">
+                                    <div class="subtitle">휴대폰</div>
+                                    <div class="subcontent">010-4736-3701</div>
+                                </div>
+                            </div>
+                            <button id="mem_edit">회원 정보 수정</button>
+                        </div>
+                        <button id="chgpw">비밀번호 변경</button>
+                        <button id="withmem">회원 탈퇴</button>
+                    </section>
+                </div>
+            </section>
+        </main>
+
+        <!--비밀번호 변경화면-->
+        <form action="">
+            <div class="black-bg">
+                <div class="white-bg">
+                    <h1>비밀번호 변경</h1>
+    
+                      <div class="row mb-3">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">새로운 비밀번호</label>
+                        <div class="col-sm-10">
+                          <input type="password" class="form-control" id="inputPassword">
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label for="inputPasswordConfirm" class="col-sm-2 col-form-label">비밀번호 확인</label>
+                        <div class="col-sm-10">
+                          <input type="password" class="form-control" id="inputPasswordConfirm">
+                        </div>
+                      </div>
+                    <div class="btn-group">
+                        <button type=button" class="close" id="close">취소</button>
+                        <button type="submit" class="change" id="send">비밀번호 변경</button>
+                      </div>
+                </div>
+            </div>
+        </form>
+        <!--회원 정보 수정 화면-->
+         <div class="editmember">
+            <div class="editmem-detail">
+                <h1>회원 정보 수정</h1>
+                <div>
+                    <!-- <img src="" alt=""> -->
+                    <a href="">사진 수정</a>
+                </div>
+                <div class="row mb-3">
+                    <label for="inputemail" class="col-sm-2 col-form-label">이메일(아이디)</label>
+                    <div class="col-sm-10">
+                      <input type="email" class="form-control" id="inputemail">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="inputPhone" class="col-sm-2 col-form-label">휴대폰 번호</label>
+                    <div class="col-sm-10">
+                      <input type="tel" class="form-control" id="inputPhone">
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="editclose">취소</button>
+                    <button class="editsend">수정</button>
+                </div>
+            </div>
+
+        </div>
+
+        
+        <!--회원탈퇴 화면-->
+        <div class="Withdrawal">
+            <div class="with-detail">
+                <h1>회원 탈퇴 안내</h1>
+                    <span>
+                        MBTI 테스트 회원 탈퇴 안내입니다. <br>
+                        회원탈퇴를 하게 되면 현재 아이디는 사용하실 수 없습니다. <br>
+                        회원탈퇴 후에도 개인정보는 보안 정책에 따라 처리됩니다. <br>
+                        ※ 자세한 내용은 개인정보 처리 방침을 확인해 주세요.
+                    </span>
+                    <div class="btn-group">
+                        <button class="withdraw-close">취소</button>
+                        <button class="withdraw-change">회원탈퇴</button>
+                    </div>
+            </div>
+        </div>
+        
+        <footer>
+            <!-- <p>&copy; 2023 관리자 화면</p> -->
+        </footer>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+
+            
+            $('#chgpw').on('click',function(){
+                document.querySelector('.black-bg').classList.add('show-modal')
+            });
+
+            $('.close').on('click',function(){
+                document.querySelector('.black-bg').classList.remove('show-modal');
+            });
+
+            $('#withmem').on('click',function(){
+                document.querySelector('.Withdrawal').classList.add('show-modal');
+            });
+
+            $('.withdraw-close').on('click',function(){
+                document.querySelector('.Withdrawal').classList.remove('show-modal');
+            });
+
+            $('#mem_edit').on('click',function(){
+                document.querySelector('.editmember').classList.add('show-modal');
+            });
+            $('.editclose').on('click',function(){
+                document.querySelector('.editmember').classList.remove('show-modal');
+            });
+            
+            //비밀번호 변경 버튼 클릭 시 이벤트 처리
+            $('#send').on('click',function(){
+                var newPassword = $('#inputPassword').val();
+                var confirmPassword = $('#inputPasswordConfirm').val();
+
+                //새로운 비밀번호 입력 안한 경우
+                if(newPassword === ''){
+                    alert('새로운 비밀번호를 입력하세요.');
+                    return;
+                }
+                //비밀번호 확인 입력 안한 경우
+                if(confirmPassword === ''){
+                    alert('비밀번호 확인을 입력하세요.');
+                    return;
+                }
+                //비밀번호와 비밀번호 확인이 일치하지 않는 경우
+                if(newPassword !== confirmPassword){
+                    alert('비밀번호가 일치하지 않습니다.');
+                    return;
+                }
+                //모든 검증 통과 시 서버로 전송하는 코드
+            })
+            
+            //탈퇴 확인 버튼 클릭 이벤트
+            $('.withdraw-change').on('click',function(){
+
+                var confirmResult = confirm('정말로 회원 탈퇴하시겠습니까?');
+                if(confirmResult){
+                    alert('회원 탈퇴되었습니다. ');
+                } else{
+                    alert('회원 탈퇴가 취소되었습니다. ');
+                }
+            })
+
+
+
+        </script>
+    </div>
+</body>
+</html>
