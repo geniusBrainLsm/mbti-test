@@ -38,11 +38,12 @@
                             <div class="user-details">
                                 <div class="user-name">
                                     <div class="subtitle">이름</div>
-                                    <div class="subcontent">백민주</div>
+                                    <div class="subcontent" th:text="${memberEntity.memberNickname}"></div>
+
                                 </div>
                                 <div class="user-email">
                                     <div class="subtitle">이메일</div>
-                                    <div class="subcontent">qoralswn1205@daum.net</div>
+                                    <div class="subcontent" th:text="${memberEntity.memberEmail}"></div>
                                 </div>
                                 <div class="user-phone">
                                     <div class="subtitle">휴대폰</div>
@@ -77,7 +78,7 @@
                         </div>
                       </div>
                     <div class="btn-group">
-                        <button type=button" class="close" id="close">취소</button>
+                        <button type="button" class="close" id="close">취소</button>
                         <button type="submit" class="change" id="send">비밀번호 변경</button>
                       </div>
                 </div>

@@ -27,13 +27,20 @@ public class MemberService {
             MemberEntity memberEntity = byMemberEmail.get();
             if (memberEntity.getMemberPassword().equals(memberDTO.getMemberPassword())) {
                 MemberDTO dto = MemberDTO.toMemberDTO(memberEntity);
+                System.out.println("1");
                 return dto;
             } else {
+                System.out.println("2");
                 return null;
             }
         } else {
             return null;
         }
+    }
+
+    public MemberDTO findByNickname(String nickname) {
+        MemberEntity entity = memberRepository.findByMemberNickname(nickname);
+        return entity != null ? MemberDTO.toMemberDTO(entity) : null;
     }
 
 
