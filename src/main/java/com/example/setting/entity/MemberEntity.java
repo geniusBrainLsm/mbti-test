@@ -35,4 +35,3 @@ public class MemberEntity { //table 역할
     }
 
 }
-//MemberEntity.class

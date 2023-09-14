@@ -4,60 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시판</title>
-    <link rel="stylesheet" href="../static/css/notice_board.css">
+    <link rel="stylesheet" href="/static/css/notice_board.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <ul class="menu">
-            <li>
-              <a href="#">MBTI 검사하기</a>
-            </li>
-            <li>
-              <a href="#">게시판</a>
-              <ul class="submenu">
-                <li><a href="#">ESTJ</a></li>
-                <li><a href="#">ISTJ</a></li>
-                <li><a href="#">ESFJ</a></li>
-                <li><a href="#">ISFJ</a></li>
-                <li><a href="#">ESTP</a></li>
-                <li><a href="#">ISTP</a></li>
-                <li><a href="#">ESFP</a></li>
-                <li><a href="#">ISFP</a></li>
-                <li><a href="#">ENTJ</a></li>
-                <li><a href="#">INTJ</a></li>
-                <li><a href="#">ENFJ</a></li>
-                <li><a href="#">INFJ</a></li>
-                <li><a href="#">ENTP</a></li>
-                <li><a href="#">INTP</a></li>
-                <li><a href="#">ENFP</a></li>
-                <li><a href="#">INFP</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">로그인 / 회원가입</a>
-              <ul class="submenu">
-                <li><a href="#">로그인</a></li>
-                <li><a href="#">회원가입</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="/setting/mypage">MY PAGE</a>
-              <ul class="submenu">
+<header>
+    <ul class="menu">
+        <li>
+            <a href="/">MBTI 검사하기</a>
+        </li>
+        <li>
+            <a href="#">게시판</a>
+            <ul class="submenu">
+                <li><a href="/setting/board/estj">ESTJ</a></li>
+                <li><a href="/setting/board/istj">ISTJ</a></li>
+                <li><a href="/setting/board/esfj">ESFJ</a></li>
+                <li><a href="/setting/board/isfj">ISFJ</a></li>
+                <li><a href="/setting/board/estp">ESTP</a></li>
+                <li><a href="/setting/board/istp">ISTP</a></li>
+                <li><a href="/setting/board/esfp">ESFP</a></li>
+                <li><a href="/setting/board/isfp">ISFP</a></li>
+                <li><a href="/setting/board/entj">ENTJ</a></li>
+                <li><a href="/setting/board/intj">INTJ</a></li>
+                <li><a href="/setting/board/enfj">ENFJ</a></li>
+                <li><a href="/setting/board/infj">INFJ</a></li>
+                <li><a href="/setting/board/estp">ENTP</a></li>
+                <li><a href="/setting/board/intp">INTP</a></li>
+                <li><a href="/setting/board/enfp">ENFP</a></li>
+                <li><a href="/setting/board/infp">INFP</a></li>
+            </ul>
+        </li>
+        <li>
+
+        <li th:if="${session.loggedNickname}">
+            <a href="/setting/board/logout">로그아웃</a>
+        </li>
+        <li th:unless="${session.loggedNickname}">
+            <a href="#">로그인 / 회원가입</a>
+            <ul class="submenu">
+
+                <li th:unless="${session.loggedNickname}">
+                    <a href="/setting/board/login">로그인</a>
+                </li>
+                <li th:unless="${session.loggedNickname}">
+                    <a href="/setting/board/join">회원가입</a>
+                </li>
+
+            </ul>
+        </li>
+        </li>
+        <li>
+            <a href="#">MY PAGE</a>
+            <ul class="submenu">
                 <li><a href="#">내 정보 조회</a></li>
                 <li><a href="#">내 정보 수정</a></li>
                 <li><a href="#">이전 활동 기록</a></li>
                 <li><a href="#">회원 탈퇴</a></li>
-              </ul>
-            </li>
-          </ul>
-    </header>
+            </ul>
+        </li>
+    </ul>
+</header>
 
     <section>
         <div class="information">
-            <h2>ENTJ</h2>
+            <h2 th:text="${myMbti}"></h2>
             <hr width="100%" color=#01755c/> <br>
-            <img src="../static/images/MBTI.jpg" style="width:900px;">
+            <img src="/static/images/MBTI.jpg" style="width:900px;">
         </div>
         <br>
         <h2>Comments</h2>
@@ -85,6 +97,6 @@
         <div id=comments>
 
         </div>
-        <script src="../static/js/notice_board.js"></script>
+        <script src="/static/js/notice_board.js"></script>
 </body>
 </html>
