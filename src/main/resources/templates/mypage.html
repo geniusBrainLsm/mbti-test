@@ -38,11 +38,12 @@
                             <div class="user-details">
                                 <div class="user-name">
                                     <div class="subtitle">이름</div>
-                                    <div class="subcontent">백민주</div>
+                                    <div class="subcontent" th:text="${memberEntity.memberNickname}"></div>
+
                                 </div>
                                 <div class="user-email">
                                     <div class="subtitle">이메일</div>
-                                    <div class="subcontent">qoralswn1205@daum.net</div>
+                                    <div class="subcontent" th:text="${memberEntity.memberEmail}"></div>
                                 </div>
                                 <div class="user-phone">
                                     <div class="subtitle">휴대폰</div>
@@ -59,7 +60,7 @@
         </main>
 
         <!--비밀번호 변경화면-->
-        <form action="">
+        <form name="changePassword" action="/setting/mypage/changePassword" method="post">
             <div class="black-bg">
                 <div class="white-bg">
                     <h1>비밀번호 변경</h1>
@@ -67,7 +68,7 @@
                       <div class="row mb-3">
                         <label for="inputPassword" class="col-sm-2 col-form-label">새로운 비밀번호</label>
                         <div class="col-sm-10">
-                          <input type="password" class="form-control" id="inputPassword">
+                          <input type="password" class="form-control" id="inputPassword" name = "newPassword">
                         </div>
                       </div>
                       <div class="row mb-3">
@@ -77,12 +78,13 @@
                         </div>
                       </div>
                     <div class="btn-group">
-                        <button type=button" class="close" id="close">취소</button>
+                        <button type="button" class="close" id="close">취소</button>
                         <button type="submit" class="change" id="send">비밀번호 변경</button>
                       </div>
                 </div>
             </div>
         </form>
+        <form name="UpdateInfo" action="/setting/mypage" method="post">
         <!--회원 정보 수정 화면-->
          <div class="editmember">
             <div class="editmem-detail">
@@ -94,23 +96,24 @@
                 <div class="row mb-3">
                     <label for="inputemail" class="col-sm-2 col-form-label">이메일(아이디)</label>
                     <div class="col-sm-10">
-                      <input type="email" class="form-control" id="inputemail">
+                      <input type="email" class="form-control" id="inputemail" name = "newEmail">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="inputPhone" class="col-sm-2 col-form-label">휴대폰 번호</label>
+                    <label for="inputPhone" class="col-sm-2 col-form-label" name = "memberPhone">휴대폰 번호</label>
                     <div class="col-sm-10">
                       <input type="tel" class="form-control" id="inputPhone">
                     </div>
                 </div>
                 <div class="btn-group">
                     <button class="editclose">취소</button>
-                    <button class="editsend">수정</button>
+                    <button type = "submit" class="editsend">수정</button>
+
                 </div>
             </div>
 
         </div>
-
+        </form>
         
         <!--회원탈퇴 화면-->
         <div class="Withdrawal">
@@ -128,7 +131,7 @@
                     </div>
             </div>
         </div>
-        
+
         <footer>
             <!-- <p>&copy; 2023 관리자 화면</p> -->
         </footer>
@@ -181,15 +184,26 @@
                 }
                 //모든 검증 통과 시 서버로 전송하는 코드
             })
-            
+
             //탈퇴 확인 버튼 클릭 이벤트
             $('.withdraw-change').on('click',function(){
-
                 var confirmResult = confirm('정말로 회원 탈퇴하시겠습니까?');
                 if(confirmResult){
-                    alert('회원 탈퇴되었습니다. ');
+                    // AJAX 요청 시작
+                    $.ajax({
+                        url: '/setting/mypage/deleteAccount',  // 요청을 보낼 엔드포인트 URL
+                        type: 'POST',  // HTTP 메소드 지정 (회원 정보 삭제이므로 POST 또는 DELETE가 적절합니다)
+                        success: function(response) {
+                            alert('회원 탈퇴되었습니다.');
+                            location.href = '/';  // 메인 페이지로 리다이렉션
+                        },
+                        error: function(error) {
+                            alert('회원 탈퇴에 실패하였습니다. 다시 시도해주세요.');
+                        }
+                    });
+                    // AJAX 요청 종료
                 } else{
-                    alert('회원 탈퇴가 취소되었습니다. ');
+                    alert('회원 탈퇴가 취소되었습니다.');
                 }
             })
 
