@@ -1,6 +1,7 @@
 body {
-    background-color: #EAF8FF;
-    background-image: url("..../static/images/result_bg.jpg");
+    background-color: #F6FCFF;
+    background-image: url("../images/main_bg.jpg");
+    background-size: cover;
     background-position: top center;
     background-repeat: no-repeat;
 }
