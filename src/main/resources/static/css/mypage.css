@@ -1,5 +1,5 @@
 body{
-    background-image: url(/src/main/resources/static/images/main_bg.jpg);
+    background-image: url("/src/main/resources/static/images/main_bg.jpg");
 }
 header {
     border-radius: 20px;

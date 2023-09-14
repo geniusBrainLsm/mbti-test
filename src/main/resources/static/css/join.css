@@ -18,7 +18,7 @@ body{
     align-items: center;
     height: 100vh;
     background: #e3f4f1;
-    background-image: url(..../static/images/main_bg.jpg);
+    background-image: url("../images/main_bg.jpg");
 
 
 }
