@@ -55,8 +55,20 @@
     <h3></h3>
     <a></a>
 </div>
-<a th:href="@{/setting/board/{mbti}(mbti=${mbti})}" class="reply btn btn-green btn-small">
-    게시판에 댓글 남기기
+<!-- 세션에 로그인한 사용자가 있을 때 -->
+<li th:if="${session.loggedNickname}">
+    <a th:href="@{/setting/board/{mbti}(mbti=${mbti})}" class="reply btn btn-green btn-small">
+        게시판에 댓글 남기기
+    </a>
+</li>
+
+<!-- 세션에 로그인한 사용자가 없을 때 -->
+<li th:unless="${session.loggedNickname}">
+    <a href="/setting/login" class="reply btn btn-green btn-small">
+        게시판에 댓글 남기기
+    </a>
+</li>
+
 <a href="/" class="btn btn-gray btn-small">
     다시 테스트하기
 </a>

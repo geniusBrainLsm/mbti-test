@@ -40,7 +40,7 @@ public class MemberController {
 
 
         memberService.join(memberDTO);
-        return "index";
+        return "notice_board";
     }
 
     @GetMapping("/setting/login")
@@ -55,26 +55,7 @@ public class MemberController {
             // login 성공
             System.out.println("로그인 성공");
             session.setAttribute("loggedNickname", loginResult.getMemberNickname());
-            return "index";
-        } else {
-            // login 실패
-            model.addAttribute("errorMessage", "로그인 실패: 아이디 또는 비밀번호가 올바르지 않습니다.");
-            return "login";
-        }
-    }
-    @GetMapping("/setting/board/login")
-    public String BoardloginForm()
-    {
-        return "login";
-    }
-    @PostMapping("/setting/board/login")
-    public String Boardlogin(@ModelAttribute MemberDTO memberDTO, HttpSession session, ModelMap model) {
-        MemberDTO loginResult = memberService.login(memberDTO);
-        if (loginResult != null) {
-            // login 성공
-            System.out.println("로그인 성공");
-            session.setAttribute("loggedNickname", loginResult.getMemberNickname());
-            return "notice_board";
+            return "redirect:/setting/board";
         } else {
             // login 실패
             model.addAttribute("errorMessage", "로그인 실패: 아이디 또는 비밀번호가 올바르지 않습니다.");
@@ -87,7 +68,7 @@ public class MemberController {
     @GetMapping("/setting/logout")
     public String logout(HttpSession session) {
         session.invalidate(); // 세션 무효화하여 로그아웃 처리
-        return "index";
+        return "redirect:/setting/board";
     }
 }
 //MemberController.class
