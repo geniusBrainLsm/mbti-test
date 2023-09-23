@@ -19,7 +19,7 @@ public class MemberEntity { //table 역할
     @Column
     private String memberNickname;
 
-    @Column
+    @Column(unique = true) //이메일은 중복 x -> 유니크키
     private String memberEmail;
 
     @Column
