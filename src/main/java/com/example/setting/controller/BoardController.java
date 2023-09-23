@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.*;
 public class BoardController {
 
 
-    @GetMapping("/setting/board")
+    @GetMapping("/setting/gianotice_board")
     public String index() {
         return "notice_board"; // 예시로 notice_board.html로 이동하도록 설정
     }
+
 
 
 
