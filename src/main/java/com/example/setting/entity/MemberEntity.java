@@ -16,10 +16,10 @@ public class MemberEntity { //table 역할
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
     private Long id;
 
-    @Column
+    @Column(unique = true)
     private String memberNickname;
 
-    @Column(unique = true) //이메일은 중복 x -> 유니크키
+    @Column(unique = true)
     private String memberEmail;
 
     @Column
