@@ -67,7 +67,7 @@ public class MemberController {
             return "join";
         }
 
-        return "redirect:/";
+        return "redirect:/notice_board";
     }
 
     @GetMapping("/member/login")
