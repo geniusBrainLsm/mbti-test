@@ -52,6 +52,7 @@ public class MemberController {
 
         try {
             MemberDTO memberDTO = new MemberDTO();
+            memberDTO.setMemberMbti(joinform.getMemberMbti());
             memberDTO.setMemberNickname(joinform.getMemberNickname());
             memberDTO.setMemberEmail(joinform.getMemberEmail());
             memberDTO.setMemberPassword(joinform.getMemberPassword1());

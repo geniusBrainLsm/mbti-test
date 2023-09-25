@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Setter
 @Getter
@@ -16,6 +18,9 @@ public class MemberEntity { //table 역할
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
     private Long id;
 
+    @Column
+    private String memberMbti;
+
     @Column(unique = true)
     private String memberNickname;
 
@@ -25,12 +30,18 @@ public class MemberEntity { //table 역할
     @Column
     private String memberPassword;
 
+    //댓글이랑 연결
+    @OneToMany(mappedBy="member", cascade=CascadeType.ALL)
+    private List<Comment> comments;
+
     public static MemberEntity toMemberEntity(MemberDTO memberDTO){
         MemberEntity memberEntity = new MemberEntity();
         memberEntity.setId(memberDTO.getId());
+        memberEntity.setMemberMbti(memberDTO.getMemberMbti());
         memberEntity.setMemberNickname(memberDTO.getMemberNickname());
         memberEntity.setMemberEmail(memberDTO.getMemberEmail());
         memberEntity.setMemberPassword(memberDTO.getMemberPassword());
+
         return memberEntity;
     }
 

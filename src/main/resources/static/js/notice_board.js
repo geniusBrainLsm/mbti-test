@@ -1,202 +1,150 @@
-//1.입력받으면 입력값 초기화
-//2. 입력값 댓글로들어가기
-//3. 댓글 삭제, 수정기능
-//4. 좋아요 투표기능
-//5. 타임스템프기능
-//6. 무작위 아이디  
-//7. 댓글 삭제기능
-//8. 댓글 수정기능
+// 현재 페이지의 MBTI 값을 추출
+const memberMbti = window.location.pathname.split('/').pop();
+const csrfToken = document.getElementById("csrfToken").value;
 
-const inputBar = document.querySelector("#comment-input");
-const rootDiv = document.querySelector("#comments");
-const btn = document.querySelector("#submit");
-const mainCommentCount = document.querySelector('#count'); //맨위 댓글 숫자 세는거.
+// DOM 요소 캐싱
+const commentsContainer = document.getElementById("comments");
+const commentInput = document.getElementById("comment-input");
+const commentCount = document.getElementById("count");
+const submitButton = document.getElementById("submit");
+const likedComments = new Set();
 
-//글로벌로 뺏음. 값을 저장하기 위해서.
-let idOrVoteCountList=[];
-
-
-//타임스템프 만들기
-function generateTime(){
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const wDate = date.getDate();
-    const hour = date.getHours();
-    const min = date.getMinutes();
-    const sec = date.getSeconds();
-
-    const time = year+'-'+month+'-'+wDate+' '+hour+':'+min+':'+sec;
-    return time;
-
+// 댓글 목록을 받아오는 함수
+const getComments = () => {
+    fetch(`/api/replies/${memberMbti}`)
+        .then(response => response.json())
+        .then(displayComments)
+        .catch(error => console.error('Error fetching comments:', error));
 }
 
-//유저이름 발생기
-//유저이름은 8글자로 제한.
-function generateUserName(){
-    let alphabet = 'abcdefghijklmnopqrstuvwxyz';
-    var makeUsername = '';
-    for(let i=0; i<4;i++){
-        let index = Math.floor(Math.random(10) * alphabet.length);
-        makeUsername += alphabet[index];        
+
+// "추천" 버튼 클릭 시 호출되는 함수
+const likeComment = commentId => {
+    // 이미 추천한 댓글인지 확인
+    if (likedComments.has(commentId)) {
+        console.log('이미 추천한 댓글입니다.');
+        return;
     }
-    for(let j=0;j<4;j++){
-        makeUsername += "*";
+
+    // 서버로 추천 요청 전송
+    fetch(`/api/replies/${commentId}/like`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken  // 추가된 부분
+        },
+    })
+        .then(response => response.json())
+        .then(updatedComment => {
+            // 서버로부터 업데이트된 댓글 정보를 받아와서 해당 댓글의 추천 수 업데이트
+            const commentElement = document.querySelector(`.comment[data-comment-id="${commentId}"]`);
+            if (commentElement) {
+                const likesElement = commentElement.querySelector(".likes");
+                if (likesElement) {
+                    likesElement.textContent = `Likes: ${updatedComment.likes}`;
+                }
+            }
+
+            // 추천한 댓글 기록
+            likedComments.add(commentId);
+
+            // 추천 버튼 비활성화
+            const likeButton = commentElement.querySelector(".like-button");
+            if (likeButton) {
+                likeButton.disabled = true;
+            }
+        })
+        .catch(error => console.error('Error liking comment:', error));
+}
+
+// 댓글을 화면에 추가하는 함수
+const addCommentToUI = comment => {
+    const commentElement = document.createElement("div");
+    commentElement.className = "comment";
+
+    // 댓글 작성 시간 추가
+    const timestampElement = document.createElement("div");
+    timestampElement.className = "timestamp";
+    timestampElement.textContent = formatTimestamp(comment.timestamp);
+    commentElement.appendChild(timestampElement);
+
+    // 닉네임 추가
+    const nicknameElement = document.createElement("div");
+    nicknameElement.className = "nickname";
+    nicknameElement.textContent = comment.nickname; // 닉네임 표시
+    commentElement.appendChild(nicknameElement);
+
+    // 댓글 내용 추가
+    const textElement = document.createElement("div");
+    textElement.className = "text";
+    textElement.textContent = comment.text;
+    commentElement.appendChild(textElement);
+
+    // 추천 수 추가
+    const likesElement = document.createElement("div");
+    likesElement.className = "likes";
+    likesElement.textContent = `Likes: ${comment.likes}`;
+    commentElement.appendChild(likesElement);
+
+    // 추천 버튼 추가
+    const likeButton = document.createElement("button");
+    likeButton.className = "like-button";
+    likeButton.textContent = "추천";
+    likeButton.addEventListener("click", () => likeComment(comment.id)); // 추천 버튼 클릭 시 추천 함수 호출
+    commentElement.appendChild(likeButton);
+
+    commentsContainer.appendChild(commentElement);
+
+
+}
+
+// "Submit" 버튼 클릭 시 호출되는 함수
+const submitComment = () => {
+    const commentText = commentInput.value.trim();
+    if (commentText !== "") {
+        const requestBody = {
+            text: commentText,
+            memberMbti: memberMbti
+        };
+
+        fetch('/api/replies', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken  // 추가된 부분
+            },
+            body: JSON.stringify(requestBody)
+        })
+            .then(response => response.json())
+            .then(newComment => {
+                addCommentToUI(newComment);
+                commentInput.value = "";
+
+                // 댓글을 추가한 후에 댓글 목록을 다시 불러오도록 수정
+                getComments();
+            })
+            .catch(error => console.error('Error submitting comment:', error));
     }
-    return makeUsername;    
 }
 
-function numberCount(event){      
-    event.preventDefault(); 
-    console.log(event.target.parentNode.id);
-    for(let i=0; i<idOrVoteCountList.length; i++){  
-        if(event.target.className === "voteUp"){                       
-            
-           //event.target.parentNode.id 값이 string이기 때문에 이 값을 Number처리하던지, idOrVoteCountList[i]["commentId"]이 값을 string처리해야 넘어감.
-           if(idOrVoteCountList[i]["commentId"].toString() === event.target.parentNode.id){                
-               idOrVoteCountList[i]["voteUpCount"]++;               
-               event.target.innerHTML = "👍"+idOrVoteCountList[i]["voteUpCount"]+" Likes";
-           }       
-         
-         }else if(event.target.className === "voteDown"){
-           if(idOrVoteCountList[i]["commentId"].toString() === event.target.parentNode.id){
-               idOrVoteCountList[i]["voteDownCount"]++;
-               event.target.innerHTML = "👎"+idOrVoteCountList[i]["voteDownCount"]+" Dislikes";              
-         } 
-       }
+// 댓글을 화면에 표시하는 함수
+const displayComments = comments => {
+    commentsContainer.innerHTML = "";
+    commentCount.textContent = comments.length;
 
-   } 
+    comments.forEach(comment => {
+        addCommentToUI(comment);
+    });
 }
 
-//기존에 남아있던 id초기화 및 새로추가된부분만 코멘트값 이어서 들어옴.
-function initIdCount(){
-    for(let i=0; i<idOrVoteCountList.length; i++){
-      if(idOrVoteCountList[i]["commentId"] - i > 1){    
-        idOrVoteCountList[i]["commentId"] =  idOrVoteCountList[i]["commentId"] - (idOrVoteCountList.length-(i+1));        
-      }
-    }
+// 페이지 로드 시 MBTI 값을 가져오고 댓글 목록을 불러오도록 수정
+window.addEventListener("load", () => getComments());
+
+// "Submit" 버튼 클릭 시 댓글 작성 함수 호출
+submitButton.addEventListener("click", () => submitComment());
+
+// 타임스탬프 형식을 변환하는 함수
+const formatTimestamp = timestamp => {
+    const date = new Date(timestamp);
+    return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
 }
-
-
-function deleteComments(){ 
-    const btn = event.target;
-    const list = btn.parentNode.parentNode;//commentList
-    //삭제버튼도 마찬가지임. 여러개니깐 인식을 못함. 상위노드에 id 부여함.    
-    //삭제버튼 클릭한 배열의 인덱스를 날리면 됨. 뭐 여기까지 해도 상관없는데...
-    for(let i=0; i<idOrVoteCountList.length; i++){
-        if(idOrVoteCountList[i]["commentId"].toString() === btn.parentNode.id){
-            idOrVoteCountList.splice(btn.parentNode.id-1,1);   
-        }
-
-    }
-    //그다음에 전체 지우기.
-    rootDiv.removeChild(list);   
-
-    //메인댓글 카운트 줄이기. 
-    if(mainCommentCount.innerHTML <='0'){
-        mainCommentCount.innerHTML = 0;        
-    }else{
-        mainCommentCount.innerHTML--; 
-    }
-}
-
-//수정창 모달로 만들기
-function modifyComments(event){
-    const mBtn = event.target;
-    const modal = document.createElement('div');
-}
-
-
-//댓글보여주기
-function showComment(comment){
-    const userName = document.createElement('div');
-    const inputValue = document.createElement('span');
-    const showTime = document.createElement('div'); // 타임스탬프 위치를 아래에서 위로 변경
-    const voteDiv = document.createElement('div');
-    const countSpan = document.createElement('span')
-    const voteUp = document.createElement('button');
-    const voteDown = document.createElement('button');  
-    const commentList = document.createElement('div');  
-    const modifyBtn = document.createElement('button');
-    const spacer = document.createElement('div');
-
-    const newId = idOrVoteCountList.length+1; //댓글하나에 달린 ID
-    
-    //스페이서만들기
-    spacer.className = "spacer";
-    //삭제버튼 만들기
-    const delBtn = document.createElement('button');
-    delBtn.className ="deleteComment";
-    delBtn.innerHTML="Delete";    
-    commentList.className = "eachComment";
-    userName.className="name";
-    userName.id = newId; //상위노드(삭제) 
-    inputValue.className="inputValue";
-    showTime.className="time";
-    voteDiv.className="voteDiv";
-    voteDiv.id = newId;
-    //수정버튼 만들기
-    //modifyBtn.className = 'modifyBtn';
-    //modifyBtn.innerHTML = "수정";
-    //유저네임가져오기 
-    userName.innerHTML = generateUserName();  
-    userName.appendChild(spacer);
-    userName.appendChild(modifyBtn);
-    userName.appendChild(delBtn);  
-    //입력값 넘기기
-    inputValue.innerText = comment;
-    //투표창 만들기, css먼저 입혀야함. 
-    voteUp.className ="voteUp";
-    voteDown.className ="voteDown";     
-    voteUp.innerHTML = "👍" + 0 + " Likes";         
-    voteDown.innerHTML = "👎" + 0 + " Dislikes";       
-    voteDiv.appendChild(voteUp);
-    voteDiv.appendChild(voteDown);
-
-    //타임스템프찍기 (댓글 내용 위로 이동)
-    showTime.innerHTML = generateTime();
-
-    //댓글뿌려주기       
-    commentList.appendChild(userName);
-    commentList.appendChild(showTime); // 타임스탬프를 먼저 추가하도록 변경
-    commentList.appendChild(inputValue);
-    commentList.appendChild(voteDiv);
-    rootDiv.prepend(commentList);
-   
-    //아이디에 따른 투표수카운트. 배열에 접근해서 수정하는 방식으로 해야함.
-    let IdAccordingToVoteCount ={
-        "commentId" : newId,
-        "voteUpCount" : 0,
-        "voteDownCount" : 0
-    }
-    
-    idOrVoteCountList.push(IdAccordingToVoteCount);
-    console.log(idOrVoteCountList);
-    
-    initIdCount();
-    
-    voteUp.addEventListener("click",numberCount);
-    voteDown.addEventListener("click",numberCount);
-    delBtn.addEventListener("click",deleteComments);
-    modifyBtn.addEventListener("click",modifyComments);
-}
-
-
-
-
-//버튼만들기+입력값 전달
-function pressBtn(){ 
-    event.preventDefault();
-
-   const currentVal = inputBar.value;
-   
-   if(!currentVal.length){
-      alert("내용을 입력해주세요.");
-   }else{
-      showComment(currentVal);  
-      mainCommentCount.innerHTML++;
-      inputBar.value ='';
-   }
-}
-
-btn.onclick = pressBtn;

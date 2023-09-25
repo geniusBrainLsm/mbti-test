@@ -28,6 +28,7 @@ public class MemberService {
 
         // 회원 엔티티 생성 및 저장
         MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setMemberMbti(memberDto.getMemberMbti()); //mbti 타입추가
         memberEntity.setMemberNickname(memberDto.getMemberNickname());
         memberEntity.setMemberEmail(memberDto.getMemberEmail());
         memberEntity.setMemberPassword(encryptedPassword);

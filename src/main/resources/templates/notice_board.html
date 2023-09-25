@@ -9,6 +9,7 @@
 </head>
 <body>
 <header>
+    <input type="hidden" id="csrfToken" th:value="${_csrf.token}" />
     <ul class="menu">
         <li>
             <a href="/">MBTI 검사하기</a>

@@ -5,13 +5,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ReplyDto {
+public class CommentDTO {
     private String content;
 
-    public ReplyDto() {
+    public CommentDTO() {
     }
 
-    public ReplyDto(String content) {
+    public CommentDTO(String content) {
         this.content = content;
     }
 

@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @ToString
 public class MemberDTO { //회원 정보를 필드로 정의
     private Long id;
+    private String memberMbti;
     private String memberNickname;
     private String memberEmail;
     private String memberPassword;
@@ -25,6 +26,7 @@ public class MemberDTO { //회원 정보를 필드로 정의
     public static MemberDTO toMemberDTO(MemberEntity memberEntity) {
         MemberDTO memberDTO = new MemberDTO();
         memberDTO.setId(memberEntity.getId());
+        memberDTO.setMemberMbti(memberEntity.getMemberMbti());
         memberDTO.setMemberNickname(memberEntity.getMemberNickname());
         memberDTO.setMemberEmail(memberEntity.getMemberEmail());
         memberDTO.setMemberPassword(memberEntity.getMemberPassword());

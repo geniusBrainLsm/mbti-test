@@ -10,6 +10,9 @@ import lombok.Setter;
 @Setter
 public class JoinForm {
 
+    @NotEmpty(message = "MBTI 타입은 필수항목입니다.")
+    private String memberMbti;
+
     @NotEmpty(message = "사용자 ID는 필수항목입니다.")
     @Size(min = 3, max = 25)
     public String memberNickname;
