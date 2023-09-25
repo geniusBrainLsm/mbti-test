@@ -28,12 +28,12 @@
                 <div class="tabmain">
                     <ul class="tab">
                         <li><a href="#">프로필</a></li>
-                        <li><a href="#">내가 쓴 글</a></li>
+
                         <li><a href="#">내가 쓴 댓글</a></li>
                     </ul>
                 </div>
                 <div class="userinfo">
-                    <div class="usermbti">회원님의 mbti는 'estj' 입니다. </div>
+                    <div class="usermbti">회원님의 mbti는 [[${memberEntity.memberMbti}]] 입니다. </div>
                     <section>
                         <div class="user-avatar">
                             <!-- <img src="" alt=""> -->
@@ -47,10 +47,7 @@
                                     <div class="subtitle">이메일</div>
                                     <div class="subcontent" th:text="${memberEntity.memberEmail}"></div>
                                 </div>
-                                <div class="user-phone">
-                                    <div class="subtitle">휴대폰</div>
-                                    <div class="subcontent">010-4736-3701</div>
-                                </div>
+
                             </div>
                             <button id="mem_edit">회원 정보 수정</button>
                         </div>
@@ -148,10 +145,14 @@
                     </div>
             </div>
         </div>
-
-        <footer>
-            <!-- <p>&copy; 2023 관리자 화면</p> -->
-        </footer>
+        <div>
+<!--            <div id="form-commentInfo">-->
+<!--                <div id="comment-count">댓글 <span id="count">0</span></div>-->
+<!--                <input id="comment-input" placeholder="What are you thinking">-->
+<!--                <button id="submit">Share</button>-->
+<!--            </div>-->
+<!--            <br>-->
+        </div>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
 

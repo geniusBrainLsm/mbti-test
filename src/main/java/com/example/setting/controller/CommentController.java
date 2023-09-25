@@ -1,4 +1,5 @@
 package com.example.setting.controller;// CommentController.java
+import com.example.setting.dto.CommentDTO;
 import com.example.setting.entity.Comment;
 import com.example.setting.entity.MemberEntity;
 import com.example.setting.repository.CommentRepository;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/replies")
@@ -30,8 +32,24 @@ public class CommentController {
     private CommentRepository commentRepository;
 
     @GetMapping("/{memberMbti}")
-    public List<Comment> getComments(@PathVariable String memberMbti) {
-        return commentService.getCommentsByMemberMbti(memberMbti);
+    public List<CommentDTO> getComments(@PathVariable String memberMbti) {
+        List<Comment> comments = commentService.getCommentsByMemberMbti(memberMbti);
+
+        // Convert each Comment entity to a CommentDTO.
+        return comments.stream().map(this::toDto).collect(Collectors.toList());
+    }
+    private CommentDTO toDto(Comment comment) {
+        // Create a new DTO and copy the properties from the entity.
+        CommentDTO dto = new CommentDTO();
+        dto.setId(comment.getId());
+        dto.setText(comment.getText());
+        dto.setMemberMbti(comment.getMemberMbti());
+        dto.setTimestamp(comment.getTimestamp());
+        dto.setMemberNickname(comment.getMemberNickname());
+        dto.setLikes(comment.getLikes());
+        dto.setLikesNickname(comment.getLikesNickname());
+
+        return dto;
     }
 
     @PostMapping
