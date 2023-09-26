@@ -38,8 +38,8 @@
         <li>
 
         <li>
-            <a href="#" th:href="@{member/login}" sec:authorize="isAnonymous()">로그인</a>
-            <a href="#" th:href="@{member/logout}" sec:authorize="isAuthenticated()">로그아웃</a>
+            <a href="#" th:href="@{/member/login}" sec:authorize="isAnonymous()">로그인</a>
+            <a href="#" th:href="@{/member/logout}" sec:authorize="isAuthenticated()">로그아웃</a>
         </li>
 
         </li>
@@ -57,15 +57,74 @@
 </header>
 
     <section>
-        <div class="information">
-            <h2 th:text="${myMbti}"></h2>
-            <hr width="100%" color=#01755c/> <br>
-            <img src="/static/images/MBTI.jpg" style="width:900px;">
-        </div>
-        <br>
-        <h2>Comments</h2>
-        <hr width="100%" color=#01755c/> 
+        <style>
+            .gpt-content {
+                border: 1px solid #ddd;
+                padding: 10px;
+                height: 300px;
+                overflow-y: scroll;
+            }
+            .chat {
+                clear:both; /* float된 요소의 영향 받지 않게 함 */
+                margin-bottom: 10px;
+            }
+            .gpt-chat {
+                display: inline-block;
+                background-color: #ddd;
+                padding: 10px;
+                margin-bottom: 5px;
+                position:relative;
+                border-radius :5px ;
+            }
+            .my-chat {
+                display:inline-block;
+                background-color:#4caf50;
+                color:white;
+                padding-left:10 px;
+                padding-right:10px;
+                margin-bottom: 5px;
+                border-radius :5px ;
+                position:relative;
+                float:right;
+            }
+        </style>
 
+        <h2 th:text="${myMbti}">기본값</h2>
+
+        <div class="gpt-content" id="chatbox">
+            <div class="chat">
+                <span class="gpt-chat">Hello world!</span>
+            </div>
+            <div class="chat">
+                <span class="my-chat">hi gpt</span>
+            </div>
+        </div>
+
+        <input id="userInput" type="text" placeholder="Type a message...">
+        <button onclick="sendMessage()">전송</button>
+
+        <script type = "text/javascript">
+            function sendMessage() {
+                var input = document.getElementById("userInput").value;
+
+                var chatbox = document.getElementById("chatbox");
+
+                var newChatDiv = document.createElement("div");
+                newChatDiv.className = "chat";
+
+                var newChatSpan = document.createElement("span");
+                newChatSpan.className = "my-chat";
+
+                newChatSpan.innerText=input;
+
+                newChatDiv.appendChild(newChatSpan);
+
+                chatbox.appendChild(newChatDiv);
+
+// 입력필드 초기화
+                document.getElementById('userInput').value="";
+            }
+        </script>
         <!--comment---------------------------------------------------------------------------------->
         <div id="form-commentInfo">
             <div id="comment-count">댓글 <span id="count">0</span></div>
