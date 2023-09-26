@@ -1,0 +1,277 @@
+[33mcommit 389c3fb12de2ecd2c24c6a2214159a67325735db[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: leesm <geniusbrainlsm@gmail.com>
+Date:   Tue Sep 26 00:10:36 2023 +0900
+
+    apply spring security
+
+[33mcommit 5eff5292122e767cbb2e9b840acac53d9de820fe[m[33m ([m[1;31morigin/2[m[33m, [m[1;32m2[m[33m)[m
+Author: leesm <geniusbrainlsm@gmail.com>
+Date:   Mon Sep 25 22:39:29 2023 +0900
+
+    apply spring security
+
+[33mcommit ca9e1a7c0cb0fcdbe45b8dd218b5466ff88c4b63[m
+Author: leesm <geniusbrainlsm@gmail.com>
+Date:   Mon Sep 25 20:24:16 2023 +0900
+
+    asdasd
+
+[33mcommit 0cd43cbd2672386596e14941250bfa87558cd950[m
+Author: leesm <geniusbrainlsm@gmail.com>
+Date:   Mon Sep 25 20:23:07 2023 +0900
+
+    sadf
+
+[33mcommit e1d2496cca0e33606bee095d62bc45c8cce9dc6a[m[33m ([m[1;31mmymbtirepo/2[m[33m)[m
+Author: leesm <geniusbrainlsm@gmail.com>
+Date:   Mon Sep 25 01:03:53 2023 +0900
+
+    apply springsecurity
+
+[33mcommit 370ae7520f4840f2897b2769ede26bd12ca150d2[m[33m ([m[1;32mrecovery-branch[m[33m)[m
+Author: leesm <geniusbrainlsm@gmail.com>
+Date:   Mon Sep 25 00:26:57 2023 +0900
+
+    .
+
+[33mcommit 31d470755c757c80c8e571d7bf1b1eb11c5cbe77[m
+Merge: f6b70d3 fd889ef
+Author: backminjoo <72775295+backminjoo@users.noreply.github.com>
+Date:   Fri Sep 22 14:23:32 2023 +0900
+
+    Merge pull request #25 from backminjoo/main
+    
+    최상위 디렉토리에 있는 불필요한 파일 제거
+
+[33mcommit fd889efe4248563bf2ef4060772edcb0525fa6ff[m
+Author: backminjoo <qoralswn1205@daum.net>
+Date:   Fri Sep 22 14:22:48 2023 +0900
+
+    최상위 디렉토리에 있는 불필요한 파일 제거
+
+[33mcommit f6b70d36991cc610ac5b3047e9315829bb608271[m
+Merge: 2558948 8c71bbf
+Author: backminjoo <72775295+backminjoo@users.noreply.github.com>
+Date:   Wed Sep 20 15:49:55 2023 +0900
+
+    Merge pull request #23 from backminjoo/main
+    
+    application.yml 파일 github에 노출되지 않게 변경
+
+[33mcommit 8c71bbf05bc6be59073470d481ede3f81debf00b[m
+Author: backminjoo <qoralswn1205@daum.net>
+Date:   Wed Sep 20 15:48:27 2023 +0900
+
+    application.yml 파일 github에 노출되지 않게 변경
+
+[33mcommit 25589480483acbe36edc2e129bb6bafca3e734d4[m
+Merge: 6086302 87749ac
+Author: backminjoo <72775295+backminjoo@users.noreply.github.com>
+Date:   Thu Sep 14 15:40:14 2023 +0900
+
+    Merge pull request #22 from backminjoo/main
+    
+    프론트 수정
+
+[33mcommit 87749ac8e710e0a31ee59e5c15b1e64884b00951[m
+Author: backminjoo <qoralswn1205@daum.net>
+Date:   Thu Sep 14 15:37:56 2023 +0900
+
+    프론트 수정
+
+[33mcommit 60863025add12f8676de5e22f33a9a921260261f[m
+Merge: 8aacec9 e5c390d
+Author: backminjoo <72775295+backminjoo@users.noreply.github.com>
+Date:   Thu Sep 14 15:34:02 2023 +0900
+
+    Merge pull request #21 from geniusBrainLsm/2
+    
+    2
+
+[33mcommit e5c390dea18ec0be24b8d2725a3eda463c4973c7[m
+Merge: 804d3d9 8aacec9
+Author: backminjoo <72775295+backminjoo@users.noreply.github.com>
+Date:   Thu Sep 14 15:33:33 2023 +0900
+
+    Merge branch 'main' into 2
+
+[33mcommit 804d3d9d8ba2dcedf603077c8f37722a27149144[m
+Author: leesm <geniusbrainlsm@gmail.com>
+Date:   Mon Sep 11 15:55:25 2023 +0900
+
+    mypage
+
+[33mcommit e8e83208fffdbbd88d510ecc13cd66fe39ac15ef[m
+Author: leesm <geniusbrainlsm@gmail.com>
+Date:   Mon Sep 11 15:48:43 2023 +0900
+
+    커밋할내용
+
+[33mcommit 8aacec9cfa1d0942133e623c228717300eb5e42d[m
+Merge: 9e64b34 06c2717
+Author: backminjoo <72775295+backminjoo@users.noreply.github.com>
+Date:   Fri Sep 8 14:38:11 2023 +0900
+
+    Merge pull request #20 from jeonggiwan/0908
+    
+    0908
+
+[33mcommit 06c27172c70414a88f732f72c18d2c0a28c817c2[m
+Author: jeonggiwan <rldhks10101@gmail.com>
+Date:   Fri Sep 8 14:33:36 2023 +0900
+
+    0908
+
+[33mcommit cafc6690f4d02be28c0966be1b7ed0a38e2eeee2[m
+Author: leesm <geniusbrainlsm@gmail.com>
+Date:   Fri Sep 8 09:44:24 2023 +0900
+
+    0
+
+[33mcommit 9e64b3445babee609843f09b36043db6bee7524e[m
+Merge: 47f6fd4 9b73690
+Author: backminjoo <72775295+backminjoo@users.noreply.github.com>
+Date:   Wed Sep 6 16:03:18 2023 +0900
+
+    Merge pull request #19 from backminjoo/main
+    
+    마이페이지 화면
+
+[33mcommit 9b73690450a65f0df28d6b1bea63e356d193f48c[m
+Author: backminjoo <qoralswn1205@daum.net>
+Date:   Wed Sep 6 16:02:25 2023 +0900
+
+    마이페이지 화면
+
+[33mcommit 47f6fd4b17fb5d0800560388b5d7bd517907e810[m
+Merge: 31b1c74 56657ca
+Author: backminjoo <72775295+backminjoo@users.noreply.github.com>
+Date:   Mon Aug 28 19:17:26 2023 +0900
+
+    Merge pull request #18 from yeonXP/main
+    
+    notice-board
+
+[33mcommit 56657cae9cb971f7b6e8655c9981f65211c43f7f[m
+Author: yeonXP <jessica31025@naver.com>
+Date:   Wed Aug 23 01:11:04 2023 +0900
+
+    notice-board
+
+[33mcommit 31b1c74824b5e672d76612ab4c8bb97b73055398[m
+Merge: 66d1e9c 6726d07
+Author: backminjoo <72775295+backminjoo@users.noreply.github.com>
+Date:   Sat Aug 5 18:37:08 2023 +0900
+
+    Merge pull request #17 from backminjoo/main
+    
+    관리자 페이지
+
+[33mcommit 6726d076de87c0ba2af4f670bcb65718c4cdf5b8[m
+Author: backminjoo <qoralswn1205@daum.net>
+Date:   Sat Aug 5 18:35:18 2023 +0900
+
+    관리자 페이지
+
+[33mcommit 66d1e9c9b40a8d1f94636cf4ea54e1c0bfdaebb2[m
+Merge: f089c2e 5744d3a
+Author: backminjoo <72775295+backminjoo@users.noreply.github.com>
+Date:   Fri Jul 28 11:39:43 2023 +0900
+
+    Merge pull request #16 from jeonggiwan/board2
+    
+    Board2
+
+[33mcommit f089c2ebecfc905b30bc5c06ba9e661f9f17f364[m
+Merge: f8a4e47 049e791
+Author: backminjoo <72775295+backminjoo@users.noreply.github.com>
+Date:   Fri Jul 28 11:39:27 2023 +0900
+
+    Merge pull request #15 from jeonggiwan/board
+    
+    Board
+
+[33mcommit f8a4e472a2b076df973f90db1d32e4853bbb647f[m
+Merge: 6dba3d2 1e517a2
+Author: backminjoo <72775295+backminjoo@users.noreply.github.com>
+Date:   Fri Jul 28 11:37:49 2023 +0900
+
+    Merge pull request #14 from jeonggiwan/questions,result
+    
+    Questions,result
+
+[33mcommit 5744d3a969ca7a843fdfc6a0b717a9d7c28c1e8f[m
+Author: jeonggiwan <rldhks10101@gmail.com>
+Date:   Fri Jul 28 01:59:43 2023 +0900
+
+    board로그인
+
+[33mcommit 049e791fae47afb73357b09269c17d40c5732579[m
+Author: jeonggiwan <rldhks10101@gmail.com>
+Date:   Fri Jul 28 01:05:05 2023 +0900
+
+    게시판 기능 구현
+
+[33mcommit 1e517a26d4d8d0a96a8bfe1361fca2e2c22d6b4c[m
+Author: jeonggiwan <rldhks10101@gmail.com>
+Date:   Wed Jul 26 21:40:17 2023 +0900
+
+    questions, result
+
+[33mcommit fa22921f2ce491b8acb7d1a7d5e84296f097dd69[m
+Merge: d3e9e3a 6dba3d2
+Author: jeonggiwan <119830434+jeonggiwan@users.noreply.github.com>
+Date:   Wed Jul 26 19:31:39 2023 +0900
+
+    Merge branch 'passion-mbti:main' into main
+
+[33mcommit 6dba3d2a206958e9e696845f81369d9e045f68de[m
+Merge: 387bcaa cebbf9c
+Author: backminjoo <72775295+backminjoo@users.noreply.github.com>
+Date:   Wed Jul 26 05:14:21 2023 +0900
+
+    Merge pull request #13 from backminjoo/main
+    
+    로그인화면수정, 회원가입화면수정
+
+[33mcommit cebbf9c7fd14674d92fb1211f75d09a294b9fdd0[m
+Merge: a4cf34a 387bcaa
+Author: backminjoo <qoralswn1205@daum.net>
+Date:   Wed Jul 26 05:10:29 2023 +0900
+
+    로그인화면수정,회원가입화면수정
+
+[33mcommit 387bcaa6f2a55d3fa6586bc337afd9ba0a4ee189[m
+Merge: 5e05e89 d5559b9
+Author: backminjoo <72775295+backminjoo@users.noreply.github.com>
+Date:   Wed Jul 26 05:06:00 2023 +0900
+
+    Merge pull request #12 from jeonggiwan/edit/login2
+    
+    Edit/login2
+
+[33mcommit a4cf34a9d6c3737ddb5e7f786af9dfcc8804380f[m
+Author: backminjoo <qoralswn1205@daum.net>
+Date:   Wed Jul 26 04:48:32 2023 +0900
+
+    로그인화면수정,회원가입화면수정
+
+[33mcommit d5559b901fe93e17d0f1bdc924be962e3cb5fac1[m
+Author: jeonggiwan <rldhks10101@gmail.com>
+Date:   Tue Jul 25 22:35:43 2023 +0900
+
+    edit join
+
+[33mcommit d3e9e3ae3a74e18bb3c69ff515fc91984281d240[m
+Author: jeonggiwan <119830434+jeonggiwan@users.noreply.github.com>
+Date:   Tue Jul 25 21:44:18 2023 +0900
+
+    Create 회원가입 수정
+
+[33mcommit beaec0ec240dc201833ace23a7df19530bd223ea[m
+Author: jeonggiwan <rldhks10101@gmail.com>
+Date:   Tue Jul 25 21:15:15 2023 +0900
+
+    회ì07-25(code수정)
+
+[33mcommit a8505213875f344f5
