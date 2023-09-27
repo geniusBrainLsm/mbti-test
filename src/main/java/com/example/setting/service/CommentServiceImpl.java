@@ -13,14 +13,14 @@ public class CommentServiceImpl implements CommentService {
     private CommentRepository commentRepository;
 
     @Override
-    public List<Comment> getCommentsByMbtiType(String mbtiType) {
-        return commentRepository.findByMbtiType(mbtiType);
+    public List<Comment> getCommentsByMemberMbti(String memberMbti) {
+        return commentRepository.findByMemberMbti(memberMbti);
     }
 
     @Override
     public Comment addComment(Comment comment, String nickname) {
         comment.setTimestamp(new Date()); // 댓글 작성 시간 설정
-        comment.setNickname(nickname); // 사용자의 닉네임 설정
+        comment.setMemberNickname(nickname); // 사용자의 닉네임 설정
         comment.setLikes(0); // 초기 추천 수 설정
         return commentRepository.save(comment);
     }

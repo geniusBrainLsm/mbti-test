@@ -22,7 +22,24 @@ body{
 
 
 }
-.about-info{
+/*.about-info{*/
+/*    float: left;*/
+/*    background-color: #fff;*/
+/*    padding: 100px;*/
+/*    box-shadow: 0 5px 20px rgba(69,67,96,0.1);*/
+/*    border-radius: 20px;*/
+/*    !* border: solid 1px red; *!*/
+/*    margin-top: 0px;*/
+/*    margin-left: 50px;*/
+/*    width: 650px;*/
+/*    height: 800px;*/
+/*    !* display: flex; *!*/
+/*    !* align-items: center; *!*/
+/*    !* justify-content: space-between; *!*/
+/*    z-index: 8;*/
+/*    text-align: left;*/
+/*}*/
+.about-info {
     float: left;
     background-color: #fff;
     padding: 100px;
@@ -31,23 +48,28 @@ body{
     /* border: solid 1px red; */
     margin-top: 0px;
     margin-left: 50px;
-    width: 600px;
+    width: 650px;
     height: 800px;
-    /* display: flex; */
-    /* align-items: center; */
-    /* justify-content: space-between; */
-    z-index: 8;
-    text-align: left;
+
+    display:flex;            /* 추가된 부분 */
+    justify-content:center;   /* 추가된 부분 */
+    align-items:center;       /* 추가된 부분 */
+
+    flex-direction : column ; /* 모든 요소들이 수직으로 배치되게 하기 위한 속성 */
+
+    z-index :8 ;
+    text-align:left ;
 }
+
 .about-info h2{
     font-family: 'TTWanjudaedunsancheB';
     font-size: 50px;
     text-align: center;
-    margin-bottom: 90px;
+    margin-bottom: 0px;
     color:#01755C;
 }
 .about-info .input{
-    margin-bottom: 50px;
+    margin-bottom: 0px;
 }
 
 a{
@@ -90,17 +112,30 @@ select{
     margin-bottom: 10px;
     color:#333;
 }
-#btn{
+/*#btn{*/
+/*    width: 400px;*/
+/*    color:#fff;*/
+/*    background-color: #32BFA1;*/
+/*    font-size: 24px;*/
+/*    font-weight: bold;*/
+/*    margin-top: 50px;*/
+/*    margin-left: 100px;*/
+/*    border-radius: 50px;*/
+/* */
+/*}*/
+#btn {
     width: 400px;
-    color:#fff;
+    color: #fff;
     background-color: #32BFA1;
     font-size: 24px;
     font-weight: bold;
     margin-top: 50px;
-    margin-left: 100px;
+    margin-left: auto;
+    margin-right: auto;
+
     border-radius: 50px;
- 
 }
+
 /* .enter_year{
     background:url(images/icon1.png) no-repeat center right 15px;
     background-size: 20px;

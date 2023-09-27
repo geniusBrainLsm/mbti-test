@@ -1,5 +1,6 @@
 // 현재 페이지의 MBTI 값을 추출
-const mbtiType = window.location.pathname.split('/').pop();
+const memberMbti = window.location.pathname.split('/').pop();
+const csrfToken = document.getElementById("csrfToken").value;
 
 // DOM 요소 캐싱
 const commentsContainer = document.getElementById("comments");
@@ -10,7 +11,7 @@ const likedComments = new Set();
 
 // 댓글 목록을 받아오는 함수
 const getComments = () => {
-    fetch(`/api/replies/${mbtiType}`)
+    fetch(`/api/replies/${memberMbti}`)
         .then(response => response.json())
         .then(displayComments)
         .catch(error => console.error('Error fetching comments:', error));
@@ -29,8 +30,9 @@ const likeComment = commentId => {
     fetch(`/api/replies/${commentId}/like`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
-        }
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken  // 추가된 부분
+        },
     })
         .then(response => response.json())
         .then(updatedComment => {
@@ -102,13 +104,14 @@ const submitComment = () => {
     if (commentText !== "") {
         const requestBody = {
             text: commentText,
-            mbtiType: mbtiType
+            memberMbti: memberMbti
         };
 
         fetch('/api/replies', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken  // 추가된 부분
             },
             body: JSON.stringify(requestBody)
         })

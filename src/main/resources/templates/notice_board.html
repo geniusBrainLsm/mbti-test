@@ -6,10 +6,10 @@
     <title>게시판</title>
     <link rel="stylesheet" href="/static/css/notice_board.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-
 </head>
 <body>
 <header>
+    <input type="hidden" id="csrfToken" th:value="${_csrf.token}" />
     <ul class="menu">
         <li>
             <a href="/">MBTI 검사하기</a>
@@ -37,25 +37,15 @@
         </li>
         <li>
 
-        <li th:if="${session.loggedNickname}">
-            <a href="/setting/logout">로그아웃</a>
+        <li>
+            <a href="#" th:href="@{/member/login}" sec:authorize="isAnonymous()">로그인</a>
+            <a href="#" th:href="@{/member/logout}" sec:authorize="isAuthenticated()">로그아웃</a>
         </li>
-        <li th:unless="${session.loggedNickname}">
-            <a href="#">로그인 / 회원가입</a>
-            <ul class="submenu">
 
-                <li th:unless="${session.loggedNickname}">
-                    <a href="/setting/login">로그인</a>
-                </li>
-                <li th:unless="${session.loggedNickname}">
-                    <a href="/setting/join">회원가입</a>
-                </li>
-
-            </ul>
-        </li>
         </li>
         <li>
-            <a href="/setting/mypage">MY PAGE</a>
+            <a href="/mypage" th:href="@{/mypage}" sec:authorize="isAuthenticated()">MY PAGE</a>
+
             <ul class="submenu">
                 <li><a href="#">내 정보 조회</a></li>
                 <li><a href="#">내 정보 수정</a></li>
@@ -66,37 +56,97 @@
     </ul>
 </header>
 
-<section>
-    <div class="information">
-        <h2 th:text="${myMbti}"></h2>
-        <hr width="100%" color=#01755c/> <br>
-        <img src="/static/images/MBTI.jpg" style="width:900px;">
-    </div>
-    <br>
-    <h2>Comments</h2>
-    <hr width="100%" color=#01755c/>
+    <section>
+        <style>
+            .gpt-content {
+                border: 1px solid #ddd;
+                padding: 10px;
+                height: 300px;
+                overflow-y: scroll;
+            }
+            .chat {
+                clear:both; /* float된 요소의 영향 받지 않게 함 */
+                margin-bottom: 10px;
+            }
+            .gpt-chat {
+                display: inline-block;
+                background-color: #ddd;
+                padding: 10px;
+                margin-bottom: 5px;
+                position:relative;
+                border-radius :5px ;
+            }
+            .my-chat {
+                display:inline-block;
+                background-color:#4caf50;
+                color:white;
+                padding-left:10 px;
+                padding-right:10px;
+                margin-bottom: 5px;
+                border-radius :5px ;
+                position:relative;
+                float:right;
+            }
+        </style>
 
-    <!--comment---------------------------------------------------------------------------------->
-    <div id="form-commentInfo">
-        <div id="comment-count">댓글 <span id="count">0</span></div>
-        <input id="comment-input" placeholder="What are you thinking">
-        <button id="submit">Share</button>
-    </div>
-    <br>
-    <!--<hr width="100%" color=#507a71/> -->
+        <h2 th:text="${myMbti}">기본값</h2>
 
-    <form>
-        <label>댓글 정렬 :
+        <div class="gpt-content" id="chatbox">
+            <div class="chat">
+                <span class="gpt-chat">Hello world!</span>
+            </div>
+            <div class="chat">
+                <span class="my-chat">hi gpt</span>
+            </div>
+        </div>
+
+        <input id="userInput" type="text" placeholder="Type a message...">
+        <button onclick="sendMessage()">전송</button>
+
+        <script type = "text/javascript">
+            function sendMessage() {
+                var input = document.getElementById("userInput").value;
+
+                var chatbox = document.getElementById("chatbox");
+
+                var newChatDiv = document.createElement("div");
+                newChatDiv.className = "chat";
+
+                var newChatSpan = document.createElement("span");
+                newChatSpan.className = "my-chat";
+
+                newChatSpan.innerText=input;
+
+                newChatDiv.appendChild(newChatSpan);
+
+                chatbox.appendChild(newChatDiv);
+
+// 입력필드 초기화
+                document.getElementById('userInput').value="";
+            }
+        </script>
+        <!--comment---------------------------------------------------------------------------------->
+        <div id="form-commentInfo">
+            <div id="comment-count">댓글 <span id="count">0</span></div>
+            <input id="comment-input" placeholder="What are you thinking">
+            <button id="submit">Share</button>
+        </div>
+        <br>
+        <!--<hr width="100%" color=#507a71/> -->
+        
+        <form>
+            <label>댓글 정렬 : 
             <select name="comment" >
-                <option value="none">== 선택 ==</option>
-                <option value="popularity">인기순</option>
-                <option value="newest">최신순</option>
-        </label>
-        </select>
-    </form>
-    <hr width="100%" color=#01755c>
-    <div id=comments>
+            <option value="none">== 선택 ==</option>
+            <option value="popularity">인기순</option>
+            <option value="newest">최신순</option>
+            </label>
+            </select>
+        </form>
+        <hr width="100%" color=#01755c> 
+        <div id=comments>
+
+        </div>
         <script src="/static/js/notice_board.js"></script>
-    </div>
 </body>
 </html>

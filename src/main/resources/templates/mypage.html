@@ -12,204 +12,309 @@
     <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Dongle:wght@700&display=swap" rel="stylesheet"></head>
 
 <body>
-<div class="container">
-    <header>
-        <h1>MBTI-test</h1>
-        <div class="move">
-            <a href="">마이페이지로</a>
-            <a href="">로그아웃</a>
-        </div>
-    </header>
+    <div class="container">
+        <input type="hidden" id="csrfToken" th:value="${_csrf.token}"/>
 
-    <main>
-        <section class="maininfo">
-            <div class="tabmain">
-                <ul class="tab">
-                    <li><a href="#">프로필</a></li>
-                    <li><a href="#">내가 쓴 글</a></li>
-                    <li><a href="#">내가 쓴 댓글</a></li>
-                </ul>
+        <header>
+            <h1>MBTI-test</h1>
+            <div class="move">
+                <a href="">마이페이지로</a>
+                <a href="">로그아웃</a>
             </div>
-            <div class="userinfo">
-                <div class="usermbti">회원님의 mbti는 'estj' 입니다. </div>
-                <section>
-                    <div class="user-avatar">
-                        <!-- <img src="" alt=""> -->
-                        <div class="user-details">
-                            <div class="user-name">
-                                <div class="subtitle">이름</div>
-                                <div class="subcontent" th:text="${memberEntity.memberNickname}"></div>
+        </header>
+
+        <main>
+            <section class="maininfo">
+                <div class="tabmain">
+                    <ul class="tab">
+                        <li><a href="#">프로필</a></li>
+
+                        <li><a href="#">내가 쓴 댓글</a></li>
+                    </ul>
+                </div>
+                <div class="userinfo">
+                    <div class="usermbti">회원님의 mbti는 [[${memberEntity.memberMbti}]] 입니다. </div>
+                    <section>
+                        <div class="user-avatar">
+                            <!-- <img src="" alt=""> -->
+                            <div class="user-details">
+                                <div class="user-name">
+                                    <div class="subtitle">이름</div>
+                                    <div class="subcontent" th:text="${memberEntity.memberNickname}"></div>
+
+                                </div>
+                                <div class="user-email">
+                                    <div class="subtitle">이메일</div>
+                                    <div class="subcontent" th:text="${memberEntity.memberEmail}"></div>
+                                </div>
 
                             </div>
-                            <div class="user-email">
-                                <div class="subtitle">이메일</div>
-                                <div class="subcontent" th:text="${memberEntity.memberEmail}"></div>
-                            </div>
-                            <div class="user-phone">
-                                <div class="subtitle">휴대폰</div>
-                                <div class="subcontent">010-4736-3701</div>
-                            </div>
+                            <button id="mem_edit">회원 정보 수정</button>
                         </div>
-                        <button id="mem_edit">회원 정보 수정</button>
-                    </div>
-                    <button id="chgpw">비밀번호 변경</button>
-                    <button id="withmem">회원 탈퇴</button>
-                </section>
-            </div>
-        </section>
-    </main>
+                        <button id="chgpw">비밀번호 변경</button>
+                        <button id="withmem">회원 탈퇴</button>
+                    </section>
+                </div>
+            </section>
+        </main>
 
-    <!--비밀번호 변경화면-->
-    <form name="changePassword" action="/setting/mypage/changePassword" method="post">
-        <div class="black-bg">
-            <div class="white-bg">
-                <h1>비밀번호 변경</h1>
+        <!--비밀번호 변경화면-->
+        <form name="changePassword" action="/mypage/changePassword" method="post">
 
-                <div class="row mb-3">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">새로운 비밀번호</label>
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="inputPassword" name = "newPassword">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="inputPasswordConfirm" class="col-sm-2 col-form-label">비밀번호 확인</label>
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="inputPasswordConfirm">
-                    </div>
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="close" id="close">취소</button>
-                    <button type="submit" class="change" id="send">비밀번호 변경</button>
-                </div>
-            </div>
-        </div>
-    </form>
-    <form name="UpdateInfo" action="/setting/mypage" method="post">
-        <!--회원 정보 수정 화면-->
-        <div class="editmember">
-            <div class="editmem-detail">
-                <h1>회원 정보 수정</h1>
-                <div>
-                    <!-- <img src="" alt=""> -->
-                    <a href="">사진 수정</a>
-                </div>
-                <div class="row mb-3">
-                    <label for="inputemail" class="col-sm-2 col-form-label">이메일(아이디)</label>
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputemail" name = "newEmail">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="inputPhone" class="col-sm-2 col-form-label" name = "memberPhone">휴대폰 번호</label>
-                    <div class="col-sm-10">
-                        <input type="tel" class="form-control" id="inputPhone">
-                    </div>
-                </div>
-                <div class="btn-group">
-                    <button class="editclose">취소</button>
-                    <button type = "submit" class="editsend">수정</button>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
+            <div class="black-bg">
+                <div class="white-bg">
+                    <h1>비밀번호 변경</h1>
+
+                    <div class="row mb-3">
+                        <label for="inputCurrentPassword" class="col-sm-2 col-form-label">현재 비밀번호</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="inputCurrentPassword" name = "currentPassword">
+                        </div>
+                    </div>
+                      <div class="row mb-3">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">새로운 비밀번호</label>
+                        <div class="col-sm-10">
+                          <input type="password" class="form-control" id="inputPassword" name = "newPassword">
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label for="inputPasswordConfirm" class="col-sm-2 col-form-label">비밀번호 확인</label>
+                        <div class="col-sm-10">
+                          <input type="password" class="form-control" id="inputPasswordConfirm">
+                        </div>
+                      </div>
+                    <div class="btn-group">
+                        <button type="button" class="close" id="close">취소</button>
+                        <button type="button" class="change" id="send">비밀번호 변경</button>
+                      </div>
                 </div>
             </div>
+        </form>
+        <!-- 회원 정보 수정 화면 -->
+        <!-- 회원 정보 수정 화면 -->
+        <form name="UpdateInfo" action="/mypage/editInfo" method="post">
+            <div class="editmember">
+                <div class="editmem-detail">
+                    <h1>회원 정보 수정</h1>
+                    <div>
+                        <!-- <img src="" alt=""> -->
+                        <a href="">사진 수정</a>
+                    </div>
 
-        </div>
-    </form>
+                    <!-- 닉네임 수정 필드 -->
+                    <div class="row mb-3 align-items-center">
+                        <label for="inputNickname" class="col-sm-2 col-form-label">닉네임</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id ="inputNickname"name = "newNickname">
+                            <button type = "button"class="" id="nicknameEditButton">수정</button>
+                        </div>
+                        <!-- 닉네임 수정 버튼 -->
 
-    <!--회원탈퇴 화면-->
-    <div class="Withdrawal">
-        <div class="with-detail">
-            <h1>회원 탈퇴 안내</h1>
-            <span>
+                    </div>
+
+                    <!-- 이메일(아이디) 수정 필드 -->
+                    <div class="row mb-3 align-items-center">
+                        <label for="inputemail" class="col-sm-2 col-form-label">이메일(아이디)</label>
+                        <div class="col-sm-8">
+                            <input type="email" class='form-control' id ="inputEmail"name = "newEmail"></input>
+                            <button type = "button"id="emailEditButton">수정</button>
+                        </div>
+
+
+                    </div>
+
+                    <br>
+                    <button type="button" class="editclose" >취소</button>
+        </form>
+        
+        <!--회원탈퇴 화면-->
+        <div class="Withdrawal">
+            <div class="with-detail">
+                <h1>회원 탈퇴 안내</h1>
+                    <span>
                         MBTI 테스트 회원 탈퇴 안내입니다. <br>
                         회원탈퇴를 하게 되면 현재 아이디는 사용하실 수 없습니다. <br>
                         회원탈퇴 후에도 개인정보는 보안 정책에 따라 처리됩니다. <br>
                         ※ 자세한 내용은 개인정보 처리 방침을 확인해 주세요.
                     </span>
-            <div class="btn-group">
-                <button class="withdraw-close">취소</button>
-                <button class="withdraw-change">회원탈퇴</button>
+                    <div class="btn-group">
+                        <button class="withdraw-close">취소</button>
+                        <button class="withdraw-change">회원탈퇴</button>
+                    </div>
             </div>
         </div>
-    </div>
+        <div>
+<!--            <div id="form-commentInfo">-->
+<!--                <div id="comment-count">댓글 <span id="count">0</span></div>-->
+<!--                <input id="comment-input" placeholder="What are you thinking">-->
+<!--                <button id="submit">Share</button>-->
+<!--            </div>-->
+<!--            <br>-->
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
 
-    <footer>
-        <!-- <p>&copy; 2023 관리자 화면</p> -->
-    </footer>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
+            $('#cancel').on('click',function(){
+                document.querySelector('.editmember').classList.remove('show-modal');
+            });//취소버튼 모달닫기
+            $('#chgpw').on('click',function(){
+                document.querySelector('.black-bg').classList.add('show-modal')
+            });
 
+            $('.close').on('click',function(){
+                document.querySelector('.black-bg').classList.remove('show-modal');
+            });
 
-        $('#chgpw').on('click',function(){
-            document.querySelector('.black-bg').classList.add('show-modal')
-        });
+            $('#withmem').on('click',function(){
+                document.querySelector('.Withdrawal').classList.add('show-modal');
+            });
 
-        $('.close').on('click',function(){
-            document.querySelector('.black-bg').classList.remove('show-modal');
-        });
+            $('.withdraw-close').on('click',function(){
+                document.querySelector('.Withdrawal').classList.remove('show-modal');
+            });
 
-        $('#withmem').on('click',function(){
-            document.querySelector('.Withdrawal').classList.add('show-modal');
-        });
+            $('#mem_edit').on('click',function(){
+                document.querySelector('.editmember').classList.add('show-modal');
+            });
+            $('.editclose').on('click',function(){
+                document.querySelector('.editmember').classList.remove('show-modal');
+            });
 
-        $('.withdraw-close').on('click',function(){
-            document.querySelector('.Withdrawal').classList.remove('show-modal');
-        });
+            // 닉네임 변경 요청--------------------
+            $('#nicknameEditButton').on('click', function() {
+                var newNickname = $('#inputNickname').val();
 
-        $('#mem_edit').on('click',function(){
-            document.querySelector('.editmember').classList.add('show-modal');
-        });
-        $('.editclose').on('click',function(){
-            document.querySelector('.editmember').classList.remove('show-modal');
-        });
+                // 입력된 닉네임이 없는 경우
+                if (newNickname === '') {
+                    alert('새로운 닉네임을 입력하세요.');
+                    return;
+                }
 
-        //비밀번호 변경 버튼 클릭 시 이벤트 처리
-        $('#send').on('click',function(){
-            var newPassword = $('#inputPassword').val();
-            var confirmPassword = $('#inputPasswordConfirm').val();
-
-            //새로운 비밀번호 입력 안한 경우
-            if(newPassword === ''){
-                alert('새로운 비밀번호를 입력하세요.');
-                return;
-            }
-            //비밀번호 확인 입력 안한 경우
-            if(confirmPassword === ''){
-                alert('비밀번호 확인을 입력하세요.');
-                return;
-            }
-            //비밀번호와 비밀번호 확인이 일치하지 않는 경우
-            if(newPassword !== confirmPassword){
-                alert('비밀번호가 일치하지 않습니다.');
-                return;
-            }
-            //모든 검증 통과 시 서버로 전송하는 코드
-        })
-
-        //탈퇴 확인 버튼 클릭 이벤트
-        $('.withdraw-change').on('click',function(){
-            var confirmResult = confirm('정말로 회원 탈퇴하시겠습니까?');
-            if(confirmResult){
-                // AJAX 요청 시작
+                // 닉네임
                 $.ajax({
-                    url: '/setting/mypage/deleteAccount',  // 요청을 보낼 엔드포인트 URL
-                    type: 'POST',  // HTTP 메소드 지정 (회원 정보 삭제이므로 POST 또는 DELETE가 적절합니다)
+                    url: '/mypage/editNickname',
+                    type: 'POST',
+                    data: {newNickname: newNickname},
+                    beforeSend: function(xhr) {
+                        var csrfToken = document.getElementById('csrfToken').value;
+                        xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+                    },
                     success: function(response) {
-                        alert('회원 탈퇴되었습니다.');
-                        location.href = '/';  // 메인 페이지로 리다이렉션
+                        alert('닉네임이 변경되었습니다.');
+                        location.reload();
                     },
                     error: function(error) {
-                        alert('회원 탈퇴에 실패하였습니다. 다시 시도해주세요.');
+                        alert('닉네임 변경에 실패하였습니다. 다시 시도해주세요.');
                     }
                 });
-                // AJAX 요청 종료
-            } else{
-                alert('회원 탈퇴가 취소되었습니다.');
-            }
-        })
+
+            });
+
+            //이메일
+            $('#emailEditButton').on('click', function() {
+                var newEmail = $('#inputEmail').val();
+
+                // 입력된 이메일이 없는 경우
+                if (newEmail === '') {
+                    alert('새로운 이메일을 입력하세요.');
+                    return;
+                }
+                // 이메일 형식 검사
+                var emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+                if (!emailRegex.test(newEmail)) {
+                    alert('올바른 이메일 형식으로 입력하세요.');
+                    return;
+                }
+
+                $.ajax({
+                    url: '/mypage/editEmail',
+                    type: 'POST',
+                    data: {newEmail: newEmail},
+                    beforeSend: function(xhr) {
+                        var csrfToken = document.getElementById('csrfToken').value;
+                        xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+                    },
+                    success: function(response) {
+                        alert('이메일 변경되었습니다.');
+                        location.reload();
+                    },
+                    error: function(error) {
+                        alert('이메일 변경에 실패하였습니다. 다시 시도해주세요.');
+                    }
+                });
+
+            });
+            //비밀번호 변경 버튼 클릭 시 이벤트 처리
+            $('#send').on('click',function(){
+                var currentPassword = $('#inputCurrentPassword').val();
+                var newPassword = $('#inputPassword').val();
+                var confirmPassword = $('#inputPasswordConfirm').val();
+
+                //새로운 비밀번호 입력 안한 경우
+                if(newPassword === ''){
+                    alert('새로운 비밀번호를 입력하세요.');
+                    return;
+                }
+                //비밀번호 확인 입력 안한 경우
+                if(confirmPassword === ''){
+                    alert('비밀번호 확인을 입력하세요.');
+                    return;
+                }
+                //비밀번호와 비밀번호 확인이 일치하지 않는 경우
+                if(currentPassword !== confirmPassword){
+                    alert('현재 비밀번호가 일치하지 않습니다.');
+                    return;
+                }
+
+                //모든 검증 통과 시
+                $.ajax({
+                    url: '/mypage/changePassword',
+                    type: 'POST',
+                    data: {
+                        currentPassword: currentPassword,
+                        newPassword: newPassword
+                    },
+                    beforeSend: function(xhr) {
+                        var csrfToken = document.getElementById('csrfToken').value;
+                        xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+                    },
+                    success: function(response) {
+                        alert('비밀번호가 변경되었습니다.');
+                        location.reload();
+                    },
+                    error: function(error) {
+                        alert('비밀번호 변경 실패. 다시 시도하세요.');
+                    }
+                });
+            })
+
+            //탈퇴 확인 버튼 클릭 이벤트
+            $('.withdraw-change').on('click',function(){
+                var confirmResult = confirm('정말로 회원 탈퇴하시겠습니까?');
+                if(confirmResult){
+                    // AJAX 요청 시작
+                    $.ajax({
+                        url: '/mypage/deleteMember',  // 요청을 보낼 엔드포인트 URL
+                        type: 'POST',  // HTTP 메소드 지정 (회원 정보 삭제이므로 POST 또는 DELETE가 적절합니다)
+                        success: function(response) {
+                            alert('회원 탈퇴되었습니다.');
+                            location.href = '/';  // 메인 페이지로 리다이렉션
+                        },
+                        error: function(error) {
+                            alert('회원 탈퇴에 실패하였습니다. 다시 시도해주세요.');
+                        }
+                    });
+                    // AJAX 요청 종료
+                } else{
+                    alert('회원 탈퇴가 취소되었습니다.');
+                }
+            })
 
 
 
-    </script>
-</div>
+        </script>
+    </div>
 </body>
 </html>
