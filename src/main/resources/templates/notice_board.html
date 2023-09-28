@@ -1,59 +1,67 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시판</title>
     <link rel="stylesheet" href="/static/css/notice_board.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 </head>
 <body>
 <header>
     <input type="hidden" id="csrfToken" th:value="${_csrf.token}" />
-    <ul class="menu">
-        <li>
-            <a href="/">MBTI 검사하기</a>
-        </li>
-        <li>
-            <a href="#">게시판</a>
-            <ul class="submenu">
-                <li><a href="/setting/board/estj">ESTJ</a></li>
-                <li><a href="/setting/board/istj">ISTJ</a></li>
-                <li><a href="/setting/board/esfj">ESFJ</a></li>
-                <li><a href="/setting/board/isfj">ISFJ</a></li>
-                <li><a href="/setting/board/estp">ESTP</a></li>
-                <li><a href="/setting/board/istp">ISTP</a></li>
-                <li><a href="/setting/board/esfp">ESFP</a></li>
-                <li><a href="/setting/board/isfp">ISFP</a></li>
-                <li><a href="/setting/board/entj">ENTJ</a></li>
-                <li><a href="/setting/board/intj">INTJ</a></li>
-                <li><a href="/setting/board/enfj">ENFJ</a></li>
-                <li><a href="/setting/board/infj">INFJ</a></li>
-                <li><a href="/setting/board/estp">ENTP</a></li>
-                <li><a href="/setting/board/intp">INTP</a></li>
-                <li><a href="/setting/board/enfp">ENFP</a></li>
-                <li><a href="/setting/board/infp">INFP</a></li>
-            </ul>
-        </li>
-        <li>
+    <!-- Bootstrap CSS -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">MBTI 검사하기</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
+                aria-controls="navbarContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <li>
-            <a href="#" th:href="@{/member/login}" sec:authorize="isAnonymous()">로그인</a>
-            <a href="#" th:href="@{/member/logout}" sec:authorize="isAuthenticated()">로그아웃</a>
-        </li>
+        <div class="collapse navbar-collapse" id ="navbarContent">
+            <ul class ="navbar-nav mr-auto">
+                <li class ="nav-item dropdown">
+                    <a class ="nav-link dropdown-toggle" href="#" id ="navbarDropdownMenuLink1"
+                       role = "button"
+                       data-toggle = "dropdown"> 게시판 </a>
+                    <div class = "dropdown-menu">
+                        <!-- Add other MBTI types as needed -->
+                        <a class = "dropdown-item" href="/setting/board/estj">ESTJ</a>
+                        <a class = "dropdown-item" href="/setting/board/istj">ISTJ</a>
+                        <a class = "dropdown-item" href="/setting/board/esfj">ESFJ</a>
+                        <a class = "dropdown-item" href="/setting/board/isfj">ISFJ</a>
+                        <a class = "dropdown-item" href="/setting/board/estp">ESTP</a>
+                        <a class = "dropdown-item" href="/setting/board/istp">ISTP</a>
+                        <a class = "dropdown-item" href="/setting/board/esfp">ESFP</a>
+                        <a class = "dropdown-item" href="/setting/board/isfp">ISFP</a>
+                        <a class = "dropdown-item" href="/setting/board/intj">INTJ</a>
+                        <a class = "dropdown-item" href="/setting/board/enfj">ENFJ</a>
+                        <a class = "dropdown-item" href="/setting/board/infj">INFJ</a>
+                        <a class = "dropdown-item" href="/setting/board/estp">ENTP</a>
+                        <a class = "dropdown-item" href="/setting/board/intp">INTP</a>
+                        <a class = "dropdown-item" href="/setting/board/enfp">ENFP</a>
+                        <a class = "dropdown-item" href="/setting/board/infp">INFP</a>
+                    </div>
+                </li>
+                <!-- Login link here -->
+                <ul class="navbar-nav">
+                    <li><a href="#" th:href="@{/member/login}" sec:authorize="isAnonymous()">로그인</a></li>
+                    <li><a href="#" th:href="@{/member/logout}" sec:authorize="isAuthenticated()">로그아웃</a></li>
+                </ul>
 
-        </li>
-        <li>
+        </ul>
+
             <a href="/mypage" th:href="@{/mypage}" sec:authorize="isAuthenticated()">MY PAGE</a>
+    </div>
 
-            <ul class="submenu">
-                <li><a href="#">내 정보 조회</a></li>
-                <li><a href="#">내 정보 수정</a></li>
-                <li><a href="#">이전 활동 기록</a></li>
-                <li><a href="#">회원 탈퇴</a></li>
-            </ul>
-        </li>
-    </ul>
+    </nav>
+
+<!-- Include Bootstrap JS at the end of your file for improved loading speed-->
+<script src = "https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
 </header>
 
     <section>
@@ -80,7 +88,7 @@
                 display:inline-block;
                 background-color:#4caf50;
                 color:white;
-                padding-left:10 px;
+                padding-left:10px;
                 padding-right:10px;
                 margin-bottom: 5px;
                 border-radius :5px ;
@@ -89,41 +97,103 @@
             }
         </style>
 
+        <h2 sec:authorize="isAnonymous()" th:text="${myMbti}">기본값</h2>
         <h2 th:text="${myMbti}">기본값</h2>
 
         <div class="gpt-content" id="chatbox">
             <div class="chat">
-                <span class="gpt-chat">Hello world!</span>
+                <span class="gpt-chat">반가워요!</span>
             </div>
-            <div class="chat">
-                <span class="my-chat">hi gpt</span>
-            </div>
+<!--            <div class="chat">-->
+<!--                <span class="my-chat">hi gpt</span>-->
+<!--            </div>-->
         </div>
 
         <input id="userInput" type="text" placeholder="Type a message...">
         <button onclick="sendMessage()">전송</button>
+        <div id="spinner" class="spinner-border text-info" role="status" style="display: none;">
+            <span class="visually-hidden"></span>
+        </div>
 
-        <script type = "text/javascript">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
             function sendMessage() {
-                var input = document.getElementById("userInput").value;
+                var userInput = $('#userInput').val(); // 사용자 입력 받기
 
-                var chatbox = document.getElementById("chatbox");
+                var newChatDiv = $('<div>').addClass('chat');
 
-                var newChatDiv = document.createElement("div");
-                newChatDiv.className = "chat";
+                var newChatSpan = $('<span>').addClass('my-chat').text(userInput);
 
-                var newChatSpan = document.createElement("span");
-                newChatSpan.className = "my-chat";
 
-                newChatSpan.innerText=input;
+                newChatDiv.append(newChatSpan);
 
-                newChatDiv.appendChild(newChatSpan);
 
-                chatbox.appendChild(newChatDiv);
+                $('#chatbox').append(newChatDiv);
 
-// 입력필드 초기화
-                document.getElementById('userInput').value="";
+
+                $('#userInput').prop('disabled', true);
+                $('button').prop('disabled', true);
+
+                // Show spinner
+                $('#spinner').show();
+
+                $.ajax({
+                    url: '/api/openai',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        model:'gpt-3.5-turbo',
+                        messages:[{
+                            role:'user',
+                            content:userInput
+                        }],
+                        temperature :1,
+                        max_tokens :256,
+                        top_p :1,
+                        frequency_penalty :0,
+                        presence_penalty :0
+                    }),
+                    beforeSend:function(xhr){
+                        xhr.setRequestHeader("X-CSRF-TOKEN", $("#csrfToken").val());
+                    },
+                    success:function(response){
+
+                        if (typeof response === 'string') {
+                            response = JSON.parse(response);
+                        }
+
+                        if (response.choices && response.choices.length > 0 && response.choices[0].message) {
+                            console.log(response.choices[0].message.content);
+                            // Create a new div for the chat message.
+                            var newChatDiv = $('<div>').addClass('chat');
+
+                            // Create a new span for the chat content.
+                            var newChatSpan = $('<span>').addClass('gpt-chat').text(response.choices[0].message.content);
+                            $('#userInput').prop('disabled', false);
+                            $('button').prop('disabled', false);
+
+                            $('#spinner').hide();
+
+
+                            newChatDiv.append(newChatSpan);
+
+
+                            $('#chatbox').append(newChatDiv);
+                        } else {
+                            console.error('Unexpected server response', response);
+                            $('#userInput').prop('disabled', false);
+                            $('button').prop('disabled', false);
+
+                            $('#spinner').hide();
+                        }
+                        $('#userInput').val('');
+                    },
+                });
             }
+        </script>
+
+
+
         </script>
         <!--comment---------------------------------------------------------------------------------->
         <div id="form-commentInfo">
@@ -148,5 +218,6 @@
 
         </div>
         <script src="/static/js/notice_board.js"></script>
+        <script src ="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
