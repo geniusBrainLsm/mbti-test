@@ -48,7 +48,7 @@ a {
 }
 
 .submenu {
-    height: 0; 
+    height: 0;
     overflow: hidden;
 }
 
@@ -58,7 +58,7 @@ a {
 }
 
 .menu > li:hover .submenu {
-    height: auto; 
+    height: auto;
     transition-duration: 1s;
     overflow: visible;
 }
@@ -82,7 +82,7 @@ section {
 }
 
 #comment-count{
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
 }
 
 #comment-input{
@@ -103,9 +103,9 @@ section {
 }
 
 .voteUp, .voteDown{
-    padding: 3px 5px; 
-    border-radius: 5px; 
-    display: inline-block; 
+    padding: 3px 5px;
+    border-radius: 5px;
+    display: inline-block;
     width: auto;
     height: auto;
     color:#01755c;
@@ -120,9 +120,9 @@ section {
 }
 
 .eachComment {
-    width: 90%; 
-    margin: 10px auto; 
-    padding: 0.5em; 
+    width: 90%;
+    margin: 10px auto;
+    padding: 0.5em;
     border-bottom: 1px solid #c1bcba;
 }
 
@@ -137,7 +137,7 @@ section {
 
 .eachComment .inputValue{
     font-size: 1.0em;
-    font-style: italic;    
+    font-style: italic;
 }
 
 .eachComment .time{
@@ -146,7 +146,7 @@ section {
     font-style: oblique;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
-    
+
 }
 
 .eachComment .voteDiv{
@@ -155,7 +155,7 @@ section {
 }
 
 .eachComment .deleteComment{
-    border-radius: 5px; 
+    border-radius: 5px;
     background-color: rgb(255, 255, 255);
     border: 2px solid #c5c4c4;
     color: rgb(255, 0, 0);
