@@ -1,0 +1,86 @@
+/* Google Web Font */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500&display=swap');
+
+*{
+    font-family: 'Montserrat', sans-serif;
+    list-style: none;
+    text-decoration: none;
+    border-collapse: collapse;
+    margin: 0px;
+    padding: 0px;
+    color: #000;
+
+}
+
+h1{
+    font-size: 48px;
+}
+.contents1{
+    font-size: 20px;
+}
+
+.wrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 200px;
+}
+.intro{
+    background-color: #e3ffdc;
+    padding: 70px;
+    border-radius: 20px;
+}
+.header  h1{
+    text-align: center;
+}
+.main_text {
+    font-size: 15px;
+}
+.label{
+    font-weight: 900;
+    margin-top: 25px;
+}
+.text {
+    margin-top: 20px;
+}
+
+.text h1{
+    margin-bottom: 60px;
+}
+
+.text p{
+    margin-bottom : 30px;
+}
+.next{
+    width: 400px;
+    height: 40px;
+    border-radius: 5px;
+    margin-top: 24px;
+    border:none;
+
+}
+
+
+.campus_name{
+    width: 500px;
+    height: 50px;
+    border-radius: 5px;
+    margin-top: 24px;
+    border: none;
+    cursor: pointer;
+}
+
+
+#findpw{
+    width: 500px;
+    height: 50px;
+    border-radius: 5px;
+    margin-top: 24px;
+    border: none;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    font-weight: 900;
+    font-size: 20px;
+    border-radius: 20px;
+}

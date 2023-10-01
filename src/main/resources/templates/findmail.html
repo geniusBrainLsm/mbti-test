@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메일찾기</title>
+    <link rel="stylesheet" href="/static/css/findmail.css">
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="intro">
+            <div class="header">
+                <h1 class="main_text">MBTI-test</h1>
+                <div class="text">
+                    <h1>가입된 이메일 찾기</h1>
+                    <p>이메일은 가입시 입력하신 닉네임과 비밀번호를 통해 찾을 수 있습니다.</p>
+                </div>
+                <div class="input">
+                    <div class="label"><label>닉네임</label></div>
+                    <input type="text" name="memberNickname" class="campus_name search" maxlength="20" placeholder="닉네임을 입력하세요" autocomplete="off" >
+                    <input type="hidden" name="camppus_id">
+        <!--            <p>공백없이 문자와 숫자로만 3자 이상 25자 이내로 입력하세요. </p>-->
+                </div>
+                
+                <div class="input">
+                    <div class="label"><label>비밀번호</label></div>
+                    <input type="password" name="memberPassword1" class="campus_name search" maxlength="20" placeholder="패스워드를 입력하세요" autocomplete="off">
+                    <input type="hidden" name="camppus_id">
+        <!--            <p>8자 이상 50자 이내로 입력하세요. </p>-->
+                </div>
+                
+                <button type="button" id="findpw">다음</button>
+                <div class="text"><span>비밀번호가 기억나지 않는다면? <a href="">비밀번호 찾기</a></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+
+    </script>
+</body>
+
+</html>
