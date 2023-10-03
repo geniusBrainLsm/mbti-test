@@ -21,7 +21,6 @@ public class OpenAiService {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "");  //여기 ""에 APIKEY
 
         String systemMessage = "당신과의 대화를 통해 각 MBTI 성격유형과의 대화를 체험하려함"; //User role
 

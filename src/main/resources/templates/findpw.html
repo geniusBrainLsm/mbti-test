@@ -7,12 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>비밀번호 찾기</title>
     <link rel="stylesheet" href="/static/css/findpw.css">
+
 </head>
 
 <body>
     <div class="wrap">
         <div class="intro">
             <div class="header">
+                <input type="hidden" id="csrfToken" th:value="${_csrf.token}" />
                 <h1 class="main_text">MBTItest</h1>
                 <div class="text">
                     <h1>비밀번호 찾기</h1>
@@ -20,7 +22,7 @@
                 </div>
                 <div class="input">
                     <div class="label"><label>닉네임</label></div>
-                    <input type="text" name="memberNickname" class="campus_name search" maxlength="20" placeholder="닉네임을 입력하세요" autocomplete="off" >
+                    <input type="text" id="memberNickname" name="memberNickname" class="campus_name search" maxlength="20" placeholder="닉네임을 입력하세요" autocomplete="off" >
                     <input type="hidden" name="camppus_id">
                 </div>
                 <div class="input">
@@ -29,9 +31,37 @@
                         <input type="hidden" name="campus_id">
                     </div>
                 </div>
-                
-                <button type="button" id="findpw">다음</button>
-                <div class="text"><span>아이디가 기억나지 않는다면? <a href="">아이디 찾기</a></span>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+            <script>
+                function nextBtn() {
+                    var nickname = $("#memberNickname").val();
+                    var email = $("#memberEmail").val();
+
+                    $.ajax({
+                        url: "/sendEmail",
+                        type: "post",
+                        data: {
+                            "memberNickname": nickname,
+                            "memberEmail": email
+                        },
+                        beforeSend:function(xhr){
+                            xhr.setRequestHeader("X-CSRF-TOKEN", $("#csrfToken").val());
+                        },
+                        success: function(data){
+                            if(data == "false"){
+                                alert("이메일 혹은 닉네임 정보가 일치하지 않습니다.");
+                            }
+                            else{
+                                alert("메일로 임시비밀번호를 발송했습니다.");
+                            }
+                        }
+                    });
+                }
+            </script>
+
+                <button type="button" id="findpw" onclick="nextBtn()">다음</button>
+                <div class="text"><span>아이디가 기억나지 않는다면? <a th:href="@{/member/findmail}">아이디 찾기</a></span>
                 </div>
             </div>
 

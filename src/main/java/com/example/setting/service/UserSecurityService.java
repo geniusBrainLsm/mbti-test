@@ -31,7 +31,7 @@ public class UserSecurityService implements UserDetailsService {
     public UserDetails loadUserByUsername(String memberEmail) throws UsernameNotFoundException {
         Optional<MemberEntity> _memberEntity = this.memberRepository.findByMemberEmail(memberEmail);
         if (_memberEntity.isEmpty()) {
-            System.out.println("사용자를 찾을 수 없습니다: " + memberEmail);  // 여기에 로깅 추가
+            System.out.println("사용자를 찾을 수 없습니다: " + memberEmail);
             throw new UsernameNotFoundException("사용자를 찾을수 없습니다.");
         }
         MemberEntity memberEntity = _memberEntity.get();
@@ -42,7 +42,7 @@ public class UserSecurityService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(MemberRole.USER.getValue()));
         }
 
-        System.out.println("불러온 사용자 정보: " + memberEntity);  // 여기에 로깅 추가
+        System.out.println("불러온 사용자 정보: " + memberEntity);
         System.out.println("비번" + memberEntity.getMemberPassword());
         return new User(memberEntity.getMemberEmail(), memberEntity.getMemberPassword(), authorities);
     }

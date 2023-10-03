@@ -84,3 +84,16 @@ h1{
     font-size: 20px;
     border-radius: 20px;
 }
+
+@media screen and (max-width: 768px) {
+    .wrap {
+        justify-content: normal;
+        margin-top: 100px;
+    }
+    .intro {
+        padding: 40px;
+    }
+    h1, .label, .campus_name, #findpw {
+        text-align: center;
+    }
+}
