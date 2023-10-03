@@ -23,7 +23,7 @@ public class JoinForm {
     @NotEmpty(message = "비밀번호 중복확인은 필수항목입니다.")
     private String memberPassword2;
 
-    @NotEmpty(message = "사용자 Email은 필수항목입니다.")
+    @NotEmpty(message = "이메일은 필수항목입니다.")
     @Email
     private String memberEmail;
 

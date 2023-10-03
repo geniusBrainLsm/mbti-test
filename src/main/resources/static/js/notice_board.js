@@ -71,7 +71,7 @@ const addCommentToUI = comment => {
     // 닉네임 추가
     const nicknameElement = document.createElement("div");
     nicknameElement.className = "nickname";
-    nicknameElement.textContent = comment.nickname; // 닉네임 표시
+    nicknameElement.textContent = comment.memberNickname; // 닉네임 표시
     commentElement.appendChild(nicknameElement);
 
     // 댓글 내용 추가
@@ -145,6 +145,11 @@ submitButton.addEventListener("click", () => submitComment());
 
 // 타임스탬프 형식을 변환하는 함수
 const formatTimestamp = timestamp => {
-    const date = new Date(timestamp);
-    return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+    if (timestamp) {
+        const date = new Date(timestamp);
+        const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+        return date.toLocaleDateString(undefined, options);
+    } else {
+        return "시간 정보 없음"; // 또는 원하는 다른 메시지
+    }
 }
