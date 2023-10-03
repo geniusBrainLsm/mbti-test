@@ -3,15 +3,12 @@ import com.example.setting.entity.Comment;
 import com.example.setting.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.List;
-
 @Service
 public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentRepository commentRepository;
-
     @Override
     public List<Comment> getCommentsByMemberMbti(String memberMbti) {
         return commentRepository.findByMemberMbti(memberMbti);
@@ -19,11 +16,15 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment addComment(Comment comment, String nickname) {
-        comment.setTimestamp(new Date()); // 댓글 작성 시간 설정
+
+        if (comment.getTimestamp() == null) {
+            comment.setTimestamp(new Date()); // 댓글 작성 시간 설정
+        }
         comment.setMemberNickname(nickname); // 사용자의 닉네임 설정
         comment.setLikes(0); // 초기 추천 수 설정
         return commentRepository.save(comment);
     }
+
 
     @Override
     public void likeComment(Long commentId, String nickname) {
