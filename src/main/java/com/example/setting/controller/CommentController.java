@@ -1,4 +1,5 @@
 package com.example.setting.controller;// CommentController.java
+
 import com.example.setting.dto.CommentDTO;
 import com.example.setting.entity.Comment;
 import com.example.setting.entity.MemberEntity;
@@ -6,17 +7,15 @@ import com.example.setting.repository.CommentRepository;
 import com.example.setting.repository.MemberRepository;
 import com.example.setting.service.CommentService;
 import com.example.setting.service.MemberService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.Date;
 
 @RestController
 @RequestMapping("/api/replies")
@@ -52,6 +51,21 @@ public class CommentController {
 
         return dto;
     }
+    @GetMapping("/my-comments")
+    public List<CommentDTO> getMyComments(Principal principal) {
+        // 현재 로그인한 사용자의 닉네임 가져오기
+        String username = principal.getName();  // 이메일로 조회
+        MemberEntity member = memberRepository.findByMemberEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        String currentMemberNickname = member.getMemberNickname();
+
+        // 현재 사용자의 닉네임으로 작성한 댓글을 가져옵니다.
+        List<Comment> comments = commentRepository.findByMemberNickname(currentMemberNickname);
+
+        // 댓글 목록을 CommentDTO로 변환하여 반환합니다.
+        return comments.stream().map(this::toDto).collect(Collectors.toList());
+    }
+
 
     @PostMapping
     public Comment addComment(@RequestBody Comment comment, Principal principal) {

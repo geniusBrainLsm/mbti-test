@@ -143,6 +143,13 @@ window.addEventListener("load", () => getComments());
 // "Submit" 버튼 클릭 시 댓글 작성 함수 호출
 submitButton.addEventListener("click", () => submitComment());
 
+// Enter 키 눌렀을 때도 댓글 작성 함수 호출
+commentInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        submitComment();
+    }
+});
+
 // 타임스탬프 형식을 변환하는 함수
 const formatTimestamp = timestamp => {
     if (timestamp) {
