@@ -138,7 +138,36 @@ const displayComments = comments => {
 }
 
 // 페이지 로드 시 MBTI 값을 가져오고 댓글 목록을 불러오도록 수정
-window.addEventListener("load", () => getComments());
+// window.addEventListener("load", () => getComments());
+
+
+// 페이지 로드 시 MBTI 값을 가져오고 댓글 목록을 불러오도록 수정
+window.addEventListener("load", () => {
+        getComments();
+        let specialHTML = "";
+        // memberMbti가 'isfp'인 경우 환영 메시지 추가
+        if (memberMbti === 'isfp') {
+            specialHTML = `
+
+        `;
+
+        }
+
+        if (memberMbti === 'infp') {
+            specialHTML = `
+            <div id="special-section">
+                <h1>호기심 많은 예술가</h1>
+                <p>이곳은 'infp' 게시판 입니다.</p>
+            </div>
+        `;
+        }
+
+        // 특정 <h2> 태그 아래에 메시지 추가
+        const chatbox = document.getElementById("resultmbti");
+        chatbox.insertAdjacentHTML('beforeend', specialHTML);
+    }
+);
+
 
 // "Submit" 버튼 클릭 시 댓글 작성 함수 호출
 submitButton.addEventListener("click", () => submitComment());
@@ -154,9 +183,17 @@ commentInput.addEventListener("keydown", (event) => {
 const formatTimestamp = timestamp => {
     if (timestamp) {
         const date = new Date(timestamp);
-        const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+        const options = {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric'
+        };
         return date.toLocaleDateString(undefined, options);
     } else {
         return "시간 정보 없음"; // 또는 원하는 다른 메시지
     }
 }
+
