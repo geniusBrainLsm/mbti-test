@@ -53,8 +53,11 @@ const likeComment = commentId => {
             if (likeButton) {
                 likeButton.disabled = true;
             }
+
         })
         .catch(error => console.error('Error liking comment:', error));
+    // 화면 새로고침
+    location.reload();
 }
 
 // 댓글을 화면에 추가하는 함수
@@ -93,6 +96,12 @@ const addCommentToUI = comment => {
     likeButton.addEventListener("click", () => likeComment(comment.id)); // 추천 버튼 클릭 시 추천 함수 호출
     commentElement.appendChild(likeButton);
 
+    // 삭제 버튼 추가
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "delete-button";
+    deleteButton.textContent = "삭제";
+    deleteButton.addEventListener("click", () => deleteComment(comment.id)); // 삭제 버튼 클릭 시 삭제 함수 호출
+    commentElement.appendChild(deleteButton);
     commentsContainer.appendChild(commentElement);
 
 
@@ -138,7 +147,143 @@ const displayComments = comments => {
 }
 
 // 페이지 로드 시 MBTI 값을 가져오고 댓글 목록을 불러오도록 수정
-window.addEventListener("load", () => getComments());
+// window.addEventListener("load", () => getComments());
+
+
+// 페이지 로드 시 MBTI 값을 가져오고 댓글 목록을 불러오도록 수정
+window.addEventListener("load", () => {
+        getComments();
+        let specialHTML = "";
+        // memberMbti가 'isfp'인 경우 환영 메시지 추가
+
+
+        if (memberMbti === 'infp') {
+            specialHTML = `
+            <div id="special-section">
+                <h1>"열정적인 중재자"</h1>
+                <p>이곳은 'infp' 게시판 입니다.</p>
+            </div>
+        `;
+        }
+    if (memberMbti === 'enfp') {
+        specialHTML = `
+            <div id="special-section">
+                <h1>"재기발랄한 활동가"</h1>
+                <p>이곳은 'enfp' 게시판 입니다.</p>
+            </div>
+        `;
+    }
+    if (memberMbti === 'intp') {
+        specialHTML = `
+            <div id="special-section">
+                <h1>"논리적인 사색가"</h1>
+                <p>이곳은 'intp' 게시판 입니다.</p>
+            </div>
+        `;
+    }
+    if (memberMbti === 'entp') {
+        specialHTML = `
+            <div id="special-section">
+                <h1>"뜨거운 논쟁을 즐기는 변론가"</h1>
+                <p>이곳은 'entp' 게시판 입니다.</p>
+            </div>
+        `;
+    }
+    if (memberMbti === 'infj') {
+        specialHTML = `
+            <div id="special-section">
+                <h1>"선의의 옹호자"</h1>
+                <p>이곳은 'infj' 게시판 입니다.</p>
+            </div>
+        `;
+    }
+    if (memberMbti === 'enfj') {
+        specialHTML = `
+            <div id="special-section">
+                <h1>"정의로운 사회운동가"</h1>
+                <p>이곳은 'enfj' 게시판 입니다.</p>
+            </div>
+        `;
+    }
+    if (memberMbti === 'intj') {
+        specialHTML = `
+            <div id="special-section">
+                <h1>"용의주도한 전략가"</h1>
+                <p>이곳은 'intj' 게시판 입니다.</p>
+            </div>
+        `;
+    }
+    if (memberMbti === 'isfp') {
+        specialHTML = `
+            <div id="special-section">
+                <h1>"호기심 많은 예술가"</h1>
+                <p>이곳은 'isfp' 게시판 입니다.</p>
+            </div>
+        `;
+    }
+    if (memberMbti === 'esfp') {
+        specialHTML = `
+            <div id="special-section">
+                <h1>"자유로운 영혼의 연예인"</h1>
+                <p>이곳은 'esfp' 게시판 입니다.</p>
+            </div>
+        `;
+    }
+    if (memberMbti === 'istp') {
+        specialHTML = `
+            <div id="special-section">
+                <h1>"만능 재주꾼"</h1>
+                <p>이곳은 'istp' 게시판 입니다.</p>
+            </div>
+        `;
+    }
+    if (memberMbti === 'estp') {
+        specialHTML = `
+            <div id="special-section">
+                <h1>"모험을 즐기는 사업가"</h1>
+                <p>이곳은 'entp' 게시판 입니다.</p>
+            </div>
+        `;
+    }
+    if (memberMbti === 'isfj') {
+        specialHTML = `
+            <div id="special-section">
+                <h1>"용감한 수호자"</h1>
+                <p>이곳은 'isfj' 게시판 입니다.</p>
+            </div>
+        `;
+    }
+    if (memberMbti === 'esfj') {
+        specialHTML = `
+            <div id="special-section">
+                <h1>"사교적인 외교관"</h1>
+                <p>이곳은 'esfj' 게시판 입니다.</p>
+            </div>
+        `;
+    }
+    if (memberMbti === 'istj') {
+        specialHTML = `
+            <div id="special-section">
+                <h1>"청렴결백한 논리주의자"</h1>
+                <p>이곳은 'istj' 게시판 입니다.</p>
+            </div>
+        `;
+    }
+    if (memberMbti === 'estj') {
+        specialHTML = `
+            <div id="special-section">
+                <h1>"엄격한 관리자"</h1>
+                <p>이곳은 'estj' 게시판 입니다.</p>
+            </div>
+        `;
+    }
+
+        // 특정 <h2> 태그 아래에 메시지 추가
+        const chatbox = document.getElementById("resultmbti");
+        chatbox.insertAdjacentHTML('beforeend', specialHTML);
+    }
+);
+
 
 // "Submit" 버튼 클릭 시 댓글 작성 함수 호출
 submitButton.addEventListener("click", () => submitComment());
@@ -154,9 +299,17 @@ commentInput.addEventListener("keydown", (event) => {
 const formatTimestamp = timestamp => {
     if (timestamp) {
         const date = new Date(timestamp);
-        const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+        const options = {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric'
+        };
         return date.toLocaleDateString(undefined, options);
     } else {
         return "시간 정보 없음"; // 또는 원하는 다른 메시지
     }
 }
+

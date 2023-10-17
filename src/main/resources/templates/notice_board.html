@@ -6,6 +6,7 @@
     <title>게시판</title>
     <link rel="stylesheet" href="/static/css/notice_board.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 </head>
@@ -41,7 +42,7 @@
                         <a class = "dropdown-item" href="/setting/board/intj">INTJ</a>
                         <a class = "dropdown-item" href="/setting/board/enfj">ENFJ</a>
                         <a class = "dropdown-item" href="/setting/board/infj">INFJ</a>
-                        <a class = "dropdown-item" href="/setting/board/estp">ENTP</a>
+                        <a class = "dropdown-item" href="/setting/board/entp">ENTP</a>
                         <a class = "dropdown-item" href="/setting/board/intp">INTP</a>
                         <a class = "dropdown-item" href="/setting/board/enfp">ENFP</a>
                         <a class = "dropdown-item" href="/setting/board/infp">INFP</a>
@@ -68,10 +69,13 @@
 <!--    <section>-->
         <style>
             .gpt-content {
-                border: 1px solid #ddd;
+                width: 1280px;
                 padding: 10px;
-                height: 300px;
+                height: 400px;
                 overflow-y: scroll;
+                background-color: #fff;
+                margin: auto;
+                margin-bottom: 30px;
             }
             .chat {
                 clear:both; /* float된 요소의 영향 받지 않게 함 */
@@ -79,7 +83,8 @@
             }
             .gpt-chat {
                 display: inline-block;
-                background-color: #ddd;
+                background-color: #2589ef;
+                color:#fff;
                 padding: 10px;
                 margin-bottom: 5px;
                 position:relative;
@@ -98,9 +103,19 @@
             }
         </style>
 
-        <h2 sec:authorize="isAnonymous()" th:text="${myMbti}">기본값</h2>
-        <h2 th:text="${myMbti}">기본값</h2>
+<!--        <h2 sec:authorize="isAnonymous()" th:text="${myMbti}">기본값</h2>-->
+        <h2 id="myMbtiValue" th:text="${myMbti}">기본값</h2>
+        <div id = "resultmbti">
+        </div>
+<div id="special-section">
+    <p>궁금한 것을 질문해 보세요!</p>
+    <div class="question_subtext" style="display: flex; justify-content: center">
+        <div class="qa">너의 mbti가 뭐야?</div>
+        <div class="qa">너의 취미가 뭐야?</div>
+    </div>
 
+
+</div>
         <div class="gpt-content" id="chatbox">
             <div class="chat">
                 <span class="gpt-chat">반가워요!</span>
@@ -109,9 +124,11 @@
 <!--                <span class="my-chat">hi gpt</span>-->
 <!--            </div>-->
         </div>
+        <div class="usersend">
+            <input id="userInput" type="text" placeholder="AI와 채팅을 해보세요!">
+            <button onclick="sendMessage()">Send</button>
+        </div>
 
-        <input id="userInput" type="text" placeholder="Type a message...">
-        <button onclick="sendMessage()">전송</button>
         <div id="spinner" class="spinner-border text-info" role="status" style="display: none;">
             <span class="visually-hidden"></span>
         </div>
@@ -196,29 +213,33 @@
 
 
         </script>
-        <!--comment---------------------------------------------------------------------------------->
-        <div id="form-commentInfo">
-            <div id="comment-count">댓글 <span id="count">0</span></div>
-            <input id="comment-input" placeholder="What are you thinking">
-            <button id="submit">Share</button>
-        </div>
-        <br>
-        <!--<hr width="100%" color=#507a71/> -->
-        
-        <form>
-            <label>댓글 정렬 : 
-            <select name="comment" >
-            <option value="none">== 선택 ==</option>
-            <option value="popularity">인기순</option>
-            <option value="newest">최신순</option>
-            </select>
-            </label>
-            </select>
-        </form>
-        <hr width="100%" color=#01755c> 
-        <div id=comments>
+<hr style="border: solid #e1e1e1;">
+<div>
+    <!--comment---------------------------------------------------------------------------------->
+    <div id="form-commentInfo">
+        <div id="comment-count">댓글 <span id="count">0</span></div>
+        <input id="comment-input" placeholder="댓글 작성">
+        <button id="submit">등록</button>
+    </div>
+    <br>
 
-        </div>
+
+    <form  style="margin: auto; width: 1280px;">
+        <label style="color: #222222;">댓글 정렬 :
+            <select name="comment" >
+                <option value="none">== 선택 ==</option>
+                <option value="popularity">인기순</option>
+                <option value="newest">최신순</option>
+            </select>
+        </label>
+        </select>
+    </form>
+
+    <div id=comments>
+
+    </div>
+</div>
+
         <script src="/static/js/notice_board.js"></script>
         <script src ="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
