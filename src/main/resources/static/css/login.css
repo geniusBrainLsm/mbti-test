@@ -25,7 +25,7 @@ body{
 
 a{
     color : #222;
-    text-decoration: none;
+    /*text-decoration: none;*/
 }
 
 /* .login-form{
@@ -129,6 +129,6 @@ h4{
 }
 
 h4 span{
-    color: rgb(249, 78, 78);
+    color: #0d6efd;
     margin-left: 10px;
 }
