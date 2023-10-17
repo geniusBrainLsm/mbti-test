@@ -54,7 +54,7 @@ public class MemberService {
             MemberEntity memberEntity = memberOptional.get();
             memberRepository.delete(memberEntity);
         } else {
-            throw new NoSuchElementException("Member with ID " + memberId + " not found");
+            throw new NoSuchElementException("맴버 ID :" + memberId + " 존재하지 않는 맴버 ID입니다");
         }
     }
 
