@@ -41,7 +41,7 @@
                         <a class = "dropdown-item" href="/setting/board/intj">INTJ</a>
                         <a class = "dropdown-item" href="/setting/board/enfj">ENFJ</a>
                         <a class = "dropdown-item" href="/setting/board/infj">INFJ</a>
-                        <a class = "dropdown-item" href="/setting/board/estp">ENTP</a>
+                        <a class = "dropdown-item" href="/setting/board/entp">ENTP</a>
                         <a class = "dropdown-item" href="/setting/board/intp">INTP</a>
                         <a class = "dropdown-item" href="/setting/board/enfp">ENFP</a>
                         <a class = "dropdown-item" href="/setting/board/infp">INFP</a>
@@ -101,7 +101,7 @@
             }
         </style>
 
-        <h2 sec:authorize="isAnonymous()" th:text="${myMbti}">기본값</h2>
+<!--        <h2 sec:authorize="isAnonymous()" th:text="${myMbti}">기본값</h2>-->
         <h2 id="myMbtiValue" th:text="${myMbti}">기본값</h2>
         <div id = "resultmbti">
         </div>
@@ -109,7 +109,7 @@
     <p>궁금한 것을 질문해 보세요!</p>
     <div class="question_subtext" style="display: flex; justify-content: center">
         <div class="qa">너의 mbti가 뭐야?</div>
-        <div class="qa">나의 엊쩌고저쩌공</div>
+        <div class="qa">너의 취미가 뭐야?</div>
     </div>
 
 
@@ -211,29 +211,32 @@
 
 
         </script>
-        <!--comment---------------------------------------------------------------------------------->
-        <div id="form-commentInfo">
-            <div id="comment-count">댓글 <span id="count">0</span></div>
-            <input id="comment-input" placeholder="댓글 작성">
-            <button id="submit">등록</button>
-        </div>
-        <br>
+<div>
+    <!--comment---------------------------------------------------------------------------------->
+    <div id="form-commentInfo">
+        <div id="comment-count">댓글 <span id="count">0</span></div>
+        <input id="comment-input" placeholder="댓글 작성">
+        <button id="submit">등록</button>
+    </div>
+    <br>
 
-        
-        <form  style="margin: auto; width: 1280px;">
-            <label style="color: #86ba98;">댓글 정렬 :
+
+    <form  style="margin: auto; width: 1280px;">
+        <label style="color: #86ba98;">댓글 정렬 :
             <select name="comment" >
-            <option value="none">== 선택 ==</option>
-            <option value="popularity">인기순</option>
-            <option value="newest">최신순</option>
+                <option value="none">== 선택 ==</option>
+                <option value="popularity">인기순</option>
+                <option value="newest">최신순</option>
             </select>
-            </label>
-            </select>
-        </form>
+        </label>
+        </select>
+    </form>
 
-        <div id=comments>
+    <div id=comments>
 
-        </div>
+    </div>
+</div>
+
         <script src="/static/js/notice_board.js"></script>
         <script src ="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
