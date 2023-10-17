@@ -110,12 +110,35 @@ section {
     border-radius: 10px;
     font-size: 15px; color: #01755c;
 }
+.delete-button{
+    background-color: #949494;
+}
+.like-button{
+    background-color: #222;
+}
+.nickname{
+    font-weight: bold;
+}
+.delete-button,
+.like-button{
 
 
+    padding: 10px;
+    border-radius: 20px;
+    padding: 8px;
+    margin-top: 10px;
+    /* margin-right: 20px; */
+    /* border: 4px solid red; */
+    border: none;
+    color: white;
+    font-size: 12px;
+    margin-right: 4px;
+}
 #form-commentInfo{
     margin-top: 100px;
     width: 1280px;
     margin: auto;
+    padding-top: 50px;
 }
 
 #comment-count{
@@ -192,6 +215,7 @@ section {
     border-radius: 20px;
     width: 950px;
     border: 4px solid #a5a5a5;
+    padding: 20px;
 }
 .eachComment {
     width: 90%;

@@ -53,8 +53,11 @@ const likeComment = commentId => {
             if (likeButton) {
                 likeButton.disabled = true;
             }
+
         })
         .catch(error => console.error('Error liking comment:', error));
+    // 화면 새로고침
+    location.reload();
 }
 
 // 댓글을 화면에 추가하는 함수
