@@ -5,68 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자페이지</title>
     <link rel="stylesheet" href="../static/css/adminpage.css">
-
 </head>
 <body>
-    <body>
-        <div class="container">
-            <header>
-                <h1>관리자 화면</h1>
-                <h3 class="user-link">사용자 페이지로</h3>
-            </header>
+<div class="container">
+    <header>
+        <h1>관리자 화면</h1>
+        <h3 class="user-link">사용자 페이지로</h3>
+    </header>
 
-            <aside class="sidebar">
-                <ul>
-                    
-                    <li><i class="bi bi-person-fill"></i><a href="#">회원 조회</a></li>
+    <aside class="sidebar">
+        <ul>
+            <li><i class="bi bi-person-fill"></i><a href="#">회원 조회</a></li>
+            <!-- 다른 사이드바 항목들 추가 -->
+        </ul>
+    </aside>
+    <main>
+        <div class="search">
+            <input type="text" id="searchInput" placeholder="사용자 검색">
+            <i class="bi bi-search"></i>
+        </div>
+        <table class="member-table">
+            <thead>
+            <tr>
+                <th>이메일</th>
+                <th>닉네임</th>
+                <th>비밀번호</th>
+                <th>삭제</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Thymeleaf를 사용하여 서버에서 가져온 회원 정보를 표시 -->
+            <tr th:each="member : ${members}">
+                <td th:text="${member.memberEmail}"></td>
+                <td th:text="${member.memberNickname}"></td>
+                <td>********</td>
+                <td>
+                    <button class="delete-btn" onclick="deleteMember(this.getAttribute('data-member-id'))" data-member-id="${member.memberId}">
+                        <i class="bi bi-x-square-fill"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
+    <footer>
+        <p>&copy; 2023 관리자 화면</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function deleteMember(memberId) {
+            if (confirm("Are you sure you want to delete this member?")) {
+                // AJAX 요청을 보냅니다.
+                $.ajax({
+                    type: "DELETE", // HTTP DELETE 메서드 사용
+                    url: "/admin/delete/" + memberId, // 삭제를 처리할 엔드포인트 URL
+                    success: function (data) {
+                        // 삭제가 성공하면 여기에 코드를 추가합니다.
+                        $(`button[data-member-id="${memberId}"]`).closest("tr").remove(); // 해당 행을 삭제
+                        // 예를 들어, 삭제된 항목을 화면에서 숨길 수 있습니다.
+                    },
+                    error: function (error) {
+                        // 삭제가 실패하면 오류 처리를 수행합니다.
+                    }
+                });
+            }
+        }
 
-                    <!-- 다른 사이드바 항목들 추가 -->
-                </ul>
-            </aside>
-            <main>
-                <div class="search">
-                    <input type="text" id="searchInput" placeholder="사용자 검색">
-                    <i class="bi bi-search"></i>
-                </div>
-                <table class="member-table">
-                    <thead>
-                        <tr>
-                            <th>이메일</th>
-                            <th>닉네임</th>
-                            <th>비밀번호</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>user1@example.com</td>
-                            <td>User1</td>
-                            <td>********</td>
-                            <td><i class="bi bi-x-square-fill"></i></td>
-                        </tr>
-                        <tr>
-                            <td>user2@example.com</td>
-                            <td>User2</td>
-                            <td>********</td>
-                            <td><i class="bi bi-x-square-fill"></i></td>
-
-                        </tr>
-                        <!-- 다른 회원들의 정보를 추가 -->
-                    </tbody>
-                </table>
-            </main>
-            <footer>
-                <p>&copy; 2023 관리자 화면</p>
-            </footer>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script>
-                // 삭제 버튼 클릭 시 해당 행 삭제
-                $('.bi-x-square-fill').click(function(){
-                    $(this).closest('tr').remove();
-
-                })
-                // 검색 기능 - 검색어와 일치하는 행만 표시하거나 숨김
-                $(document).ready(function() {
-                $('#searchInput').on('input', function() {
+        // 검색 기능 - 검색어와 일치하는 행만 표시하거나 숨김
+        $(document).ready(function() {
+            $('#searchInput').on('input', function() {
                 var searchText = $(this).val().toLowerCase();
                 $('.member-table tbody tr').each(function() {
                     var email = $(this).find('td:eq(0)').text().toLowerCase();
@@ -79,10 +86,7 @@
                 });
             });
         });
-            </script>
-        </div>
-    </body>
-    
-    </html>
+    </script>
+</div>
 </body>
 </html>
