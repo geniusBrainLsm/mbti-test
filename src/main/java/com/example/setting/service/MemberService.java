@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Member;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -46,6 +47,18 @@ public class MemberService {
 
     }
 
+    public void deleteMember(Long memberId) {
+        Optional<MemberEntity> memberOptional = memberRepository.findById(memberId);
+
+        if (memberOptional.isPresent()) {
+            MemberEntity memberEntity = memberOptional.get();
+            memberRepository.delete(memberEntity);
+        } else {
+            throw new NoSuchElementException("Member with ID " + memberId + " not found");
+        }
+    }
+
+
 
     public boolean isNicknameExists(String nickname) {
         return memberRepository.existsByMemberNickname(nickname);
@@ -55,5 +68,11 @@ public class MemberService {
         return memberRepository.existsByMemberEmail(memberEmail);
     }
 
+    public List<MemberEntity> getAllMembers() {
+        return memberRepository.findAll();
+    }
 
+    public void deleteMemberById(Long memberId) {
+        memberRepository.deleteById(memberId);
+    }
 }
