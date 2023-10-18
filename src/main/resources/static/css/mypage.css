@@ -3,8 +3,8 @@ body{
 }
 header {
     border-radius: 20px;
-    background-color: #5e97ff;
-    color: #fff;
+    background-color: #fff;
+    color: #005ef6;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -66,9 +66,11 @@ img{
     /* font-family: 'Dongle', sans-serif; */
     word-spacing: 2px;
     /* color: #696969; */
-    font-size: 35px;
-    border: 6px solid #FFA32D;
+    font-size: 30px;
+    border: 6px solid #5190f6;
     font-weight: bold;
+    margin-bottom: 20px;
+    color: #5190f6;
 }
 
 #mem_edit{
@@ -77,7 +79,8 @@ img{
     border-radius: 50px;
     border: none;
     font-size: 17px;
-    background-color: #e0e1e2;
+    background-color: #fff;
+    font-weight: bold;
 
 }
 .user-avatar{
@@ -85,9 +88,10 @@ img{
     -webkit-box-align: center;
     align-items: center;
     padding: 16px 20px;
-    background-color: #f5f5f5;
-    padding: 20px;
+    background-color: #f0f5ff;
+    padding: 40px;
     margin-bottom: 30px;
+    border-radius: 20px;
 }
 .user-details{
     display: grid;
@@ -95,7 +99,8 @@ img{
     flex: 1 1 0%;
     padding: 15px;
     row-gap: 32px;
-
+    /*display: flex;*/
+    /*justify-content: center;*/
 }
 .user-name,
 .user-email,
@@ -113,15 +118,21 @@ img{
     font-size: 18px;
     font-weight: bold;
 }
+.button_ui{
+    display: flex;
+    justify-content: center;
+}
 #chgpw,#withmem{
     width: 200px;
     height: 50px;
     border-radius: 20px;
-    background-color: #464646;
+    background-color: #4f4f4f;
     border: none;
     border-radius: 50px;
     color: white;
     font-size: 15px;
+    font-weight: bold;
+    margin: 0 10px;
 }
 .tabmain {
     /* background-color: #f5f5f5; */
@@ -150,7 +161,8 @@ img{
 }
 
 .tab li a:hover {
-    background-color: #e0e0e0;
+    background-color: #5190f6;
+    color:white;
 }
 .chgpw ,
 .withmem{
@@ -204,7 +216,97 @@ img{
 }
 .form-control{
     width: 400px;
-    height: 30px;
-    border-radius: 20px;
+    height: 40px;
+    border-radius: 50px;
+    border: 5px solid #d9d9d9;
+    margin-bottom: 20px;
 
+}
+#nicknameEditButton,
+#emailEditButton{
+    width: 60px;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    background-color: #cbcbcb;
+    color: white;
+    font-weight: bold;
+}
+.editclose{
+    width: 200px;
+    height: 50px;
+    border-radius: 50px;
+    border: none;
+    background-color: #000000;
+    color: white;
+    font-size: 17px;
+}
+/*.comment-mbti,*/
+/*.comment-text,*/
+/*.comment-timestamp{*/
+/*    border: none;*/
+/*    border-radius: 20px;*/
+/*    padding: 20px;*/
+/*    background-color: #5190f6;*/
+/*    color : white;*/
+/*}*/
+/*.comment {*/
+/*    background-color: white;*/
+/*    padding: 20px;*/
+/*    border-radius: 20px;*/
+/*    margin-top: 40px;*/
+/*}*/
+.comment {
+    position: relative;
+    margin: 50px;
+    padding: 20px;
+    background-color: #438bff;
+    border-radius: 10px;
+    color: #FFF;
+}
+
+.comment:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent transparent #5190f6;
+}
+
+.comment-label {
+    /*margin: 0;*/
+}
+
+.comment-label strong {
+    color: #FFCC00;
+}
+
+.comment-mbti,
+.comment-text,
+.comment-timestamp {
+    margin: 0;
+}
+
+.comment-label strong {
+    color: #FFCC00;
+}
+
+.comment-mbti,
+.comment-text,
+.comment-timestamp {
+    margin: 0;
+}
+.close,
+.change,
+.withdraw-change,
+.withdraw-close{
+    width: 200px;
+    height: 50px;
+    border-radius: 50px;
+    border: none;
+    background-color: #000000;
+    color: white;
+    font-size: 17px;
 }
