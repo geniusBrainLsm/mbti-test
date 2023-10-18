@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class CommentServiceImpl implements CommentService {
     @Autowired
@@ -43,5 +45,23 @@ public class CommentServiceImpl implements CommentService {
                 commentRepository.save(comment);
             }
         }
+    }
+
+    @Override
+    public boolean deleteComment(Long commentId) {
+        Comment comment = commentRepository.findById(commentId).orElse(null);
+
+        if (comment != null) {
+            commentRepository.delete(comment);
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public Comment getCommentById(Long commentId) {
+        Optional<Comment> comment = commentRepository.findById(commentId);
+        return comment.orElse(null);
     }
 }
