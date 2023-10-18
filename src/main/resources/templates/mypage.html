@@ -32,6 +32,7 @@
                     <li><a href="/mypage">프로필</a></li>
 
                     <li><a href="#" id="myCommentsLink">내가 쓴 댓글</a></li>
+
                 </ul>
             </div>
             <div class="userinfo">
@@ -41,7 +42,7 @@
                         <!-- <img src="" alt=""> -->
                         <div class="user-details">
                             <div class="user-name">
-                                <div class="subtitle">이름</div>
+                                <div class="subtitle">닉네임</div>
                                 <div class="subcontent" th:text="${memberEntity.memberNickname}"></div>
 
                             </div>
@@ -54,8 +55,11 @@
                         </div>
                         <button id="mem_edit">회원 정보 수정</button>
                     </div>
-                    <button id="chgpw">비밀번호 변경</button>
-                    <button id="withmem">회원 탈퇴</button>
+                    <div class="button_ui">
+                        <button id="chgpw">비밀번호 변경</button>
+                        <button id="withmem">회원 탈퇴</button>
+                    </div>
+
                 </section>
             </div>
 
@@ -102,10 +106,6 @@
         <div class="editmember">
             <div class="editmem-detail">
                 <h1>회원 정보 수정</h1>
-                <div>
-                    <!-- <img src="" alt=""> -->
-                    <a href="">사진 수정</a>
-                </div>
 
                 <!-- 닉네임 수정 필드 -->
                 <div class="row mb-3 align-items-center">
@@ -120,7 +120,7 @@
 
                 <!-- 이메일(아이디) 수정 필드 -->
                 <div class="row mb-3 align-items-center">
-                    <label for="inputemail" class="col-sm-2 col-form-label">이메일(아이디)</label>
+                    <label for="inputemail" class="col-sm-2 col-form-label">이메일</label>
                     <div class="col-sm-8">
                         <input type="email" class='form-control' id ="inputEmail"name = "newEmail"></input>
                         <button type = "button"id="emailEditButton">수정</button>
