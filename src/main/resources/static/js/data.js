@@ -160,6 +160,7 @@ export const results = [
     lectureUrl: 'https://bit.ly/3fzdinR'
   }
 ]
+
 export const mbtis = {
   entj: 0,
   entp: 0,
