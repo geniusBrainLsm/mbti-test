@@ -69,6 +69,31 @@ const likeComment = commentId => {
     location.reload();
 }
 
+// "삭제" 버튼 클릭 시 호출되는 함수
+const deleteComment = commentId => {
+    // 서버로 삭제 요청 보내기
+    fetch(`/api/replies/${commentId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            // 서버로부터 삭제 결과를 처리
+            if (data.message === '댓글이 삭제되었습니다.') {
+                // 댓글이 성공적으로 삭제되었을 경우, 클라이언트에서도 삭제
+                const commentElement = document.querySelector(`.comment[data-comment-id="${commentId}"]`);
+                if (commentElement) {
+                    commentElement.remove();
+                }
+            }
+        })
+        .catch(error => console.error('Error deleting comment:', error));
+    location.reload();
+}
+
 // 댓글을 화면에 추가하는 함수
 const addCommentToUI = comment => {
     const commentElement = document.createElement("div");
@@ -150,13 +175,11 @@ const displayComments = comments => {
     commentsContainer.innerHTML = "";
     commentCount.textContent = comments.length;
 
-    comments.forEach(comment => {
+    // 역순으로 댓글을 추가
+    comments.reverse().forEach(comment => {
         addCommentToUI(comment);
     });
 }
-
-// 페이지 로드 시 MBTI 값을 가져오고 댓글 목록을 불러오도록 수정
-// window.addEventListener("load", () => getComments());
 
 
 // 페이지 로드 시 MBTI 값을 가져오고 댓글 목록을 불러오도록 수정
@@ -321,4 +344,8 @@ const formatTimestamp = timestamp => {
         return "시간 정보 없음"; // 또는 원하는 다른 메시지
     }
 }
+
+
+
+
 

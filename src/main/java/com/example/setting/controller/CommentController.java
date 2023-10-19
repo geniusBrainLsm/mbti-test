@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -95,6 +96,37 @@ public class CommentController {
             return ResponseEntity.ok("Liked successfully");
         } else {
             return ResponseEntity.badRequest().body("You have already liked this comment");
+        }
+    }
+
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<String> deleteComment(@PathVariable Long commentId, Principal principal) {
+        String username = principal.getName();  // 현재 사용자의 이메일
+
+        MemberEntity member = memberRepository.findByMemberEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        // 댓글 ID로 해당 댓글을 가져옵니다.
+        Optional<Comment> commentOptional = commentRepository.findById(commentId);
+
+        if (commentOptional.isPresent()) {
+            Comment comment = commentOptional.get();
+
+            // 댓글 작성자와 현재 사용자의 닉네임을 비교하여 권한을 확인합니다.
+            if (comment.getMemberNickname().equals(member.getMemberNickname())) {
+                // 댓글 삭제
+                boolean isDeleted = commentService.deleteComment(commentId);
+
+                if (isDeleted) {
+                    return ResponseEntity.ok("Comment deleted successfully");
+                } else {
+                    return ResponseEntity.badRequest().body("Failed to delete comment");
+                }
+            } else {
+                return ResponseEntity.badRequest().body("You don't have permission to delete this comment");
+            }
+        } else {
+            return ResponseEntity.badRequest().body("Comment not found");
         }
     }
 }
