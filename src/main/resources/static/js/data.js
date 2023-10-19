@@ -161,6 +161,7 @@ export const results = [
   }
 ]
 
+
 export const mbtis = {
   entj: 0,
   entp: 0,
