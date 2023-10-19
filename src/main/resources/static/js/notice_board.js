@@ -1,3 +1,12 @@
+function enterkey() {
+    if (window.event.keyCode == 13) {
+
+         // 엔터키가 눌렸을 때 실행하는 반응
+         $("#form").submit();
+    }
+}
+
+
 // 현재 페이지의 MBTI 값을 추출
 const memberMbti = window.location.pathname.split('/').pop();
 const csrfToken = document.getElementById("csrfToken").value;

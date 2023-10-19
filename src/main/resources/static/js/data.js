@@ -1,33 +1,33 @@
 export const questions = [
   {
     number: '01',
-    question: '곧 크리스마스! 회사에서 크리스마스 파티 스텝을 모집한다는데?',
+    question: '곧 크리스마스! 학교에서 크리스마스 파티 스텝을 모집한다는데?',
     choices: [
-      { text: '파티 스텝은 못하지ㅎ...<br>(그래도 파티는 재밌겠다 히히)', value: 'i' },
-      { text: '재밌겠다!<br>○○한테 같이 지원하자고 해야지~', value: 'e' }
+      { text: '파티 스텝은 좀..ㅎ <br>(그래도 파티는 재밌겠다 헤헤)', value: 'i' },
+      { text: '재밌겠다!<br>○○한테 같이 지원해보자고 해야지~', value: 'e' }
     ]
   },
   {
     number: '02',
-    question: '해외 출장이 잡혔다!<br>전날 잠들기 전 나는?',
+    question: '여행 일정이 잡혔다!<br>전날 잠들기 전 나는?',
     choices: [
-      { text: '짐 다 챙겼고 일찍 자야지~', value: 's' },
-      { text: '다 챙겼겠지?<br>여분 옷을 좀 더 챙길까..(뒤척뒤척)', value: 'n' }
+      { text: '짐은 다 챙겼고 빼놓은건 없겠지? 일찍 자야지~', value: 's' },
+      { text: '다 챙겼겠지?<br>다른 것들 좀 더 챙길까..(뒤척뒤척)', value: 'n' }
     ]
   },
   {
     number: '03',
-    question: '친했던 동기가<br>퇴사를?',
+    question: '친한 친구가<br>한숨을 자꾸 쉰다',
     choices: [
-      { text: '일하면서 많이 힘들었나?<br>내가 좀 더 챙겨줄걸.', value: 'f' },
-      { text: '아 이직하나?<br>퇴사하고 뭐하냐고 물어봐야지.', value: 't' }
+      { text: '뭐가 많이 힘든가?<br>내가 좀 챙겨줘야겠다.', value: 'f' },
+      { text: '왜그러지?<br>왜 자꾸 그러는지 물어봐야겠다.', value: 't' }
     ]
   },
   {
     number: '04',
-    question: '대규모 프로젝트를 맡게 되어 떨리는 마음에 처음 시작한 건?',
+    question: '중요한 발표를 맡게 되어 떨리는 마음에 처음 시작한 건?',
     choices: [
-      { text: '큰 프로젝트인 만큼 계획이 중요해!<br>목적과 목표 먼저 정리해봐야지!', value: 'j' },
+      { text: '중요한 발표인 만큼 계획이 중요해!<br>발표 자료 먼저 정리해봐야지!', value: 'j' },
       { text: '당장 미팅 잡고<br>팀원이랑 이야기하면 되겠지?', value: 'p' }
     ]
   },
@@ -41,49 +41,49 @@ export const questions = [
   },
   {
     number: '06',
-    question: '날씨가 좋아~<br>유난히 일하기 싫은 날엔?',
+    question: '날씨가 좋아~<br>유난히 공부하기 싫은 날엔?',
     choices: [
-      { text: '날 좋은데 일이라니.<br>그런데 어쩌겠어? 일해야지!', value: '' },
-      { text: '이럴 때 일할 순 없어!!<br>반차 써버릴 거야!', value: '' }
+      { text: '이런 날 공부라니.<br>그런데 어쩌겠어? 공부해야지!', value: '' },
+      { text: '이런 날 공부만 할 순 없어!!<br>이따가 해야겠다ㅎㅎ!', value: '' }
     ]
   },
   {
     number: '07',
-    question: '상사한테 한 소리 들었다.<br>나는?',
+    question: '잘 모르는 사람이 뒤에서 내 욕을 했다고 들었다면?',
     choices: [
-      { text: '더 열심히 해서 잘할 수 있다는<br>사람이란 걸 보여주자!', value: '' },
-      { text: '내가 재능이 없나?<br>퇴사각..', value: '' }
+      { text: '왜? 뭐라고? 아 진짜?<br>(신경 쓰려하지 않지만 자꾸 기분이 상함.)', value: '' },
+      { text: '나를? 왜? 잘 모르는 사람인데?<br>(별 생각 없음. 그냥 궁금해서 물어봄.)', value: '' }
     ]
   },
   {
     number: '08',
-    question: '일을 하는 데 너무 어려워ㅠㅠ<br>어떻게 해결하지?',
+    question: '과제를 하는 데 너무 어려워ㅠㅠ<br>어떻게 해결하지?',
     choices: [
-      { text: '시간을 더 끌 순 없지.<br>팀장님한테 당장 물어봐야지!', value: '' },
-      { text: '어떡하지.. 야근하더라도<br>방법을 더 찾아봐야겠다. ', value: '' }
+      { text: '시간을 더 끌 순 없지.<br>친구들한테 물어봐야겠다!', value: '' },
+      { text: '어떡하지.. 오래 걸리더라도<br> 더 찾아봐야겠다. ', value: '' }
     ]
   },
   {
     number: '09',
-    question: '좋은 곳에서 이직 제안이 왔다!<br>나의 선택은?',
+    question: '시험이 다가오는데 공부가 손에 안잡힌다면, 이때 하는 생각은?',
     choices: [
-      { text: '인생은 도전이야!<br>좋은 기회라고 생각하고 시작해볼래!', value: '' },
-      { text: '지금 회사도 좋은데..<br>위험 부담을 안고 이직하는 게 맞을까?', value: '' }
+      { text: '시험은 왜 있는거지?<br>왜 봐야하는거야', value: '' },
+      { text: '저번 시험 문제 어떻게 나왔었더라?<br>어떡하면 더 잘 외워질까? ', value: '' }
     ]
   },
   {
     number: '10',
-    question: '회사에서 진급 대상이 되었다.<br>나의 마음은?',
+    question: '갑자기 약속이 취소된다면?',
     choices: [
-      { text: '드디어 회사가 날 알아주는구나!<br>더 열심히 해야지!', value: '' },
-      { text: '진급하면 월급도 오르겠지?<br>월급 오르면 ○○ 사야지~ (상상의 나래~)', value: '' }
+      { text: '아 너무 아쉬운데..<br>다른 친구라도 부를까?', value: '' },
+      { text: '갑자기 취소되어서 아쉽지만~ <br>집에 있어야겠다ㅎㅎ ', value: '' }
     ]
   },
 ]
 export const results = [
   {
     title: '출근 시간은<br>내가 정해!',
-    character: '../static/images/result_character1.png',
+    character: '../static/images/result1.png',
     results: [
       '혼자서 멘탈 케어가 가능해요!<br>소속이 없어도, 벌이가 불안정해도 저는 지금이 좋아요!',
       '일에 대한 욕심이 많아요.<br>행복한 야근이라고 할 수 있어요!',
@@ -96,7 +96,7 @@ export const results = [
   },
   {
     title: '프로직진러!<br>진행력 갑',
-    character: '../static/images/result_character2.png',
+    character: '../static/images/result2.png',
     results: [
       '나는야 회사 사람들 멘탈 지킴이!<br>언제나 토닥토닥 으샤으샤 응원하며 다니는 파워 인싸!',
       '여러 사람과 협업이 필요한 직무에 찰떡!',
@@ -109,7 +109,7 @@ export const results = [
   },
   {
     title: '우리 무기는<br>상상력!',
-    character: '../static/images/result_character3.png',
+    character: '../static/images/result3.png',
     results: [
       '이것저것 관심이 많은 편이에요.<br>모든 게 궁금해요!',
       '섬세함이 장점으로<br>업무를 센스 있게 처리한다는 말을 자주 들어요.',
@@ -122,7 +122,7 @@ export const results = [
   },
   {
     title: '인생은<br>한방!',
-    character: '../static/images/result_character4.png',
+    character: '../static/images/result4.png',
     results: [
       '전략적으로 계획을 세우는 걸 좋아해요!',
       '평소 경제와 사회 이슈에 관심이 매우 많아요.',
@@ -135,7 +135,7 @@ export const results = [
   },
   {
     title: '한 번 집중하면<br>멈출 수 없지!',
-    character: '../static/images/result_character5.png',
+    character: '../static/images/result5.png',
     results: [
       '저는 위선과 가식이 없어요.<br>진실만 말하죠. (진지)',
       '혼자서 더 잘해요.<br>솔로 워커 최고!',
@@ -148,7 +148,7 @@ export const results = [
   },
   {
     title: '인생 욜로지~<br>일단 놀자 ><',
-    character: '../static/images/result_character6.png',
+    character: '../static/images/result6.png',
     results: [
       '취미가 100개!<br>이것저것 다재다능해요~',
       '한가하냐고요?<br>원래 백수가 젤 바쁜 거에요!',
@@ -160,6 +160,8 @@ export const results = [
     lectureUrl: 'https://bit.ly/3fzdinR'
   }
 ]
+
+
 export const mbtis = {
   entj: 0,
   entp: 0,
