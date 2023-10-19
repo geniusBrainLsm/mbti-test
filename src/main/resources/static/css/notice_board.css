@@ -1,12 +1,9 @@
-body {
-    font-family: 'Acme', sans-serif;
-    line-height: 1.5em;
-    margin: 0;
-    font-weight: 300;
-    justify-content: center;
-    height: 100vh;
-    background-color: #e5fdff;
-
+body{
+    background-color: #F6FCFF;
+    background-image: url("../images/night_ver.jpg");
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
 }
 
 * {
@@ -49,7 +46,7 @@ a {
 }
 #special-section .qa{
     width: 300px;
-    background-color: #ffffff;
+    background-color: ;
     border-radius: 50px;
     padding: 20px;
     color: #0091ff;
@@ -105,7 +102,7 @@ section {
     height: auto;
     margin: 0 auto;
     text-align: left;
-    background-color: #fff;
+    background-color: #ffffff;
     box-shadow: 0 5px 20px rgba(69,67,96,0.1);
     border-radius: 10px;
     font-size: 15px; color: #01755c;
