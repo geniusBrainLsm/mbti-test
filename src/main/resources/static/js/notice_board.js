@@ -141,7 +141,6 @@ const addCommentToUI = comment => {
 
 }
 
-// "Submit" 버튼 클릭 시 호출되는 함수
 const submitComment = () => {
     const commentText = commentInput.value.trim();
     if (commentText !== "") {
@@ -154,21 +153,29 @@ const submitComment = () => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': csrfToken  // 추가된 부분
+                'X-CSRF-TOKEN': csrfToken
             },
             body: JSON.stringify(requestBody)
         })
-            .then(response => response.json())
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('댓글 작성 실패');
+                }
+            })
             .then(newComment => {
                 addCommentToUI(newComment);
                 commentInput.value = "";
-
-                // 댓글을 추가한 후에 댓글 목록을 다시 불러오도록 수정
                 getComments();
             })
-            .catch(error => console.error('Error submitting comment:', error));
+            .catch(error => {
+                console.error('Error submitting comment:', error);
+                alert('댓글 작성에 실패했습니다. 로그인 후 다시 시도하세요.'); // 알림창 표시
+            });
     }
 }
+
 
 // 댓글을 화면에 표시하는 함수
 const displayComments = comments => {
