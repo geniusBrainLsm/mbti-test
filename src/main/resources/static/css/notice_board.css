@@ -95,7 +95,15 @@ a {
     transition-duration: 1s;
     overflow: visible;
 }
-
+.chatcontent{
+    border-radius: 50px;
+    margin-top: 100px;
+    justify-content: center;
+    margin: 0 auto;
+    width: max-content;
+    background-color: #5a5c5a;
+    padding: 20px;
+}
 section {
     padding-top: 100px;
     padding: 10px;

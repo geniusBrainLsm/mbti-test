@@ -89,6 +89,7 @@
                 margin-bottom: 5px;
                 position:relative;
                 border-radius :5px ;
+                max-width: 60%;
             }
             .my-chat {
                 display:inline-block;
@@ -100,6 +101,7 @@
                 border-radius :5px ;
                 position:relative;
                 float:right;
+                max-width: 60%;
             }
         </style>
 
@@ -107,27 +109,30 @@
         <h2 id="myMbtiValue" th:text="${myMbti}">기본값</h2>
         <div id = "resultmbti">
         </div>
-<div id="special-section">
-    <p>궁금한 것을 질문해 보세요!</p>
-    <div class="question_subtext" style="display: flex; justify-content: center">
-        <div class="qa">너의 mbti가 뭐야?</div>
-        <div class="qa">너의 취미가 뭐야?</div>
+<div class="chatcontent">
+    <div id="special-section">
+        <p>궁금한 것을 질문해 보세요!</p>
+        <div class="question_subtext" style="display: flex; justify-content: center">
+            <div class="qa">너의 mbti가 뭐야?</div>
+            <div class="qa">너의 취미가 뭐야?</div>
+        </div>
+
+
     </div>
-
-
+    <div class="gpt-content" id="chatbox">
+        <div class="chat">
+            <span class="gpt-chat">반가워요!</span>
+        </div>
+        <!--            <div class="chat">-->
+        <!--                <span class="my-chat">hi gpt</span>-->
+        <!--            </div>-->
+    </div>
+    <div class="usersend">
+        <input id="userInput" type="text" placeholder="AI와 채팅을 해보세요!">
+        <button onclick="sendMessage()">Send</button>
+    </div>
 </div>
-        <div class="gpt-content" id="chatbox">
-            <div class="chat">
-                <span class="gpt-chat">반가워요!</span>
-            </div>
-<!--            <div class="chat">-->
-<!--                <span class="my-chat">hi gpt</span>-->
-<!--            </div>-->
-        </div>
-        <div class="usersend">
-            <input id="userInput" type="text" placeholder="AI와 채팅을 해보세요!">
-            <button onclick="sendMessage()">Send</button>
-        </div>
+
 
         <div id="spinner" class="spinner-border text-info" role="status" style="display: none;">
             <span class="visually-hidden"></span>
@@ -213,7 +218,7 @@
 
 
         </script>
-<hr style="border: solid #e1e1e1;">
+
 <div>
     <!--comment---------------------------------------------------------------------------------->
     <div id="form-commentInfo">

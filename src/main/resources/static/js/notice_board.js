@@ -7,6 +7,7 @@ function enterkey() {
 }
 
 
+
 // 현재 페이지의 MBTI 값을 추출
 const memberMbti = window.location.pathname.split('/').pop();
 const csrfToken = document.getElementById("csrfToken").value;
