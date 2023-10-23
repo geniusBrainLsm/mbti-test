@@ -1,12 +1,19 @@
 function enterkey() {
     if (window.event.keyCode == 13) {
 
-         // 엔터키가 눌렸을 때 실행하는 반응
-         $("#form").submit();
+        // 엔터키가 눌렸을 때 실행하는 반응
+        $("#form").submit();
     }
 }
 
+const userInput = document.getElementById("userInput");
 
+userInput.addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+        // 엔터 키가 눌렸을 때 실행할 동작을 여기에 추가
+        sendMessage(); // 또는 원하는 다른 동작을 호출
+    }
+});
 
 // 현재 페이지의 MBTI 값을 추출
 const memberMbti = window.location.pathname.split('/').pop();
@@ -32,7 +39,7 @@ const getComments = () => {
 const likeComment = commentId => {
     // 이미 추천한 댓글인지 확인
     if (likedComments.has(commentId)) {
-        console.log('이미 추천한 댓글입니다.');
+        alert('이미 추천한 댓글입니다.');
         return;
     }
 
@@ -41,7 +48,7 @@ const likeComment = commentId => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': csrfToken  // 추가된 부분
+            'X-CSRF-TOKEN': csrfToken
         },
     })
         .then(response => response.json())
@@ -69,30 +76,43 @@ const likeComment = commentId => {
     // 화면 새로고침
     location.reload();
 }
-
-// "삭제" 버튼 클릭 시 호출되는 함수
 const deleteComment = commentId => {
-    // 서버로 삭제 요청 보내기
-    fetch(`/api/replies/${commentId}`, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': csrfToken
-        },
-    })
-        .then(response => response.json())
-        .then(data => {
-            // 서버로부터 삭제 결과를 처리
-            if (data.message === '댓글이 삭제되었습니다.') {
-                // 댓글이 성공적으로 삭제되었을 경우, 클라이언트에서도 삭제
-                const commentElement = document.querySelector(`.comment[data-comment-id="${commentId}"]`);
-                if (commentElement) {
-                    commentElement.remove();
-                }
-            }
+    // 확인 대화 상자 표시
+    const shouldDelete = confirm("정말로 이 댓글을 삭제하시겠습니까?");
+
+    // 사용자가 "확인"을 누른 경우에만 삭제 진행
+    if (shouldDelete) {
+        // 서버로 삭제 요청 보내기
+        fetch(`/api/replies/${commentId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
+            },
         })
-        .catch(error => console.error('Error deleting comment:', error));
-    location.reload();
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error(`Failed to delete comment: ${response.status}`);
+                }
+            })
+            .then(data => {
+                if (data.message === '댓글이 삭제되었습니다.') {
+                    // 댓글이 성공적으로 삭제되었을 경우, 클라이언트에서도 삭제
+                    const commentElement = document.querySelector(`.comment[data-comment-id="${commentId}"]`);
+                    if (commentElement) {
+                        commentElement.remove();
+                    }
+                } else {
+                    console.error('서버에서 삭제 오류:', data.message);
+                }
+            })
+            .catch(error => console.error('Error deleting comment:', error))
+            .finally(() => {
+                location.reload(); // 작업이 완료되면 화면 새로고침
+            });
+    }
 }
 
 // 댓글을 화면에 추가하는 함수
@@ -142,6 +162,7 @@ const addCommentToUI = comment => {
 
 }
 
+// "Submit" 버튼 클릭 시 호출되는 함수
 const submitComment = () => {
     const commentText = commentInput.value.trim();
     if (commentText !== "") {
@@ -154,7 +175,7 @@ const submitComment = () => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': csrfToken
+                'X-CSRF-TOKEN': csrfToken  // 추가된 부분
             },
             body: JSON.stringify(requestBody)
         })
@@ -168,15 +189,15 @@ const submitComment = () => {
             .then(newComment => {
                 addCommentToUI(newComment);
                 commentInput.value = "";
+
+                // 댓글을 추가한 후에 댓글 목록을 다시 불러오도록 수정
                 getComments();
             })
             .catch(error => {
                 console.error('Error submitting comment:', error);
                 alert('댓글 작성에 실패했습니다. 로그인 후 다시 시도하세요.'); // 알림창 표시
-            });
-    }
+            });    }
 }
-
 
 // 댓글을 화면에 표시하는 함수
 const displayComments = comments => {
@@ -188,7 +209,6 @@ const displayComments = comments => {
         addCommentToUI(comment);
     });
 }
-
 
 // 페이지 로드 시 MBTI 값을 가져오고 댓글 목록을 불러오도록 수정
 window.addEventListener("load", () => {
@@ -205,118 +225,118 @@ window.addEventListener("load", () => {
             </div>
         `;
         }
-    if (memberMbti === 'enfp') {
-        specialHTML = `
+        if (memberMbti === 'enfp') {
+            specialHTML = `
             <div id="special-section">
                 <h1>"재기발랄한 활동가"</h1>
                 <p>이곳은 'enfp' 게시판 입니다.</p>
             </div>
         `;
-    }
-    if (memberMbti === 'intp') {
-        specialHTML = `
+        }
+        if (memberMbti === 'intp') {
+            specialHTML = `
             <div id="special-section">
                 <h1>"논리적인 사색가"</h1>
                 <p>이곳은 'intp' 게시판 입니다.</p>
             </div>
         `;
-    }
-    if (memberMbti === 'entp') {
-        specialHTML = `
+        }
+        if (memberMbti === 'entp') {
+            specialHTML = `
             <div id="special-section">
                 <h1>"뜨거운 논쟁을 즐기는 변론가"</h1>
                 <p>이곳은 'entp' 게시판 입니다.</p>
             </div>
         `;
-    }
-    if (memberMbti === 'infj') {
-        specialHTML = `
+        }
+        if (memberMbti === 'infj') {
+            specialHTML = `
             <div id="special-section">
                 <h1>"선의의 옹호자"</h1>
                 <p>이곳은 'infj' 게시판 입니다.</p>
             </div>
         `;
-    }
-    if (memberMbti === 'enfj') {
-        specialHTML = `
+        }
+        if (memberMbti === 'enfj') {
+            specialHTML = `
             <div id="special-section">
                 <h1>"정의로운 사회운동가"</h1>
                 <p>이곳은 'enfj' 게시판 입니다.</p>
             </div>
         `;
-    }
-    if (memberMbti === 'intj') {
-        specialHTML = `
+        }
+        if (memberMbti === 'intj') {
+            specialHTML = `
             <div id="special-section">
                 <h1>"용의주도한 전략가"</h1>
                 <p>이곳은 'intj' 게시판 입니다.</p>
             </div>
         `;
-    }
-    if (memberMbti === 'isfp') {
-        specialHTML = `
+        }
+        if (memberMbti === 'isfp') {
+            specialHTML = `
             <div id="special-section">
                 <h1>"호기심 많은 예술가"</h1>
                 <p>이곳은 'isfp' 게시판 입니다.</p>
             </div>
         `;
-    }
-    if (memberMbti === 'esfp') {
-        specialHTML = `
+        }
+        if (memberMbti === 'esfp') {
+            specialHTML = `
             <div id="special-section">
                 <h1>"자유로운 영혼의 연예인"</h1>
                 <p>이곳은 'esfp' 게시판 입니다.</p>
             </div>
         `;
-    }
-    if (memberMbti === 'istp') {
-        specialHTML = `
+        }
+        if (memberMbti === 'istp') {
+            specialHTML = `
             <div id="special-section">
                 <h1>"만능 재주꾼"</h1>
                 <p>이곳은 'istp' 게시판 입니다.</p>
             </div>
         `;
-    }
-    if (memberMbti === 'estp') {
-        specialHTML = `
+        }
+        if (memberMbti === 'estp') {
+            specialHTML = `
             <div id="special-section">
                 <h1>"모험을 즐기는 사업가"</h1>
                 <p>이곳은 'entp' 게시판 입니다.</p>
             </div>
         `;
-    }
-    if (memberMbti === 'isfj') {
-        specialHTML = `
+        }
+        if (memberMbti === 'isfj') {
+            specialHTML = `
             <div id="special-section">
                 <h1>"용감한 수호자"</h1>
                 <p>이곳은 'isfj' 게시판 입니다.</p>
             </div>
         `;
-    }
-    if (memberMbti === 'esfj') {
-        specialHTML = `
+        }
+        if (memberMbti === 'esfj') {
+            specialHTML = `
             <div id="special-section">
                 <h1>"사교적인 외교관"</h1>
                 <p>이곳은 'esfj' 게시판 입니다.</p>
             </div>
         `;
-    }
-    if (memberMbti === 'istj') {
-        specialHTML = `
+        }
+        if (memberMbti === 'istj') {
+            specialHTML = `
             <div id="special-section">
                 <h1>"청렴결백한 논리주의자"</h1>
                 <p>이곳은 'istj' 게시판 입니다.</p>
             </div>
         `;
-    }
-    if (memberMbti === 'estj') {
-        specialHTML = `
+        }
+        if (memberMbti === 'estj') {
+            specialHTML = `
             <div id="special-section">
                 <h1>"엄격한 관리자"</h1>
                 <p>이곳은 'estj' 게시판 입니다.</p>
             </div>
         `;
-    }
+        }
 
         // 특정 <h2> 태그 아래에 메시지 추가
         const chatbox = document.getElementById("resultmbti");
@@ -352,8 +372,3 @@ const formatTimestamp = timestamp => {
         return "시간 정보 없음"; // 또는 원하는 다른 메시지
     }
 }
-
-
-
-
-
