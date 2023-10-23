@@ -101,7 +101,7 @@ a {
     justify-content: center;
     margin: 0 auto;
     width: max-content;
-    background-color: #5a5c5a;
+    background-color: #075794;
     padding: 20px;
 }
 section {
@@ -145,6 +145,8 @@ section {
     width: 1280px;
     margin: auto;
     padding-top: 50px;
+    white-space: normal;
+    max-width: 100%;
 }
 
 #comment-count{
