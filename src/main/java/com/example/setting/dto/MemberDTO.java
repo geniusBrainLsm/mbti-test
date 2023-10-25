@@ -36,38 +36,4 @@ public class MemberDTO { //회원 정보를 필드로 정의
 
 
 }
-//MemberDTO.java
-//package com.example.setting.dto;
-//
-//import jakarta.validation.constraints.Email;
-//import jakarta.validation.constraints.NotEmpty;
-//import jakarta.validation.constraints.Size;
-//import lombok.Builder;
-//import lombok.Getter;
-//import lombok.Setter;
-//
-//@Getter
-//@Setter
-//public class MemberDTO {
-//
-//    @NotEmpty(message = "사용자 ID는 필수항목입니다.")
-//    @Size(min = 3, max = 25)
-//    public String memberNickname;
-//
-//    @NotEmpty(message = "비밀번호는 필수항목입니다.")
-//    private String memberPassword1;
-//
-//    @NotEmpty(message = "비밀번호 중복확인은 필수항목입니다.")
-//    private String memberPassword2;
-//
-//    @NotEmpty(message = "사용자 Email은 필수항목입니다.")
-//    @Email
-//    private String memberEmail;
-//
-//    @Builder
-//    public MemberDTO(String memberNickname, String memberEmail, String memberPassword1){
-//        this.memberNickname = memberNickname;
-//        this.memberEmail = memberEmail;
-//        this.memberPassword1 = memberPassword1;
-//    }
-//}
+

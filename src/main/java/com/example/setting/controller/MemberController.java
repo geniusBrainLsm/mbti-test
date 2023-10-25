@@ -94,7 +94,7 @@ public class MemberController {
         if(isMemberExist == true){
             MemberEntity member = memberRepository.findByMemberNickname(memberNickname);
             String realPassword = member.getMemberPassword();
-
+            //맴버패스워드는 입력한 값, 리얼패스워드는 db 패스워드
             if(passwordEncoder.matches(memberPassword, realPassword)){
                 System.out.println(member.getMemberEmail());
                 return member.getMemberEmail();
