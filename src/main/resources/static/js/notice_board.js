@@ -161,7 +161,36 @@ const addCommentToUI = comment => {
 
 
 }
+const commentSort = document.getElementById('comment-sort');
 
+commentSort.addEventListener('change', function() {
+    const sortValue = this.value;
+
+    sortComments(sortValue);
+});
+
+// 댓글 정렬
+
+const sortComments = (sortValue) => {
+    fetch(`/api/replies/${memberMbti}`)
+        .then(response => response.json())
+        .then(data => {
+            let sortedComments;
+
+            if (sortValue === 'newest') {
+                sortedComments = data.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+            }
+            if (sortValue === 'popular') {
+                sortedComments = data.sort((a, b) => a.likes - b.likes); // 이 부분을 수정했습니다.
+            }
+
+            displayComments(sortedComments);
+        })
+        .catch(error => console.error('Error sorting comments:', error));
+}
+
+
+// --------
 // "Submit" 버튼 클릭 시 호출되는 함수
 const submitComment = () => {
     const commentText = commentInput.value.trim();

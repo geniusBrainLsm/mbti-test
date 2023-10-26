@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class QuestionController {
-    @GetMapping("/setting/questions")
+    @GetMapping("/questions")
     public String questions() {
         return "questions";
     }
