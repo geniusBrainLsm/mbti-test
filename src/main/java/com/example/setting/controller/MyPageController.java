@@ -8,6 +8,8 @@ import com.example.setting.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -15,8 +17,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -45,7 +50,6 @@ public class MyPageController {
         MemberEntity member = memberRepository.findByMemberEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-
         member.setMemberNickname(newNickname);
 
 
@@ -72,7 +76,8 @@ public class MyPageController {
 
     private final PasswordEncoder passwordEncoder;
     @PostMapping("/mypage/changePassword")
-    public String editPassword(@RequestParam("currentPassword") String currentPassword,
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> editPassword(@RequestParam("currentPassword") String currentPassword,
                                @RequestParam("newPassword") String newPassword,
                                Principal principal) {
 
@@ -80,16 +85,18 @@ public class MyPageController {
         MemberEntity member = memberRepository.findByMemberEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
+        Map<String, Object> response = new HashMap<>(); //ajax에서 쓸 isMatchCurrentPassword를 json으로 넘기는데 json이 key-value 형식이라서 이거써요
 
         if (!passwordEncoder.matches(currentPassword, member.getMemberPassword())) {
-           //TODO
+            response.put("isMatchCurrentPassword", false);
         }
-        System.out.println("여기까지옴");
-        member.setMemberPassword(passwordEncoder.encode(newPassword));
+        else{
+            response.put("isMatchCurrentPassword", true);
+            member.setMemberPassword(passwordEncoder.encode(newPassword));
 
-        memberRepository.save(member);
-
-        return "redirect:/mypage";
+            memberRepository.save(member);
+        }
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
     @PostMapping("/mypage/deleteMember")
     public String deleteMember(Principal principal){

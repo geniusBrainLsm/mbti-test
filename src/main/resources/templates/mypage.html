@@ -20,7 +20,7 @@
     <header>
         <h1>MyPage</h1>
         <div class="move">
-            <a href="/notice_board">돌아가기</a>
+            <a href="/notice_board/estj">돌아가기</a>
 
         </div>
     </header>
@@ -272,8 +272,8 @@
                 return;
             }
             //비밀번호와 비밀번호 확인이 일치하지 않는 경우
-            if(currentPassword !== confirmPassword){
-                alert('현재 비밀번호가 일치하지 않습니다.');
+            if(newPassword !== confirmPassword){
+                alert('비밀번호 확인이 일치하지 않습니다.');
                 return;
             }
 
@@ -290,8 +290,13 @@
                     xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken);
                 },
                 success: function(response) {
-                    alert('비밀번호가 변경되었습니다.');
-                    location.reload();
+                    console.log(response); // 이 줄 추가
+                    if (response.isMatchCurrentPassword === true) {
+                        alert('비밀번호가 성공적으로 변경되었습니다.');
+                        location.reload();
+                    } else {
+                        alert('현재 비밀번호가 일치하지 2');
+                    }
                 },
                 error: function(error) {
                     alert('비밀번호 변경 실패. 다시 시도하세요.');
