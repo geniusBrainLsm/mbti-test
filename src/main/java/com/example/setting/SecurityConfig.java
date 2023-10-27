@@ -24,7 +24,7 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
                 .formLogin((formLogin) -> formLogin
                         .loginPage("/member/login")
-                        .defaultSuccessUrl("/notice_board/entj")
+                        .defaultSuccessUrl("/notice_board/estj")
                         .usernameParameter("memberEmail")  // 사용자 이름 필드 이름 변경
                         .passwordParameter("memberPassword"))  // 비밀번호 필드 이름 변경
                 .logout((logout) -> logout
