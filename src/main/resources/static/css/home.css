@@ -1,6 +1,6 @@
 body{
     background-color: #F6FCFF;
-    background-image: url("../images/main.jpg");
+    background-image: url("../images/flower.png");
     background-size: cover;
     background-position: top center;
     background-repeat: no-repeat;
@@ -12,28 +12,20 @@ body{
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 40px;
-    
-}
-.gnb{
-    position: absolute;
-    list-style: none;
-    top: 59px;
-    right: 300px;
-}
-.gnb li{
-    float: left;
-    margin-left: 18px;
-   
-}
-.gnb li a {
-    font-size: 20px;
-    text-decoration: none;
-    color: #333;
-    padding: 5px;
-    border-radius: 5px;
-    background-color: #f2f2f2;
+
 }
 
-.gnb li a:hover {
-    background-color: #ccc;
+/* CSS 코드 */
+.btn1, .btn2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 400px; /* 너비를 200px로 고정 */
+    margin: 30px auto; /* 상단과 하단에 10px의 간격을 추가 */
+}
+
+.btn1 img, .btn2 img {
+    display: block;
+    max-width: 100%;
 }

@@ -9,20 +9,22 @@
 *, ::after, ::before {
     box-sizing: content-box !important; /* 덮어쓰기 위해 !important 키워드를 사용합니다 */
 }
+
 body{
-    
     font-family: 'Acme', sans-serif;
-    line-height: 1.5em;
-    margin:0;
-    font-weight: 300;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    /*line-height: 1.5em;*/
+    /*margin:0;*/
+    /*font-weight: 300;*/
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*height: 100vh;*/
     background: #e3f4f1;
-    background-image: url("../images/morning_ver.jpg");
-
-
+    background-image: url("../images/morning.png");
+    background-repeat: no-repeat;
+    background-position : top center;
+    background-size: cover;
+    background-attachment:fixed;
 }
 /*.about-info{*/
 /*    float: left;*/
@@ -41,27 +43,29 @@ body{
 /*    z-index: 8;*/
 /*    text-align: left;*/
 /*}*/
+
 .about-info {
-    float: left;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: #fff;
     padding: 100px;
     box-shadow: 0 5px 20px rgba(69,67,96,0.1);
     border-radius: 20px;
-    /* border: solid 1px red; */
-    margin-top: 200px;
-    margin-left: 50px;
     width: 650px;
     height: 900px;
     margin-bottom: 100px;
-    display:flex;            /* 추가된 부분 */
-    justify-content:center;   /* 추가된 부분 */
-    align-items:center;       /* 추가된 부분 */
-
-    flex-direction : column ; /* 모든 요소들이 수직으로 배치되게 하기 위한 속성 */
-
-    z-index :8 ;
-    text-align:left ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 8;
+    text-align: left;
+    margin-top: 200px;
+    margin-left: 0;
 }
+
 
 .about-info h2{
     font-family: 'TTWanjudaedunsancheB';

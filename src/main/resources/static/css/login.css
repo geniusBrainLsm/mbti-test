@@ -20,7 +20,9 @@ body{
     align-items: center;
     height: 100vh;
     background-color: #e3f4f1;
-    background-image: url("../images/morning_ver.jpg");
+    background-image: url("../images/morning.png");
+    background-repeat: no-repeat;
+    background-position : top-center;
 }
 
 a{
