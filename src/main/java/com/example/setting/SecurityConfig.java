@@ -1,5 +1,6 @@
 package com.example.setting;
 
+import com.example.setting.dto.MemberDTO;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,6 +15,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -21,7 +24,7 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
                 .formLogin((formLogin) -> formLogin
                         .loginPage("/member/login")
-                        .defaultSuccessUrl("/notice_board")
+                        .defaultSuccessUrl("/notice_board/estj")
                         .usernameParameter("memberEmail")  // 사용자 이름 필드 이름 변경
                         .passwordParameter("memberPassword"))  // 비밀번호 필드 이름 변경
                 .logout((logout) -> logout

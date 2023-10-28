@@ -27,7 +27,7 @@ public class BoardController {
         return "notice_board"; // 예시로 notice_board.html로 이동하도록 설정
     }
 
-    @GetMapping("/setting/board/{mbti}")
+    @GetMapping("/notice_board/{mbti}")
     public String board(@PathVariable("mbti") String mbti, Model model, HttpSession session) {
         model.addAttribute("myMbti", mbti);
         session.setAttribute("myMbti", mbti); //  myMbti값을 세선에 넣고 gpt의 성격을 myMbti로 넘김
