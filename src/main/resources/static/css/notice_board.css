@@ -271,44 +271,57 @@ section {
     color: rgb(255, 0, 0);
     width: 50px;
 }
-/* 작은 화면에 대한 반응형 스타일 */
 @media (max-width: 768px) {
-    .chatcontent {
-        width: 100%;
-        margin: 0;
-        padding: 10px;
-    }
-
     .gpt-content {
-        width: 100%;
-        max-height: 300px;
-        overflow-y: scroll;
+        width: 40%;
+        max-height: none;
+        overflow-y: visible;
+        max-width: none;
     }
 
     .usersend {
         width: 100%;
         margin: 10px auto;
     }
-
+    #userInput{
+        width: 50%;
+        max-width: none;
+    }
     .usersend input,
     .usersend button {
         width: 100%;
-        max-width: 100%;
+        max-width: none;
     }
-    .form-commentInfo {
+
+    .chatcontent {
         width: 100%;
-        padding: 10px;
+        padding: 10px; /* 패딩을 다시 10px로 설정 */
     }
-    #comment-input, #submit {
-        width: auto;
-        max-width: 50%;
-        display: inline-block;
-        margin-right: 10px;
+    .usersend button{
+        width: 30%;
+        max-width: none;
+    }
+    #comment-input {
+        width: 100%; /* 전체 너비 사용 */
+        max-width: none; /* 최대 너비 제거 */
+        display: block; /* 블록 요소로 변경 */
+        margin-bottom: 10px; /* 아래 여백 추가 */
+    }
+
+    #submit {
+        width: 100%; /* 전체 너비 사용 */
+        max-width: none; /* 최대 너비 제거 */
+        display: block; /* 블록 요소로 변경 */
     }
     .comment {
-        width: 100%;
-        max-width: 100%;
-        padding: 10px;
-        font-size: 14px;
+        width: 40%;
+        max-width: none;
+        display: block;
+        margin-bottom: 10px;
     }
+
+    .timestamp, .nickname, .text, .likes, .like-button, .delete-button {
+        max-width: none;
+    }
+
 }

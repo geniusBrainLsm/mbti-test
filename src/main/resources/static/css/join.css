@@ -54,7 +54,7 @@ body{
     box-shadow: 0 5px 20px rgba(69,67,96,0.1);
     border-radius: 20px;
     width: 650px;
-    height: 900px;
+    /*height: 900px;*/
     margin-bottom: 100px;
     display: flex;
     justify-content: center;
@@ -168,26 +168,51 @@ select{
     border: 3px solid #ffaf38;
     font-weight: bold;
 }
-/* 작은 화면(768px 미만)에 대한 스타일 */
-@media (max-width: 767px) {
-    .about-info {
-        width: 90%;
-        margin: 0 auto;
-        margin-top: 100px;
-    }
-    .about-info h2 {
-        font-size: 40px;
-    }
-    .about-info .input {
-        width: 100%;
-    }
-    #btn {
-        width: 100%;
-    }
-    .label label {
-        display: inline-block;
-        margin-top: 20px;
-    }
 
+/* 데스크탑 화면 스타일 */
+.about-info {
+    width: 650px;
+    margin-left: 50px;
+    margin-top: 100px;
 }
 
+.about-info h2 {
+    font-size: 50px;
+}
+
+.about-info input, .about-info select {
+    width: 600px;
+}
+
+/* 모바일 화면 스타일 */
+@media (max-width: 767px) {
+    .about-info {
+        width: 90%; /* 화면 너비의 90%로 조정 */
+        padding: 20px; /* 여백을 늘림 */
+        text-align: center;
+    }
+
+    .about-info h2 {
+        font-size: 30px; /* 더 작은 폰트 크기 */
+    }
+
+    .about-info input,
+    .about-info select {
+        width: 100%; /* 화면 너비의 100%로 조정 */
+        margin: 10px 0; /* 요소 사이 여백을 늘림 */
+    }
+
+    .label label {
+        margin-top: 10px; /* 더 작은 상단 여백 */
+    }
+
+    #btn {
+        width: 100%; /* 화면 너비의 100%로 조정 */
+    }
+
+    #sendVerificationCode,
+    .codecheck {
+        width: 100%; /* 화면 너비의 100%로 조정 */
+        height: 40px; /* 버튼 높이 조정 */
+    }
+}
