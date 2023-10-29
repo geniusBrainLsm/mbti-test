@@ -271,3 +271,44 @@ section {
     color: rgb(255, 0, 0);
     width: 50px;
 }
+/* 작은 화면에 대한 반응형 스타일 */
+@media (max-width: 768px) {
+    .chatcontent {
+        width: 100%;
+        margin: 0;
+        padding: 10px;
+    }
+
+    .gpt-content {
+        width: 100%;
+        max-height: 300px;
+        overflow-y: scroll;
+    }
+
+    .usersend {
+        width: 100%;
+        margin: 10px auto;
+    }
+
+    .usersend input,
+    .usersend button {
+        width: 100%;
+        max-width: 100%;
+    }
+    .form-commentInfo {
+        width: 100%;
+        padding: 10px;
+    }
+    #comment-input, #submit {
+        width: auto;
+        max-width: 50%;
+        display: inline-block;
+        margin-right: 10px;
+    }
+    .comment {
+        width: 100%;
+        max-width: 100%;
+        padding: 10px;
+        font-size: 14px;
+    }
+}

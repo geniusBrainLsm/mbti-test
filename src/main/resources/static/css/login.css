@@ -137,3 +137,22 @@ h4 span{
     color: #0d6efd;
     margin-left: 10px;
 }
+/* 데스크탑 화면에 대응하는 스타일 */
+@media (min-width: 768px) {
+    .about-info {
+        width: 600px;
+        margin: 0 auto;
+    }
+}
+
+/* 모바일 화면에 대응하는 스타일 */
+@media (max-width: 767px) {
+    .about-info {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .login-form h1 {
+        font-size: 28px;
+    }
+}
