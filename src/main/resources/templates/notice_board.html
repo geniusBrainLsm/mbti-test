@@ -48,16 +48,21 @@
                         <a class = "dropdown-item" href="/notice_board/infp">INFP</a>
                     </div>
                 </li>
+            </ul>
                 <!-- Login link here -->
-                <ul class="navbar-nav">
-                    <li><a href="#" th:href="@{/member/login}" sec:authorize="isAnonymous()">로그인</a></li>
-                    <li><a href="#" th:href="@{/member/logout}" sec:authorize="isAuthenticated()">로그아웃</a></li>
+                <ul class="navbar-nav" id="right-nav" style="justify-content: flex-end">
+                    <li class="nav-item">
+                        <a href="#" th:href="@{/member/login}" sec:authorize="isAnonymous()">로그인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" th:href="@{/member/logout}" sec:authorize="isAuthenticated()" style="margin-right: 30px;">로그아웃</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/mypage" th:href="@{/mypage}" sec:authorize="isAuthenticated()">MY PAGE</a>
+                    </li>
                 </ul>
 
-        </ul>
-
-            <a href="/mypage" th:href="@{/mypage}" sec:authorize="isAuthenticated()">MY PAGE</a>
-    </div>
+        </div>
 
     </nav>
 
@@ -134,7 +139,7 @@
 </div>
 
 
-        <div id="spinner" class="spinner-border text-info" role="status" style="display: none;">
+        <div id="spinner" class="spinner-border text-info" role="status" style="display: none; position: absolute; top: 50%; left: 50%">
             <span class="visually-hidden"></span>
         </div>
 
