@@ -254,6 +254,14 @@ window.addEventListener("load", () => {
             </div>
         `;
         }
+    if (memberMbti === 'entj') {
+        specialHTML = `
+            <div id="special-section">
+                <h1>"대담한 통솔자"</h1>
+                <p>이곳은 'entj' 게시판 입니다.</p>
+            </div>
+        `;
+    }
         if (memberMbti === 'enfp') {
             specialHTML = `
             <div id="special-section">
