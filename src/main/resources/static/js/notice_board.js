@@ -126,14 +126,12 @@ const addCommentToUI = comment => {
     timestampElement.textContent = formatTimestamp(comment.timestamp);
     commentElement.appendChild(timestampElement);
 
-// 닉네임 및 MBTI 추가
-    const authorElement = document.createElement("div");
-    authorElement.className = "author";
-    const authorText = document.createElement("strong"); // Use a "strong" element for bold text
-    authorText.textContent = `${comment.memberNickname} (${comment.memberMbti})`;
-    authorElement.appendChild(authorText);
+    // 닉네임 추가
+    const nicknameElement = document.createElement("div");
+    nicknameElement.className = "nickname";
+    nicknameElement.textContent = comment.memberNickname; // 닉네임 표시
+    commentElement.appendChild(nicknameElement);
 
-    commentElement.appendChild(authorElement);
     // 댓글 내용 추가
     const textElement = document.createElement("div");
     textElement.className = "text";
@@ -143,7 +141,7 @@ const addCommentToUI = comment => {
     // 추천 수 추가
     const likesElement = document.createElement("div");
     likesElement.className = "likes";
-    likesElement.textContent = `추천수: ${comment.likes}`;
+    likesElement.textContent = `Likes: ${comment.likes}`;
     commentElement.appendChild(likesElement);
 
     // 추천 버튼 추가
@@ -256,14 +254,6 @@ window.addEventListener("load", () => {
             </div>
         `;
         }
-    if (memberMbti === 'entj') {
-        specialHTML = `
-            <div id="special-section">
-                <h1>"대담한 통솔자"</h1>
-                <p>이곳은 'entj' 게시판 입니다.</p>
-            </div>
-        `;
-    }
         if (memberMbti === 'enfp') {
             specialHTML = `
             <div id="special-section">
