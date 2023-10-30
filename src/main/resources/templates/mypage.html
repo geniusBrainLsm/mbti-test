@@ -351,29 +351,22 @@
             });
         });
 
-        // 댓글을 화면에 표시하는 함수
         function displayComments(comments, container) {
-            // 각 댓글에 대한 반복문을 실행합니다.
             comments.forEach(function (comment) {
-                // 댓글을 표시할 HTML을 생성합니다.
                 var commentHTML = '<div class="comment">' +
                     '<p class="comment-label"><strong>-MBTI-</strong></p>' +
                     '<p class="comment-mbti">' + comment.memberMbti + '</p>' +
                     '<p class="comment-label"><strong>-댓글-</strong></p>' +
-                    '<p class="comment-text">' + comment.text + '</p>' +
+                    '<p class="comment-text">' + comment.text.replace(/\n/g, '<br>') + '</p>' + // Use <br> for line breaks
                     '<p class="comment-label"><strong>-시간-</strong></p>' +
                     '<p class="comment-timestamp">' + formatDate(comment.timestamp) + '</p>' +
                     '<br>' +
                     '<br>' +
                     '</div>';
 
-
-
-                // 생성한 HTML을 댓글 컨테이너에 추가합니다.
                 container.append(commentHTML);
             });
         }
-
         // 날짜 형식을 변환하는 함수 (예: "2023-10-02T06:48:40.333+00:00" -> "2023-10-02 06:48:40")
         function formatDate(timestamp) {
             var date = new Date(timestamp);

@@ -25,6 +25,8 @@ const commentInput = document.getElementById("comment-input");
 const commentCount = document.getElementById("count");
 const submitButton = document.getElementById("submit");
 const likedComments = new Set();
+const maxCommentLength = 100; // 원하는 최대 글자 수 설정
+let lastCommentTimestamp = null;
 
 // 댓글 목록을 받아오는 함수
 const getComments = () => {
@@ -372,10 +374,32 @@ window.addEventListener("load", () => {
         chatbox.insertAdjacentHTML('beforeend', specialHTML);
     }
 );
-
+commentInput.addEventListener("input", () => {
+    const commentText = commentInput.value;
+    if (commentText.length > maxCommentLength) {
+        alert(`최대 ${maxCommentLength}자까지 입력 가능합니다.`);
+        commentInput.value = commentText.slice(0, maxCommentLength); // 최대 글자 수로 자름
+    }
+});
 
 // "Submit" 버튼 클릭 시 댓글 작성 함수 호출
-submitButton.addEventListener("click", () => submitComment());
+submitButton.addEventListener("click", () => {
+    // 현재 타임스탬프 가져오기
+    const currentTimestamp = new Date().getTime();
+
+    // 이전 댓글 작성과의 시간 간격을 계산 (10초)
+    const timeInterval = 10 * 1000; // 밀리초로 변환
+
+    if (lastCommentTimestamp && currentTimestamp - lastCommentTimestamp < timeInterval) {
+        alert("연속해서 댓글을 작성할 수 없습니다. 잠시 후 다시 시도해주세요.");
+        return; // 연속 작성 방지
+    }
+    // 댓글 작성 로직 실행
+    submitComment();
+
+    // 현재 댓글의 타임스탬프를 저장
+    lastCommentTimestamp = currentTimestamp;
+});
 
 // Enter 키 눌렀을 때도 댓글 작성 함수 호출
 commentInput.addEventListener("keydown", (event) => {
