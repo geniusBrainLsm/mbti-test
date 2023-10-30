@@ -1,6 +1,6 @@
 body {
     background-color: #F6FCFF;
-    background-image: url("../images/result.png");
+    background-image: url("../images/flower.png");
     background-size: cover;
     background-position: top center;
     background-repeat: no-repeat;
@@ -67,3 +67,18 @@ body {
     width: 100%;
     margin-bottom: 40px;
 }
+
+.to_noti, .try_again {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 400px; /* 너비를 200px로 고정 */
+    margin: 30px auto; /* 상단과 하단에 10px의 간격을 추가 */
+}
+
+.to_noti img, .try_again img {
+    display: block;
+    max-width: 100%;
+}
+
