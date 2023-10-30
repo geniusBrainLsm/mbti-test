@@ -174,8 +174,10 @@ section {
     word-wrap: break-word;
 }
 
-.likes{
-    /*margin-left: 30px;*/
+.likes {
+    position: absolute;
+    top: 110px;
+    right: 100px;
 }
 #userInput{
     width: 1100px;
@@ -228,6 +230,7 @@ section {
     width: 950px;
     border: none;
     padding: 20px;
+    position: relative;
 }
 .eachComment {
     width: 90%;
