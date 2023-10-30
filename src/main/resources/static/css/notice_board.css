@@ -173,11 +173,8 @@ section {
     max-width: 800px;
     word-wrap: break-word;
 }
-
-.likes {
-    position: absolute;
-    top: 110px;
-    right: 100px;
+.likes{
+    /*margin-left: 30px;*/
 }
 #userInput{
     width: 1100px;
@@ -316,11 +313,331 @@ section {
         max-width: none; /* 최대 너비 제거 */
         display: block; /* 블록 요소로 변경 */
     }
-    .comment {
-        width: 40%;
-        max-width: none;
-        display: block;
+    body{
+        background-color: #F6FCFF;
+        background-image: url("../images/night.png");
+        background-size: cover;
+        background-position: top center;
+        background-repeat: no-repeat;
+    }
+
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    a {
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .menu {
+        width: 930px;
+        overflow: hidden;
+        margin: 50px auto;
+    }
+    #myMbtiValue{
+        display: flex;
+        justify-content: center;
+        font-size: 70px;
+        font-weight: bold;
+        color: #fff;
+        margin-bottom: 30px;
+    }
+    #special-section h1{
+        font-weight: bold;
+        color: #fff;
+        margin-bottom: 30px;
+    }
+    #special-section p{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+        font-weight: bold;
+        color:white;
+    }
+    #special-section .qa{
+        width: 300px;
+        background-color: ;
+        border-radius: 50px;
+        padding: 20px;
+        color: #fff;
+        font-weight: bold;
+        border: 4px solid #fff;
         margin-bottom: 10px;
+        margin-left : 15px;
+        text-align: center;
+        font-size : 17px;
+    }
+    #resultmbti{
+        display: flex;
+        justify-content: center;
+    }
+    .menu > li {
+        width: 25%; /* 20*5=100% */
+        float: left;
+        text-align: center;
+        line-height: 40px;
+        background-color: #ebebeb;
+    }
+
+    .menu a {
+        font-size: 15px;
+        color: #01755c;
+    }
+
+    .submenu > li {
+        line-height: 50px;
+        background-color: #90ccbf;
+    }
+
+    .submenu {
+        height: 0;
+        overflow: hidden;
+    }
+
+    .menu > li:hover {
+        background-color: #2dae92;
+        transition-duration: 0.5s;
+    }
+
+    .menu > li:hover .submenu {
+        height: auto;
+        transition-duration: 1s;
+        overflow: visible;
+    }
+    .chatcontent{
+        border-radius: 50px;
+        margin-top: 100px;
+        justify-content: center;
+        margin: 0 auto;
+        width: max-content;
+        background-color: #075794;
+        padding: 20px;
+    }
+    section {
+        padding-top: 100px;
+        padding: 10px;
+        width: 900px;
+        height: auto;
+        margin: 0 auto;
+        text-align: left;
+        background-color: #ffffff;
+        box-shadow: 0 5px 20px rgba(69,67,96,0.1);
+        border-radius: 10px;
+        font-size: 15px; color: #01755c;
+    }
+    .delete-button{
+        background-color: #949494;
+    }
+    .like-button{
+        background-color: #222;
+    }
+    .nickname{
+        font-weight: bold;
+    }
+    .delete-button,
+    .like-button{
+
+
+        padding: 10px;
+        border-radius: 20px;
+        padding: 8px;
+        margin-top: 10px;
+        /* margin-right: 20px; */
+        /* border: 4px solid red; */
+        border: none;
+        color: white;
+        font-size: 12px;
+        margin-right: 4px;
+    }
+    #form-commentInfo{
+        margin-top: 100px;
+        width: 1280px;
+        margin: auto;
+        padding-top: 50px;
+        white-space: normal;
+        max-width: 100%;
+    }
+
+    #comment-count{
+        margin-bottom: 10px;
+    }
+
+    #comment-input{
+        width: 800px;
+        height: 60px;
+        text-align: left;
+        border: 4px solid #000000;
+        border-radius: 20px;
+
+    }
+
+    .usersend{
+        width: 1280px;
+        margin: auto;
+        margin-bottom: 100px;
+    }
+    .text {
+        margin-left: 30px;
+        font-size: 20px;
+        max-width: 800px;
+        word-wrap: break-word;
+    }
+
+
+    #userInput{
+        width: 1100px;
+        height: 70px;
+        border-radius: 50px;
+    }
+    .usersend button{
+        width: 170px;
+        height: 70px;
+        border-radius: 50px;
+        font-size: 19px;
+        background-color: #2589ef;
+        color: #fff;
+    }
+    #submit{
+        background-color: #000000;
+        width: 140px;
+        height: 60px;
+        font-size: 18px;
+        font-weight: bold;
+        color: rgb(255, 255, 255);
+        border-radius: 20px;
+        border:none;
+
+    }
+
+    .voteUp, .voteDown{
+        padding: 3px 5px;
+        border-radius: 5px;
+        display: inline-block;
+        width: auto;
+        height: auto;
+        color:#01755c;
+        border: 2px solid #c5c4c4;
+        background-color: #ffffff;
+    }
+
+
+    #comments{
+        margin-top: 10px;
+        display : center;
+        width: 1280px;
+        margin: auto;
+    }
+    .comment{
+        padding: 10px;
+        background-color: #fff;
+        margin-bottom: 30px;
+        border-radius: 20px;
+        width: 950px;
+        border: none;
+        padding: 20px;
+        position: relative;
+    }
+    .eachComment {
+        width: 90%;
+        margin: 10px auto;
+        padding: 0.5em;
+        border-bottom: 1px solid #c1bcba;
+    }
+
+
+    .eachComment .name{
+        font-size: 1.7em;
+        font-weight: bold;
+        margin-bottom: 0.3em;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .eachComment .inputValue{
+        font-size: 1.0em;
+        font-style: italic;
+    }
+
+    .eachComment .time{
+        font-size: 0.8em;
+        color: #c1bcba;
+        font-style: oblique;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+
+    }
+
+    .eachComment .voteDiv{
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .eachComment .deleteComment{
+        border-radius: 5px;
+        background-color: rgb(255, 255, 255);
+        border: 2px solid #c5c4c4;
+        color: rgb(255, 0, 0);
+        width: 50px;
+    }
+    @media (max-width: 768px) {
+        .gpt-content {
+            width: 40%;
+            max-height: none;
+            overflow-y: visible;
+            max-width: none;
+        }
+
+        .usersend {
+            width: 100%;
+            margin: 10px auto;
+        }
+        #userInput{
+            width: 50%;
+            max-width: none;
+        }
+        .usersend input,
+        .usersend button {
+            width: 100%;
+            max-width: none;
+        }
+
+        .chatcontent {
+            width: 100%;
+            padding: 10px; /* 패딩을 다시 10px로 설정 */
+        }
+        .usersend button{
+            width: 30%;
+            max-width: none;
+        }
+        #comment-input {
+            width: 100%; /* 전체 너비 사용 */
+            max-width: none; /* 최대 너비 제거 */
+            display: block; /* 블록 요소로 변경 */
+            margin-bottom: 10px; /* 아래 여백 추가 */
+        }
+
+        #submit {
+            width: 100%; /* 전체 너비 사용 */
+            max-width: none; /* 최대 너비 제거 */
+            display: block; /* 블록 요소로 변경 */
+        }
+        .comment {
+            width: 40%;
+            max-width: none;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .timestamp, .nickname, .text, .likes, .like-button, .delete-button {
+            max-width: none;
+        }
+
     }
 
     .timestamp, .nickname, .text, .likes, .like-button, .delete-button {
