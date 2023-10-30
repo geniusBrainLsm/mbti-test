@@ -265,6 +265,8 @@ img{
     border-radius: 10px;
     color: #FFF;
     width: 600px;
+    word-wrap: break-word; /* 긴 단어를 줄 바꿈 */
+    white-space: pre-line; /* 개행 문자를 줄 바꿈으로 처리 */
 }
 
 .comment:before {
