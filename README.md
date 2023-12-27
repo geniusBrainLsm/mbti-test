@@ -51,18 +51,18 @@ Backend : <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat&logo=J
   <tbody>
     <tr>
       <td align="center">
-        <a href="">backminjoo</a><br /><sub><b>FE 팀장 : 백민주 </b></sub></a><br />
+        <a href="https://github.com/backminjoo">backminjoo</a><br /><sub><b>FE 팀장 : 백민주 </b></sub></a><br />
       </td>
       <td align="center">
-        <a href="">yeonXP</a><br /><sub><b>FE 팀원 : 김수연 </b></sub></a><br />
+        <a href="https://github.com/yeonXP">yeonXP</a><br /><sub><b>FE 팀원 : 김수연 </b></sub></a><br />
       </td>
     </tr>
     <tr>
       <td align="center">
-        <a href="">jeonggiwan</a><br /><sub><b>BE 팀원 : 정기완 </b></sub></a><br />
+        <a href="https://github.com/jeonggiwan">jeonggiwan</a><br /><sub><b>BE 팀원 : 정기완 </b></sub></a><br />
       </td>
       <td align="center">
-        <a href="">geniusBrainLsm</a><br /><sub><b>BE 팀원 : 이상민</b></sub></a><br />
+        <a href="https://github.com/geniusBrainLsm">geniusBrainLsm</a><br /><sub><b>BE 팀원 : 이상민</b></sub></a><br />
       </td>
       <td align="center">
        <a href="#"></a><br /><sub><b>BE 팀원 : 황수현</b></sub></a><br />
@@ -79,18 +79,4 @@ Backend : <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat&logo=J
 
 
 
-## 기여 방법
 
-1. (<https://github.com/yourname/yourproject/fork>)을 포크합니다.
-2. (`git checkout -b feature/fooBar`) 명령어로 새 브랜치를 만드세요.
-3. (`git commit -am 'Add some fooBar'`) 명령어로 커밋하세요.
-4. (`git push origin feature/fooBar`) 명령어로 브랜치에 푸시하세요. 
-5. 풀리퀘스트를 보내주세요.
-
-<!-- Markdown link & img dfn's -->
-[npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/datadog-metrics
-[npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
-[travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
-[wiki]: https://github.com/yourname/yourproject/wiki
