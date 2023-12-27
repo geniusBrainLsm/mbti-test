@@ -51,21 +51,21 @@ Backend : <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat&logo=J
   <tbody>
     <tr>
       <td align="center">
-        <img src="이미지_경로1" width="100px;" alt=""/><br /><sub><b>FE 팀장 : 백민주 </b></sub></a><br />
+        <a href="">backminjoo</a><br /><sub><b>FE 팀장 : 백민주 </b></sub></a><br />
       </td>
       <td align="center">
-        <img src="이미지_경로2" width="100px;" alt=""/><br /><sub><b>FE 팀원 : 김수연 </b></sub></a><br />
+        <a href="">yeonXP</a><br /><sub><b>FE 팀원 : 김수연 </b></sub></a><br />
       </td>
     </tr>
     <tr>
       <td align="center">
-        <img src="이미지_경로3" width="100px;" alt=""/><br /><sub><b>BE 팀원 : 정기완 </b></sub></a><br />
+        <a href="">jeonggiwan</a><br /><sub><b>BE 팀원 : 정기완 </b></sub></a><br />
       </td>
       <td align="center">
-        <img src="이미지_경로4" width="100px;" alt=""/><br /><sub><b>BE 팀원 : 이상민</b></sub></a><br />
+        <a href="">geniusBrainLsm</a><br /><sub><b>BE 팀원 : 이상민</b></sub></a><br />
       </td>
       <td align="center">
-       <img src="이미지_경로4" width="100px;" alt=""/><br /><sub><b>BE 팀원 : 황수현</b></sub></a><br />
+       <a href="#"></a><br /><sub><b>BE 팀원 : 황수현</b></sub></a><br />
       </td>
     </tr>
   </tbody>
