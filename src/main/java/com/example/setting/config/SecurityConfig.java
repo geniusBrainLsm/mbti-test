@@ -1,4 +1,4 @@
-package com.example.setting;
+package com.example.setting.config;
 
 import com.example.setting.dto.MemberDTO;
 import org.springframework.security.authentication.AuthenticationManager;

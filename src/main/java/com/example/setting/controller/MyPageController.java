@@ -1,11 +1,8 @@
 package com.example.setting.controller;
 
-import com.example.setting.MemberRole;
-import com.example.setting.dto.MemberDTO;
 import com.example.setting.entity.MemberEntity;
 import com.example.setting.repository.MemberRepository;
 import com.example.setting.service.MemberService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,36 +1,27 @@
 package com.example.setting.controller;
 
-import com.example.setting.entity.Comment;
-import com.example.setting.repository.CommentRepository;
-import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import com.example.setting.service.MbtiType;
+import com.example.setting.service.OpenAiService;
+import lombok.RequiredArgsConstructor;
 
-import java.util.Date;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 @Controller
+@RequiredArgsConstructor
+@RequestMapping("/notice_board")
 public class BoardController {
-
-    private final CommentRepository commentRepository;
-
-    @Autowired
-    public BoardController(CommentRepository replyRepository) {
-        this.commentRepository = replyRepository;
-    }
-
-    @GetMapping("/notice_board")
+    private final OpenAiService openAiService;
+    @GetMapping
     public String index() {
-        return "notice_board"; // 예시로 notice_board.html로 이동하도록 설정
-    }
-
-    @GetMapping("/notice_board/{mbti}")
-    public String board(@PathVariable("mbti") String mbti, Model model, HttpSession session) {
-        model.addAttribute("myMbti", mbti);
-        session.setAttribute("myMbti", mbti); //  myMbti값을 세선에 넣고 gpt의 성격을 myMbti로 넘김
         return "notice_board";
     }
+    @PostMapping("/{mbti}")
+    public Mono<String> getResponseFromOpenai(
+            @RequestBody String userInput,
+            @PathVariable MbtiType mbti) {
+        return openAiService.generateMbtiResponse(mbti, userInput);
+    }
+
 }
