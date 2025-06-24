@@ -1,33 +1,23 @@
 package com.example.setting.controller;
 
-import com.example.setting.dto.MailDTO;
 import com.example.setting.dto.MemberDTO;
-import com.example.setting.Form.JoinForm;
+import com.example.setting.dto.JoinForm;
 import com.example.setting.entity.MemberEntity;
 import com.example.setting.repository.MemberRepository;
 import com.example.setting.service.MailService;
 import com.example.setting.service.MemberService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.ModelMap;
-
-import java.util.NoSuchElementException;
 
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
     private final  MemberService memberService;
-    private final MailService mailService;
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
 

@@ -170,52 +170,28 @@
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({
-                        model:'gpt-3.5-turbo',
-                        messages:[{
-                            role:'user',
-                            content:userInput
-                        }],
-                        temperature :1,
-                        max_tokens :256,
-                        top_p :1,
-                        frequency_penalty :0,
-                        presence_penalty :0
+                        mbti: memberMbti.toUpperCase(),
+                        message: userInput
                     }),
-                    beforeSend:function(xhr){
-                        xhr.setRequestHeader("X-CSRF-TOKEN", $("#csrfToken").val());
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('X-CSRF-TOKEN', $("#csrfToken").val());
                     },
-                    success:function(response){
-
-                        if (typeof response === 'string') {
-                            response = JSON.parse(response);
-                        }
-
-                        if (response.choices && response.choices.length > 0 && response.choices[0].message) {
-                            console.log(response.choices[0].message.content);
-                            // Create a new div for the chat message.
-                            var newChatDiv = $('<div>').addClass('chat');
-
-                            // Create a new span for the chat content.
-                            var newChatSpan = $('<span>').addClass('gpt-chat').text(response.choices[0].message.content);
-                            $('#userInput').prop('disabled', false);
-                            $('button').prop('disabled', false);
-
-                            $('#spinner').hide();
-
-
-                            newChatDiv.append(newChatSpan);
-
-
-                            $('#chatbox').append(newChatDiv);
-                        } else {
-                            console.error('Unexpected server response', response);
-                            $('#userInput').prop('disabled', false);
-                            $('button').prop('disabled', false);
-
-                            $('#spinner').hide();
-                        }
+                    success: function (response) {
+                        var content = response.response ? response.response : response;
+                        var newChatDiv = $('<div>').addClass('chat');
+                        var newChatSpan = $('<span>').addClass('gpt-chat').text(content);
+                        $('#userInput').prop('disabled', false);
+                        $('button').prop('disabled', false);
+                        $('#spinner').hide();
+                        newChatDiv.append(newChatSpan);
+                        $('#chatbox').append(newChatDiv);
                         $('#userInput').val('');
                     },
+                    error: function () {
+                        $('#userInput').prop('disabled', false);
+                        $('button').prop('disabled', false);
+                        $('#spinner').hide();
+                    }
                 });
             }
         </script>

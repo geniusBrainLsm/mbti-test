@@ -8,6 +8,7 @@ import com.example.setting.repository.MemberRepository;
 import com.example.setting.service.CommentService;
 import com.example.setting.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
@@ -24,109 +25,28 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    @Autowired
-    private MemberService memberService; // 사용자 서비스
-
-    @Autowired
-    private MemberRepository memberRepository;
-    @Autowired
-    private CommentRepository commentRepository;
-
     @GetMapping("/{memberMbti}")
     public List<CommentDTO> getComments(@PathVariable String memberMbti) {
-        List<Comment> comments = commentService.getCommentsByMemberMbti(memberMbti);
-
-        // Convert each Comment entity to a CommentDTO.
-        return comments.stream().map(this::toDto).collect(Collectors.toList());
+        return commentService.getCommentsByMemberMbti(memberMbti);
     }
-    private CommentDTO toDto(Comment comment) {
-        // Create a new DTO and copy the properties from the entity.
-        CommentDTO dto = new CommentDTO();
-        dto.setId(comment.getId());
-        dto.setText(comment.getText());
-        dto.setMemberMbti(comment.getMemberMbti());
-        dto.setTimestamp(comment.getTimestamp());
-        dto.setMemberNickname(comment.getMemberNickname());
-        dto.setLikes(comment.getLikes());
-        dto.setLikesNickname(comment.getLikesNickname());
 
-        return dto;
-    }
     @GetMapping("/my-comments")
-    public List<CommentDTO> getMyComments(Principal principal) {
-        // 현재 로그인한 사용자의 닉네임 가져오기
-        String username = principal.getName();  // 이메일로 조회
-        MemberEntity member = memberRepository.findByMemberEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        String currentMemberNickname = member.getMemberNickname();
-
-        // 현재 사용자의 닉네임으로 작성한 댓글을 가져옵니다.
-        List<Comment> comments = commentRepository.findByMemberNickname(currentMemberNickname);
-
-        // 댓글 목록을 CommentDTO로 변환하여 반환합니다.
-        return comments.stream().map(this::toDto).collect(Collectors.toList());
+    public ResponseEntity<List<CommentDTO>> getMyComments(Principal principal) {
+        return ResponseEntity.ok(commentService.getMyComments(principal));
     }
-
-
     @PostMapping
-    public Comment addComment(@RequestBody Comment comment, Principal principal) {
-        String username = principal.getName();  // 이메일로 조회
-
-        MemberEntity member = memberRepository.findByMemberEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
-        // 로그인한 사용자의 닉네임이 있을 경우에만 댓글 작성
-        if (member.getMemberNickname() != null) {
-            comment.setMemberNickname(member.getMemberNickname());  // 댓글 작성자 설정
-            comment.setTimestamp(new Date()); // 댓글 작성 시간 설정
-            return commentRepository.save(comment);  // 댓글 저장 및 반환
-        }
-
-        throw new IllegalArgumentException("User nickname is required to write a comment");
+    public ResponseEntity<Long> addComment(@RequestBody Long commentId, Principal principal) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(commentService.addComment(commentId, principal));
     }
     @PostMapping("/{commentId}/like")
-    public ResponseEntity<String> likeComment(@PathVariable Long commentId, Principal principal) {
-        String username = principal.getName();  // 이메일로 조회
-
-        MemberEntity member = memberRepository.findByMemberEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
-        if (member.getMemberNickname() != null) {
-            commentService.likeComment(commentId,member.getMemberNickname());
-            return ResponseEntity.ok("Liked successfully");
-        } else {
-            return ResponseEntity.badRequest().body("You have already liked this comment");
-        }
+    public ResponseEntity<Long> likeComment(@PathVariable Long commentId, Principal principal) {
+        return ResponseEntity.ok(commentService.likeComment(commentId, principal));
     }
 
     @DeleteMapping("/{commentId}")
-    public ResponseEntity<String> deleteComment(@PathVariable Long commentId, Principal principal) {
-        String username = principal.getName();  // 현재 사용자의 이메일
-
-        MemberEntity member = memberRepository.findByMemberEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
-        // 댓글 ID로 해당 댓글을 가져옵니다.
-        Optional<Comment> commentOptional = commentRepository.findById(commentId);
-
-        if (commentOptional.isPresent()) {
-            Comment comment = commentOptional.get();
-
-            // 댓글 작성자와 현재 사용자의 닉네임을 비교하여 권한을 확인합니다.
-            if (comment.getMemberNickname().equals(member.getMemberNickname())) {
-                // 댓글 삭제
-                boolean isDeleted = commentService.deleteComment(commentId);
-
-                if (isDeleted) {
-                    return ResponseEntity.ok("Comment deleted successfully");
-                } else {
-                    return ResponseEntity.badRequest().body("Failed to delete comment");
-                }
-            } else {
-                return ResponseEntity.badRequest().body("You don't have permission to delete this comment");
-            }
-        } else {
-            return ResponseEntity.badRequest().body("Comment not found");
-        }
+    public ResponseEntity<Long> deleteComment(@PathVariable Long commentId, Principal principal) {
+        return ResponseEntity.ok(commentService.deleteComment(commentId, principal));
     }
 }
