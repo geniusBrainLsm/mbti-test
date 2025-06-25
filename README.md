@@ -88,20 +88,20 @@ Backend : <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat&logo=J
 
 #### :point_right: 게시판 화면
 성격유형을 가진 AI와 대화를 할 수 있는 AI 채팅 기능을 구현하였습니다.</br>
-![1111](https://github.com/user-attachments/assets/3df4af8a-2f93-457d-a226-52930aeb0d33)
+![image](https://github.com/user-attachments/assets/5a99526d-3b81-4a28-ae89-c8bf3f38db92)
 </br>
 
 #### :point_right: 게시판 댓글 기능
-![image](https://github.com/user-attachments/assets/9ef0fd07-2c09-494c-b6bd-5ba33285437a)
+![image](https://github.com/user-attachments/assets/634f412c-6a32-4ae1-a9c5-d3add562f245)
 </br>
 
 #### :point_right: 로그인 & 회원가입 화면
-![image](https://github.com/user-attachments/assets/3cbf290d-8b29-4fcf-bf7e-ce66a4285045)
+![image](https://github.com/user-attachments/assets/a63d66e8-077c-468b-ad0e-355ea467688e)
 </br>
-![image](https://github.com/user-attachments/assets/51357bd5-094a-4ee6-a3a1-15913641b774)
+![image](https://github.com/user-attachments/assets/41ebad85-5bf8-44a6-affc-1c30bbb9b713)
 
 #### :point_right: 마이페이지 화면
-![image](https://github.com/user-attachments/assets/fee9bf63-b6d7-49f7-a27b-e0a5d778994e)
+![image](https://github.com/user-attachments/assets/e47fd9d5-3940-4b04-9a61-5d4b5bb3d543)
 </br>
 
 
