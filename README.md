@@ -1,4 +1,5 @@
-![1111](https://github.com/user-attachments/assets/daf404b7-a2b6-4e90-91e0-0804c8b38266)# Chat-MBTI
+![image](https://github.com/user-attachments/assets/eff755f3-c200-4d4a-9b0a-05864a3b9a3e)
+# Chat-MBTI
 > AI Chat & MBTI Test Web Application <br/>(인공지능 채팅과 MBTI 테스트가 통합된 서비스)
 
 </br>
