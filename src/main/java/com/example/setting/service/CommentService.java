@@ -1,4 +1,5 @@
 package com.example.setting.service;// CommentService.java
+import com.example.setting.dto.CommentCreateRequest;
 import com.example.setting.dto.CommentDTO;
 import com.example.setting.entity.Comment;
 import com.example.setting.entity.CommentLike;
@@ -27,8 +28,18 @@ public class CommentService {
     private final MemberRepository memberRepository;
     private final CommentLikeRepository commentLikeRepository;
 
-    public List<CommentDTO> getCommentsByMemberMbti(String memberMbti) {
-        List<Comment> comments = commentRepository.findByMemberMbti(memberMbti);
+    public List<CommentDTO> getCommentsByMemberMbti(String memberMbti, String sort) {
+        List<Comment> comments;
+
+        switch (sort.toLowerCase()) {
+            case "popular":
+                comments = commentRepository.findByMemberMbtiOrderByLikesDesc(memberMbti);
+                break;
+            case "newest":
+            default:
+                comments = commentRepository.findByMemberMbtiOrderByTimestampDesc(memberMbti);
+                break;
+        }
 
         return comments.stream()
                 .map(CommentDTO::new)
@@ -52,12 +63,14 @@ public class CommentService {
             like.setMember(member);
             like.setComment(comment);
             comment.increaseLikes(); // 내부적으로 likes + 1
+            commentLikeRepository.save(like);
         } else {
             commentLikeRepository.deleteByMemberAndComment(member, comment);
             comment.decreaseLikes(); // 내부적으로 likes - 1
+
         }
 
-        return commentId;
+        return comment.getLikes();
     }
 
 
@@ -68,23 +81,26 @@ public class CommentService {
         commentRepository.delete(comment);
         return commentId;
     }
-    public Long addComment(@RequestBody Long commentId, Principal principal) {
-        String username = principal.getName();  // 이메일로 조회
+    public CommentDTO createComment(String memberMbti, CommentCreateRequest request, Principal principal) {
+        String email = principal.getName();
 
-        MemberEntity member = memberRepository.findByMemberEmail(username)
+        MemberEntity member = memberRepository.findByMemberEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(()->new IllegalArgumentException("댓글없음"));
 
-        // 로그인한 사용자의 닉네임이 있을 경우에만 댓글 작성
-        if (member.getMemberNickname() != null) {
-            comment.setMemberNickname(member.getMemberNickname());  // 댓글 작성자 설정
-            commentRepository.save(comment);  // 댓글 저장 및 반환
-            return comment.getId();
-        }else {
+        if (member.getMemberNickname() == null) {
             throw new IllegalArgumentException("User nickname is required to write a comment");
         }
 
+        Comment comment = new Comment();
+        comment.setText(request.getText()); // CommentCreateRequest에서 text 받음
+        comment.setMemberMbti(memberMbti.toUpperCase());
+        comment.setTimestamp(LocalDateTime.now());
+        comment.setMemberNickname(member.getMemberNickname());
+        comment.setMember(member); // 연관관계 설정
+
+        Comment savedComment = commentRepository.save(comment);
+
+        return new CommentDTO(savedComment);
     }
     public List<CommentDTO> getMyComments(Principal principal){
         String username = principal.getName();  // 이메일로 조회

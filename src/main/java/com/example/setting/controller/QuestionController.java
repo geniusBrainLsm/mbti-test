@@ -1,5 +1,6 @@
 package com.example.setting.controller;
 
+import com.example.setting.service.MbtiType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +14,8 @@ public class QuestionController {
         return "questions";
     }
 
-    @GetMapping("/results.html")
-    public String result(@RequestParam("mbti") String mbti, Model model) {
+    @GetMapping("/results")
+    public String result(@RequestParam("mbti") MbtiType mbti, Model model) {
         model.addAttribute("mbti", mbti);
         return "results";
     }

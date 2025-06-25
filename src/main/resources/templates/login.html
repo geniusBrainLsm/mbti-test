@@ -5,69 +5,359 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
-    <link rel="stylesheet" href="/static/css/login.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>MBTI 로그인</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .login-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .alert {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 500;
+            border: none;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 18px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #fff;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-input::placeholder {
+            color: #adb5bd;
+            font-weight: 400;
+        }
+
+        .btn-login {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 20px 0;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-login:active {
+            transform: translateY(-1px);
+        }
+
+        .links-section {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .forgot-password {
+            display: inline-block;
+            color: #667eea;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        .signup-section {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .signup-text {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .signup-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .signup-link:hover {
+            color: #764ba2;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: #adb5bd;
+            font-size: 14px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e1e5e9;
+        }
+
+        .divider span {
+            padding: 0 15px;
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .form-input {
+                padding: 16px;
+            }
+
+            .btn-login {
+                padding: 16px;
+                font-size: 16px;
+            }
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 15%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            top: 65%;
+            right: 15%;
+            animation-delay: -2s;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 40px;
+            height: 40px;
+            top: 45%;
+            left: 85%;
+            animation-delay: -4s;
+        }
+
+        .floating-element:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            top: 80%;
+            left: 5%;
+            animation-delay: -1s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        .welcome-text {
+            text-align: center;
+            color: #6c757d;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #adb5bd;
+            font-size: 18px;
+        }
+    </style>
 </head>
 
 <body>
-    <section class="login-form">
-        <div class=about-info>
-            <h1>MBTI 로그인</h1>
-            <form th:action="@{/member/login}" method="post">
+<div class="floating-elements">
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+</div>
 
+<div class="login-container">
+    <h1>MBTI 로그인</h1>
+    <p class="welcome-text">계정에 로그인하여 시작하세요</p>
 
-                <div th:if="${param.error}">
-                    <div class="alert alert-danger">
-                        사용자ID 또는 비밀번호를 확인해 주세요.
-                    </div>
-                </div>
-                <div class="int-area">
-                    <input type="text" name="memberEmail" id="id" autocomplete="off" required placeholder="이메일">
-
-                </div>
-                <div class="int-area">
-                    <input type="password" name="memberPassword" id="pw" autocomplete="off" required placeholder="비밀번호">
-                    <!-- <label for="pw">비밀번호</label> -->
-                </div>
-                <div class="btn-area">
-                    <button id="btn" type="submit">로그인</button>
-                </div>
-                <ul>
-                    <li class="naver" style="display: none;">
-                        <a>
-                            <span>
-
-                            </span>
-                        </a>
-                    </li>
-                </ul>
-                <div>
-                    <a th:href="@{/member/findPw}" style="text-decoration: none; color:black;">가입된 이메일 / 비밀번호 찾기</a>
-                    <a th:href="@{/member/join}" style="text-decoration: none;">
-                        <h4>아직 계정이 없으신가요?<span>회원가입</span></h4>
-                    </a>
-                </div>
+    <form th:action="@{/member/login}" method="post">
+        <div th:if="${param.error}" class="alert">
+            사용자 이메일 또는 비밀번호를 확인해 주세요.
         </div>
-        <!-- <p>아이디/비밀번호 찾기</p>
-            <h4>---계정이 없으신가요?<span>회원가입</span></h4> -->
 
-        <!-- <div class="login-type">
-                <h3>더욱 간편한 로그인</h3>
-                <a href="{{ route('social.login',['naver']) }}">
-                    <img src="/image/naver.png" width="360px" height="56px">
-                </a>
-                <a href="{{ route('social.login',['kakao']) }}">
-                    <img src="/image/kakao.png" width="360px" height="56px">
-                </a>
-            </div>
-            <div class="login-footer">
-                <a href="">회원가입</a>
-            </div> -->
-        </form>
+        <div class="input-group">
+            <input type="email" name="memberEmail" id="id" class="form-input" autocomplete="off" required placeholder="이메일을 입력하세요">
+            <div class="input-icon">📧</div>
+        </div>
 
-    </section>
+        <div class="input-group">
+            <input type="password" name="memberPassword" id="pw" class="form-input" autocomplete="off" required placeholder="비밀번호를 입력하세요">
+            <div class="input-icon">🔒</div>
+        </div>
 
+        <button type="submit" class="btn-login">로그인</button>
+
+        <div class="links-section">
+            <a th:href="@{/member/findPw}" class="forgot-password">비밀번호를 잊으셨나요?</a>
+        </div>
+
+        <div class="divider">
+            <span>또는</span>
+        </div>
+
+        <div class="signup-section">
+            <p class="signup-text">아직 계정이 없으신가요?</p>
+            <a th:href="@{/member/join}" class="signup-link">회원가입하기</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    // 입력 필드 애니메이션 효과
+    document.querySelectorAll('.form-input').forEach(input => {
+        input.addEventListener('focus', function() {
+            this.parentElement.style.transform = 'scale(1.02)';
+        });
+
+        input.addEventListener('blur', function() {
+            this.parentElement.style.transform = 'scale(1)';
+        });
+    });
+
+    // 로그인 버튼 클릭 효과
+    document.querySelector('.btn-login').addEventListener('click', function(e) {
+        // 간단한 로딩 효과
+        this.style.background = 'linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%)';
+        this.innerHTML = '로그인 중...';
+
+        // 폼이 제출되지 않으면 원래 상태로 복원
+        setTimeout(() => {
+            if (!this.form.checkValidity()) {
+                this.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                this.innerHTML = '로그인';
+            }
+        }, 1000);
+    });
+</script>
 </body>
 
 </html>

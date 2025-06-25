@@ -15,7 +15,7 @@ public class CommentDTO {
     private String memberMbti;
     private LocalDateTime timestamp;
     private String memberNickname;
-    private int likes;
+    private Long likes;
     private String likesNickname;
     public CommentDTO(Comment comment){
         this.id = comment.getId();

@@ -1,5 +1,6 @@
 package com.example.setting.controller;// CommentController.java
 
+import com.example.setting.dto.CommentCreateRequest;
 import com.example.setting.dto.CommentDTO;
 import com.example.setting.entity.Comment;
 import com.example.setting.entity.MemberEntity;
@@ -26,19 +27,24 @@ public class CommentController {
     private CommentService commentService;
 
     @GetMapping("/{memberMbti}")
-    public List<CommentDTO> getComments(@PathVariable String memberMbti) {
-        return commentService.getCommentsByMemberMbti(memberMbti);
+    public List<CommentDTO> getComments(
+            @PathVariable String memberMbti,
+            @RequestParam(defaultValue = "newest") String sort
+    ) {
+        return commentService.getCommentsByMemberMbti(memberMbti, sort);
     }
 
     @GetMapping("/my-comments")
     public ResponseEntity<List<CommentDTO>> getMyComments(Principal principal) {
         return ResponseEntity.ok(commentService.getMyComments(principal));
     }
-    @PostMapping
-    public ResponseEntity<Long> addComment(@RequestBody Long commentId, Principal principal) {
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(commentService.addComment(commentId, principal));
+    @PostMapping("/{memberMbti}")  // URL 패턴 수정
+    public ResponseEntity<CommentDTO> createComment(
+            @PathVariable String memberMbti,
+            @RequestBody CommentCreateRequest request,  // 댓글 내용을 받는 DTO
+            Principal principal) {
+        CommentDTO createdComment = commentService.createComment(memberMbti, request, principal);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdComment);
     }
     @PostMapping("/{commentId}/like")
     public ResponseEntity<Long> likeComment(@PathVariable Long commentId, Principal principal) {

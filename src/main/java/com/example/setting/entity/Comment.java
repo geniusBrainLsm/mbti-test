@@ -22,7 +22,7 @@ public class Comment {
     private LocalDateTime timestamp;
     private String memberNickname;
 
-    private int likes;
+    private Long likes;
 
     @Version
     private Long version;

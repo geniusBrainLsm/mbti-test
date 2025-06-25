@@ -7,11 +7,416 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mypage</title>
-    <link rel="stylesheet" href="../static/css/mypage.css">
     <script src="https://kit.fontawesome.com/9260b29719.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Dongle:wght@700&display=swap" rel="stylesheet"></head>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .move a {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .move a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        main {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab {
+            display: flex;
+            list-style: none;
+            margin-bottom: 30px;
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 8px;
+        }
+
+        .tab li {
+            flex: 1;
+        }
+
+        .tab a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #64748b;
+            font-weight: 500;
+            text-align: center;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .tab a:hover, .tab a.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .usermbti {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .user-avatar {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 30px;
+            align-items: start;
+            margin-bottom: 30px;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .user-name, .user-email {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .subtitle {
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .subcontent {
+            font-size: 1.1rem;
+            color: #1e293b;
+            font-weight: 500;
+        }
+
+        .button_ui {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        #mem_edit {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        #mem_edit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        #chgpw {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        #chgpw:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+        }
+
+        #withmem {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        #withmem:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+        }
+
+        /* Modal Styles */
+        .black-bg, .editmember, .Withdrawal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: none;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .black-bg.show-modal, .editmember.show-modal, .Withdrawal.show-modal {
+            display: flex;
+        }
+
+        .white-bg, .editmem-detail, .with-detail {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .white-bg h1, .editmem-detail h1, .with-detail h1 {
+            margin-bottom: 30px;
+            color: #1e293b;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .col-form-label {
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .close, .editclose, .withdraw-close {
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .close:hover, .editclose:hover, .withdraw-close:hover {
+            background: #cbd5e1;
+            transform: translateY(-1px);
+        }
+
+        .change, .withdraw-change {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .change:hover, .withdraw-change:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        #nicknameEditButton, #emailEditButton {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+            margin-left: 10px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        #nicknameEditButton:hover, #emailEditButton:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .col-sm-2 {
+            flex: 0 0 120px;
+        }
+
+        .col-sm-8, .col-sm-10 {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .with-detail span {
+            display: block;
+            line-height: 1.6;
+            color: #64748b;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Comments Section */
+        #comments-container {
+            margin-top: 20px;
+        }
+
+        .comment {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .comment-label {
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .comment-mbti, .comment-text, .comment-timestamp {
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+
+        .comment-text {
+            line-height: 1.6;
+        }
+
+        .comment-timestamp {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            main {
+                padding: 25px;
+            }
+
+            .user-avatar {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .button_ui {
+                flex-direction: column;
+            }
+
+            .tab {
+                flex-direction: column;
+            }
+
+            .row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .col-sm-8, .col-sm-10 {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            #nicknameEditButton, #emailEditButton {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
 
 <body>
 <div class="container">
@@ -20,8 +425,7 @@
     <header>
         <h1>MyPage</h1>
         <div class="move">
-            <a href="/notice_board/estj">돌아가기</a>
-
+            <a href="/notice_board/ESTJ">돌아가기</a>
         </div>
     </header>
 
@@ -29,29 +433,24 @@
         <section class="maininfo">
             <div class="tabmain">
                 <ul class="tab">
-                    <li><a href="/mypage">프로필</a></li>
-
+                    <li><a href="/mypage" class="active">프로필</a></li>
                     <li><a href="#" id="myCommentsLink">내가 쓴 댓글</a></li>
-
                 </ul>
             </div>
             <div class="userinfo">
-                <div class="usermbti">회원님의 mbti는 [[${memberEntity.memberMbti}]] 입니다. </div>
+                <div class="usermbti">회원님의 MBTI는 [[${memberEntity.memberMbti}]] 입니다. </div>
                 <section>
                     <div class="user-avatar">
-                        <!-- <img src="" alt=""> -->
                         <div class="user-details">
                             <div class="user-name">
                                 <div class="subtitle">닉네임</div>
                                 <div class="subcontent" th:text="${memberEntity.memberNickname}"></div>
-
                             </div>
                             <div class="user-email">
                                 <div class="subtitle">이메일</div>
                                 <div class="subcontent" th:text="${memberEntity.memberEmail}"></div>
                             </div>
                             <div id="comments-container"></div>
-
                         </div>
                         <button id="mem_edit">회원 정보 수정</button>
                     </div>
@@ -59,36 +458,31 @@
                         <button id="chgpw">비밀번호 변경</button>
                         <button id="withmem">회원 탈퇴</button>
                     </div>
-
                 </section>
             </div>
-
         </section>
     </main>
 
     <!--비밀번호 변경화면-->
     <form name="changePassword" action="/mypage/changePassword" method="post">
-
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
         <div class="black-bg">
             <div class="white-bg">
                 <h1>비밀번호 변경</h1>
-
                 <div class="row mb-3">
-                    <label for="inputCurrentPassword" class="col-sm-2 col-form-label">현재 비밀번호</label>
+                    <label for="inputCurrentPassword" class="col-form-label">현재 비밀번호</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" id="inputCurrentPassword" name = "currentPassword">
+                        <input type="password" class="form-control" id="inputCurrentPassword" name="currentPassword">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">새로운 비밀번호</label>
+                    <label for="inputPassword" class="col-form-label">새로운 비밀번호</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" id="inputPassword" name = "newPassword">
+                        <input type="password" class="form-control" id="inputPassword" name="newPassword">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="inputPasswordConfirm" class="col-sm-2 col-form-label">비밀번호 확인</label>
+                    <label for="inputPasswordConfirm" class="col-form-label">비밀번호 확인</label>
                     <div class="col-sm-10">
                         <input type="password" class="form-control" id="inputPasswordConfirm">
                     </div>
@@ -100,37 +494,28 @@
             </div>
         </div>
     </form>
-    <!-- 회원 정보 수정 화면 -->
+
     <!-- 회원 정보 수정 화면 -->
     <form name="UpdateInfo" action="/mypage/editInfo" method="post">
         <div class="editmember">
             <div class="editmem-detail">
                 <h1>회원 정보 수정</h1>
-
-                <!-- 닉네임 수정 필드 -->
                 <div class="row mb-3 align-items-center">
                     <label for="inputNickname" class="col-sm-2 col-form-label">닉네임</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id ="inputNickname"name = "newNickname">
-                        <button type = "button"class="" id="nicknameEditButton">수정</button>
+                        <input type="text" class="form-control" id="inputNickname" name="newNickname">
+                        <button type="button" id="nicknameEditButton">수정</button>
                     </div>
-                    <!-- 닉네임 수정 버튼 -->
-
                 </div>
-
-                <!-- 이메일(아이디) 수정 필드 -->
                 <div class="row mb-3 align-items-center">
                     <label for="inputemail" class="col-sm-2 col-form-label">이메일</label>
                     <div class="col-sm-8">
-                        <input type="email" class='form-control' id ="inputEmail"name = "newEmail"></input>
-                        <button type = "button"id="emailEditButton">수정</button>
+                        <input type="email" class="form-control" id="inputEmail" name="newEmail">
+                        <button type="button" id="emailEditButton">수정</button>
                     </div>
-
-
                 </div>
-
                 <br>
-                <button type="button" class="editclose" >취소</button>
+                <button type="button" class="editclose">취소</button>
             </div>
         </div>
     </form>
@@ -140,32 +525,19 @@
         <div class="with-detail">
             <h1>회원 탈퇴 안내</h1>
             <span>
-                        MBTI 테스트 회원 탈퇴 안내입니다. <br>
-                        회원탈퇴를 하게 되면 현재 아이디는 사용하실 수 없습니다. <br>
-                        회원탈퇴 후에도 개인정보는 보안 정책에 따라 처리됩니다. <br>
-                        ※ 자세한 내용은 개인정보 처리 방침을 확인해 주세요.
-                    </span>
+                MBTI 테스트 회원 탈퇴 안내입니다. <br>
+                회원탈퇴를 하게 되면 현재 아이디는 사용하실 수 없습니다. <br>
+                회원탈퇴 후에도 개인정보는 보안 정책에 따라 처리됩니다. <br>
+                ※ 자세한 내용은 개인정보 처리 방침을 확인해 주세요.
+            </span>
             <div class="btn-group">
                 <button class="withdraw-close">취소</button>
                 <button class="withdraw-change">회원탈퇴</button>
             </div>
         </div>
     </div>
-    <div>
-        <!--            <div id="form-commentInfo">-->
-        <!--                <div id="comment-count">댓글 <span id="count">0</span></div>-->
-        <!--                <input id="comment-input" placeholder="What are you thinking">-->
-        <!--                <button id="submit">Share</button>-->
-        <!--            </div>-->
-        <!--            <br>-->
-    </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
-
-        // $('#cancel').on('click',function(){
-        //     document.querySelector('.editmember').classList.remove('show-modal');
-        // });//취소버튼 모달닫기
-
         $('#chgpw').on('click',function(){
             document.querySelector('.black-bg').classList.add('show-modal')
         });
@@ -176,7 +548,6 @@
 
         $('#withmem').on('click',function(){
             document.querySelector('.Withdrawal').classList.add('show-modal');
-
             console.log("회원탈퇴");
         });
 
@@ -191,17 +562,13 @@
             document.querySelector('.editmember').classList.remove('show-modal');
         });
 
-        // 닉네임 변경 요청--------------------
+        // 닉네임 변경 요청
         $('#nicknameEditButton').on('click', function() {
             var newNickname = $('#inputNickname').val();
-
-            // 입력된 닉네임이 없는 경우
             if (newNickname === '') {
                 alert('새로운 닉네임을 입력하세요.');
                 return;
             }
-
-            // 닉네임
             $.ajax({
                 url: '/mypage/editNickname',
                 type: 'POST',
@@ -218,25 +585,20 @@
                     alert('닉네임 변경에 실패하였습니다. 다시 시도해주세요.');
                 }
             });
-
         });
 
         //이메일
         $('#emailEditButton').on('click', function() {
             var newEmail = $('#inputEmail').val();
-
-            // 입력된 이메일이 없는 경우
             if (newEmail === '') {
                 alert('새로운 이메일을 입력하세요.');
                 return;
             }
-            // 이메일 형식 검사
             var emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
             if (!emailRegex.test(newEmail)) {
                 alert('올바른 이메일 형식으로 입력하세요.');
                 return;
             }
-
             $.ajax({
                 url: '/mypage/editEmail',
                 type: 'POST',
@@ -253,31 +615,27 @@
                     alert('이메일 변경에 실패하였습니다. 다시 시도해주세요.');
                 }
             });
-
         });
+
         //비밀번호 변경 버튼 클릭 시 이벤트 처리
         $('#send').on('click',function(){
             var currentPassword = $('#inputCurrentPassword').val();
             var newPassword = $('#inputPassword').val();
             var confirmPassword = $('#inputPasswordConfirm').val();
 
-            //새로운 비밀번호 입력 안한 경우
             if(newPassword === ''){
                 alert('새로운 비밀번호를 입력하세요.');
                 return;
             }
-            //비밀번호 확인 입력 안한 경우
             if(confirmPassword === ''){
                 alert('비밀번호 확인을 입력하세요.');
                 return;
             }
-            //비밀번호와 비밀번호 확인이 일치하지 않는 경우
             if(newPassword !== confirmPassword){
                 alert('비밀번호 확인이 일치하지 않습니다.');
                 return;
             }
 
-            //모든 검증 통과 시
             $.ajax({
                 url: '/mypage/changePassword',
                 type: 'POST',
@@ -290,12 +648,12 @@
                     xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken);
                 },
                 success: function(response) {
-                    console.log(response); // 이 줄 추가
+                    console.log(response);
                     if (response.isMatchCurrentPassword === true) {
                         alert('비밀번호가 성공적으로 변경되었습니다.');
                         location.reload();
                     } else {
-                        alert('현재 비밀번호가 일치하지 2');
+                        alert('현재 비밀번호가 일치하지 않습니다.');
                     }
                 },
                 error: function(error) {
@@ -308,41 +666,34 @@
         $('.withdraw-change').on('click',function(){
             var confirmResult = confirm('정말로 회원 탈퇴하시겠습니까?');
             if(confirmResult){
-                // AJAX 요청 시작
                 $.ajax({
-                    url: '/mypage/deleteMember',  // 요청을 보낼 엔드포인트 URL
-                    type: 'POST',  // HTTP 메소드 지정 (회원 정보 삭제이므로 POST 또는 DELETE가 적절합니다)
+                    url: '/mypage/deleteMember',
+                    type: 'POST',
                     success: function(response) {
                         alert('회원 탈퇴되었습니다.');
-                        location.href = '/';  // 메인 페이지로 리다이렉션
+                        location.href = '/';
                     },
                     error: function(error) {
                         alert('회원 탈퇴에 실패하였습니다. 다시 시도해주세요.');
                     }
                 });
-                // AJAX 요청 종료
             } else{
                 alert('회원 탈퇴가 취소되었습니다.');
             }
         })
 
         $('#myCommentsLink').click(function () {
-            // 이름과 이메일 칸을 숨깁니다.
             $('.user-name').hide();
             $('.user-email').hide();
             $('#mem_edit').hide();
 
-
-            // 내가 쓴 댓글 컨테이너를 선택하고 초기화합니다.
             var commentsContainer = $('#comments-container');
             commentsContainer.empty();
 
-            // AJAX 요청을 통해 내가 쓴 댓글을 가져옵니다.
             $.ajax({
                 url: '/api/replies/my-comments',
                 type: 'GET',
                 success: function (comments) {
-                    // 댓글을 가져온 후, 화면에 표시합니다.
                     displayComments(comments, commentsContainer);
                 },
                 error: function () {
@@ -353,28 +704,42 @@
 
         function displayComments(comments, container) {
             comments.forEach(function (comment) {
-                var commentHTML = '<div class="comment">' +
-                    '<p class="comment-label"><strong>-MBTI-</strong></p>' +
-                    '<p class="comment-mbti">' + comment.memberMbti + '</p>' +
-                    '<p class="comment-label"><strong>-댓글-</strong></p>' +
-                    '<p class="comment-text">' + comment.text.replace(/\n/g, '<br>') + '</p>' + // Use <br> for line breaks
-                    '<p class="comment-label"><strong>-시간-</strong></p>' +
-                    '<p class="comment-timestamp">' + formatDate(comment.timestamp) + '</p>' +
-                    '<br>' +
-                    '<br>' +
-                    '</div>';
-
+                var commentHTML = `
+                <div class="comment" data-id="${comment.id}">
+                    <p class="comment-label"><strong>MBTI</strong></p>
+                    <p class="comment-mbti">${comment.memberMbti}</p>
+                    <p class="comment-label"><strong>댓글</strong></p>
+                    <p class="comment-text">${comment.text.replace(/\n/g, '<br>')}</p>
+                    <p class="comment-label"><strong>작성 시간</strong></p>
+                    <p class="comment-timestamp">${formatDate(comment.timestamp)}</p>
+                    <button class="delete-comment" onclick="deleteComment(${comment.id}, this)">삭제</button>
+                </div>`;
                 container.append(commentHTML);
             });
         }
-        // 날짜 형식을 변환하는 함수 (예: "2023-10-02T06:48:40.333+00:00" -> "2023-10-02 06:48:40")
+        function deleteComment(commentId, button) {
+            if (!confirm('댓글을 삭제하시겠습니까?')) return;
+
+            $.ajax({
+                url: `/api/replies/${commentId}`,
+                type: 'DELETE',
+                beforeSend: function(xhr) {
+                    const token = document.getElementById('csrfToken').value;
+                    xhr.setRequestHeader("X-CSRF-TOKEN", token);
+                },
+                success: function () {
+                    alert('댓글이 삭제되었습니다.');
+                    $(button).closest('.comment').remove();
+                },
+                error: function () {
+                    alert('댓글 삭제에 실패했습니다.');
+                }
+            });
+        }
         function formatDate(timestamp) {
             var date = new Date(timestamp);
             return date.toISOString().replace("T", " ").split(".")[0];
         }
-
-
-
     </script>
 </div>
 </body>

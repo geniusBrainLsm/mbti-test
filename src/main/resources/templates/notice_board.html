@@ -1,229 +1,842 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시판</title>
-    <link rel="stylesheet" href="/static/css/notice_board.css">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+    <title th:text="|${mbti} 게시판|">MBTI 게시판</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-</head>
-<body>
-<header>
-    <input type="hidden" id="csrfToken" th:value="${_csrf.token}" />
-    <!-- Bootstrap CSS -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">MBTI 검사하기</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
-                aria-controls="navbarContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
 
-        <div class="collapse navbar-collapse" id ="navbarContent">
-            <ul class ="navbar-nav mr-auto">
-                <li class ="nav-item dropdown">
-                    <a class ="nav-link dropdown-toggle" href="#" id ="navbarDropdownMenuLink1"
-                       role = "button"
-                       data-toggle = "dropdown"> 게시판 </a>
-                    <div class = "dropdown-menu">
-                        <!-- Add other MBTI types as needed -->
-                        <a class = "dropdown-item" href="/notice_board/ESTJ">ESTJ</a>
-                        <a class = "dropdown-item" href="/notice_board/ENTJ">ENTJ</a>
-                        <a class = "dropdown-item" href="/notice_board/ISTJ">ISTJ</a>
-                        <a class = "dropdown-item" href="/notice_board/ESFJ">ESFJ</a>
-                        <a class = "dropdown-item" href="/notice_board/ISFJ">ISFJ</a>
-                        <a class = "dropdown-item" href="/notice_board/ESTP">ESTP</a>
-                        <a class = "dropdown-item" href="/notice_board/ISTP">ISTP</a>
-                        <a class = "dropdown-item" href="/notice_board/ESFP">ESFP</a>
-                        <a class = "dropdown-item" href="/notice_board/ISFP">ISFP</a>
-                        <a class = "dropdown-item" href="/notice_board/INTJ">INTJ</a>
-                        <a class = "dropdown-item" href="/notice_board/ENFJ">ENFJ</a>
-                        <a class = "dropdown-item" href="/notice_board/INFJ">INFJ</a>
-                        <a class = "dropdown-item" href="/notice_board/ENTP">ENTP</a>
-                        <a class = "dropdown-item" href="/notice_board/INTP">INTP</a>
-                        <a class = "dropdown-item" href="/notice_board/ENFP">ENFP</a>
-                        <a class = "dropdown-item" href="/notice_board/INFP">INFP</a>
-                    </div>
-                </li>
-            </ul>
-                <!-- Login link here -->
-                <ul class="navbar-nav" id="right-nav" style="justify-content: flex-end">
-                    <li class="nav-item">
-                        <a href="#" th:href="@{/member/login}" sec:authorize="isAnonymous()">로그인</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" th:href="@{/member/logout}" sec:authorize="isAuthenticated()" style="margin-right: 30px;">로그아웃</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/mypage" th:href="@{/mypage}" sec:authorize="isAuthenticated()">MY PAGE</a>
-                    </li>
-                </ul>
+        /* Header Styles */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
 
-        </div>
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
 
-    </nav>
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
 
-<!-- Include Bootstrap JS at the end of your file for improved loading speed-->
-<script src = "https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        .logo:hover {
+            color: #764ba2;
+        }
 
-</header>
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
 
-<!--    <section>-->
-        <style>
-            .gpt-content {
-                width: 100%;
-                padding: 10px;
-                height: 400px;
-                overflow-y: scroll;
-                background-color: #fff;
-                margin: auto;
-                margin-bottom: 30px;
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 12px 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            padding: 8px 20px;
+            display: block;
+            border-radius: 0;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .mbti-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .mbti-title {
+            background: linear-gradient(45deg, #a1c4fd, #c2e9fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .mbti-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+        }
+
+        /* Chat Section */
+        .chat-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-intro {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .chat-intro h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .quick-questions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .quick-question {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .quick-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .chatbox {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-message {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .gpt-message {
+            justify-content: flex-start;
+        }
+
+        .user-message {
+            justify-content: flex-end;
+        }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 12px 18px;
+            border-radius: 18px;
+            position: relative;
+            word-wrap: break-word;
+        }
+
+        .gpt-bubble {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-bottom-left-radius: 5px;
+        }
+
+        .user-bubble {
+            background: #e3f2fd;
+            color: #333;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .chat-input:focus {
+            border-color: #667eea;
+        }
+
+        .send-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .send-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .send-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Comments Section */
+        .comments-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .comments-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .comment-count {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .comment-sort {
+            padding: 8px 15px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 20px;
+            background: white;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .comment-form {
+            margin-bottom: 30px;
+        }
+
+        .comment-textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 15px;
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .comment-textarea:focus {
+            border-color: #667eea;
+        }
+
+        .comment-submit {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .comment-submit:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .comment-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            background: #ccc;
+        }
+
+        .comment-textarea:disabled {
+            background-color: #f5f5f5;
+            cursor: not-allowed;
+        }
+
+        /* Comment Item Styles */
+        .comment-item {
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .comment-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .comment-author {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 0.95rem;
+        }
+
+        .comment-date {
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .comment-text {
+            margin: 12px 0;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .comment-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        /* Like Button Styles */
+        .like-button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+        }
+
+        .like-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            background: linear-gradient(45deg, #ff5252, #d84315);
+        }
+
+        .like-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+        }
+
+        .like-button .heart-icon {
+            font-size: 1rem;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        .like-count {
+            font-weight: 600;
+            margin-left: 2px;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.2); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.2); }
+            70% { transform: scale(1); }
+        }
+
+        /* Spinner */
+        .spinner {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2000;
+        }
+
+        .spinner-ring {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(102, 126, 234, 0.3);
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                height: auto;
+                padding: 20px;
             }
-            .chat {
-                clear:both; /* float된 요소의 영향 받지 않게 함 */
+
+            .nav-links {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .mbti-title {
+                font-size: 2rem;
+            }
+
+            .quick-questions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .message-bubble {
+                max-width: 85%;
+            }
+
+            .chat-input-container {
+                flex-direction: column;
+            }
+
+            .chat-input {
+                width: 100%;
                 margin-bottom: 10px;
             }
-            .gpt-chat {
-                display: inline-block;
-                background-color: #2589ef;
-                color:#fff;
-                padding: 10px;
-                margin-bottom: 5px;
-                position:relative;
-                border-radius :5px ;
-                max-width: 60%;
+
+            .comments-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
             }
-            .my-chat {
-                display:inline-block;
-                background-color:#4caf50;
-                color:white;
-                padding-left:10px;
-                padding-right:10px;
-                margin-bottom: 5px;
-                border-radius :5px ;
-                position:relative;
-                float:right;
-                max-width: 60%;
+
+            .comment-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
             }
-        </style>
 
-<!--        <h2 sec:authorize="isAnonymous()" th:text="${myMbti}">기본값</h2>-->
-        <h2 id="myMbtiValue" th:text="${myMbti}">기본값</h2>
-        <div id = "resultmbti">
-        </div>
-<div class="chatcontent">
-    <div id="special-section">
-        <p>궁금한 것을 질문해 보세요!</p>
-        <div class="question_subtext" style="display: flex; justify-content: center">
-            <div class="qa">너의 mbti가 뭐야?</div>
-            <div class="qa">너의 취미가 뭐야?</div>
-        </div>
+            .comment-actions {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
 
+<header class="header">
+    <div class="nav-container">
+        <a href="/" class="logo">
+            <i class="fas fa-brain"></i> MBTI 검사하기
+        </a>
+
+        <nav>
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-comments"></i> 게시판
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="/notice_board/ESTJ">ESTJ</a>
+                        <a href="/notice_board/ENTJ">ENTJ</a>
+                        <a href="/notice_board/ISTJ">ISTJ</a>
+                        <a href="/notice_board/ESFJ">ESFJ</a>
+                        <a href="/notice_board/ISFJ">ISFJ</a>
+                        <a href="/notice_board/ESTP">ESTP</a>
+                        <a href="/notice_board/ISTP">ISTP</a>
+                        <a href="/notice_board/ESFP">ESFP</a>
+                        <a href="/notice_board/ISFP">ISFP</a>
+                        <a href="/notice_board/INTJ">INTJ</a>
+                        <a href="/notice_board/ENFJ">ENFJ</a>
+                        <a href="/notice_board/INFJ">INFJ</a>
+                        <a href="/notice_board/ENTP">ENTP</a>
+                        <a href="/notice_board/INTP">INTP</a>
+                        <a href="/notice_board/ENFP">ENFP</a>
+                        <a href="/notice_board/INFP">INFP</a>
+                    </div>
+                </li>
+                <li sec:authorize="isAnonymous()">
+                    <a th:href="@{/member/login}">
+                        <i class="fas fa-sign-in-alt"></i> 로그인
+                    </a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a th:href="@{/member/logout}">
+                        <i class="fas fa-sign-out-alt"></i> 로그아웃
+                    </a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a th:href="@{/mypage}">
+                        <i class="fas fa-user"></i> MY PAGE
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="main-container">
+    <div class="mbti-header">
+        <h1 class="mbti-title" th:text="${mbti.name()}">MBTI</h1>
+        <p class="mbti-subtitle" th:text="|${mbti.name()} 유형의 커뮤니티에 오신 것을 환영합니다!|">MBTI 커뮤니티</p>
 
     </div>
-    <div class="gpt-content" id="chatbox">
-        <div class="chat">
-            <span class="gpt-chat">반가워요!</span>
+
+    <section class="chat-section">
+        <div class="chat-intro">
+            <h3><i class="fas fa-robot"></i> AI 챗봇과 대화하기</h3>
+            <p>궁금한 것을 질문해 보세요!</p>
+            <div class="quick-questions">
+                <div class="quick-question" onclick="sendQuickMessage('너의 mbti가 뭐야?')">
+                    너의 mbti가 뭐야?
+                </div>
+                <div class="quick-question" onclick="sendQuickMessage('너의 취미가 뭐야?')">
+                    너의 취미가 뭐야?
+                </div>
+            </div>
         </div>
-        <!--            <div class="chat">-->
-        <!--                <span class="my-chat">hi gpt</span>-->
-        <!--            </div>-->
-    </div>
-    <div class="usersend">
-        <input id="userInput" type="text" placeholder="AI와 채팅을 해보세요!">
-        <button onclick="sendMessage()">Send</button>
-    </div>
+
+        <div id="chatbox" class="chatbox">
+            <div class="chat-message gpt-message">
+                <div class="message-bubble gpt-bubble">
+                    <i class="fas fa-robot"></i> 반가워요! 무엇이든 물어보세요!
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-input-container">
+            <input id="userInput" type="text" class="chat-input" placeholder="AI와 채팅을 해보세요!" onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()" class="send-button">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </section>
+
+    <section class="comments-section">
+        <div class="comments-header">
+            <div class="comment-count">
+                <i class="fas fa-comments"></i> 댓글 <span id="count">0</span>개
+            </div>
+            <select id="comment-sort" class="comment-sort">
+                <option value="popular">추천순</option>
+                <option value="newest">최신순</option>
+            </select>
+        </div>
+
+        <div class="comment-form">
+                <textarea id="comment-input" class="comment-textarea"
+                          th:placeholder="${#authorization.expression('isAuthenticated()') ? '댓글을 작성해보세요...' : '로그인 후 댓글을 작성할 수 있습니다.'}"></textarea>
+            <button id="submit" class="comment-submit" th:disabled="${!#authorization.expression('isAuthenticated()')}">
+                <i class="fas fa-pencil-alt"></i> 댓글 등록
+            </button>
+        </div>
+
+        <div id="comments">
+            <!-- Comments will be loaded here -->
+        </div>
+    </section>
+</main>
+
+<div id="spinner" class="spinner">
+    <div class="spinner-ring"></div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:inline="javascript">
+    const memberMbti = /*[[${mbti}]]*/ 'ENFP';
+    const isAuthenticated = /*[[${#authorization.expression('isAuthenticated()')}]]*/ false;
 
-        <div id="spinner" class="spinner-border text-info" role="status" style="display: none; position: absolute; top: 50%; left: 50%">
-            <span class="visually-hidden"></span>
-        </div>
+    const csrfToken = document.querySelector('meta[name="_csrf"]')?.getAttribute('content') || '';
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.getAttribute('content') || '';
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            function sendMessage() {
-                var userInput = $('#userInput').val(); // 사용자 입력 받기
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('userInput').focus();
+        loadComments(); // 댓글 목록 불러오기
+    });
 
-                var newChatDiv = $('<div>').addClass('chat');
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    }
 
-                var newChatSpan = $('<span>').addClass('my-chat').text(userInput);
+    function sendQuickMessage(message) {
+        document.getElementById('userInput').value = message;
+        sendMessage();
+    }
 
+    function sendMessage() {
+        const userInput = document.getElementById('userInput');
+        const message = userInput.value.trim();
+        if (!message) return;
 
-                newChatDiv.append(newChatSpan);
+        addMessageToChat(message, 'user');
+        userInput.value = '';
+        userInput.disabled = true;
+        document.querySelector('.send-button').disabled = true;
+        document.getElementById('spinner').style.display = 'block';
 
-
-                $('#chatbox').append(newChatDiv);
-
-
-                $('#userInput').prop('disabled', true);
-                $('button').prop('disabled', true);
-
-                // Show spinner
-                $('#spinner').show();
-
-                $.ajax({
-                    url: '/api/openai',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-                        mbti: memberMbti.toUpperCase(),
-                        message: userInput
-                    }),
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader('X-CSRF-TOKEN', $("#csrfToken").val());
-                    },
-                    success: function (response) {
-                        var content = response.response ? response.response : response;
-                        var newChatDiv = $('<div>').addClass('chat');
-                        var newChatSpan = $('<span>').addClass('gpt-chat').text(content);
-                        $('#userInput').prop('disabled', false);
-                        $('button').prop('disabled', false);
-                        $('#spinner').hide();
-                        newChatDiv.append(newChatSpan);
-                        $('#chatbox').append(newChatDiv);
-                        $('#userInput').val('');
-                    },
-                    error: function () {
-                        $('#userInput').prop('disabled', false);
-                        $('button').prop('disabled', false);
-                        $('#spinner').hide();
-                    }
-                });
+        $.ajax({
+            url: '/api/openai',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ mbti: memberMbti.toUpperCase(), message }),
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader(csrfHeader, csrfToken);
+            },
+            success: function(response) {
+                const content = response.response || response;
+                addMessageToChat(content, 'gpt');
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+                addMessageToChat('죄송합니다. 오류가 발생했습니다. 다시 시도해주세요.', 'gpt');
+            },
+            complete: function() {
+                userInput.disabled = false;
+                document.querySelector('.send-button').disabled = false;
+                document.getElementById('spinner').style.display = 'none';
+                userInput.focus();
             }
-        </script>
+        });
+    }
 
+    function addMessageToChat(message, sender) {
+        const chatbox = document.getElementById('chatbox');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `chat-message ${sender}-message`;
 
+        const bubbleDiv = document.createElement('div');
+        bubbleDiv.className = `message-bubble ${sender}-bubble`;
 
-        </script>
+        bubbleDiv.innerHTML = sender === 'gpt'
+            ? `<i class="fas fa-robot"></i> ${message}`
+            : message;
 
-<div>
-    <!--comment---------------------------------------------------------------------------------->
-    <div id="form-commentInfo">
-        <div id="comment-count">댓글 <span id="count">0</span></div>
-        <textarea id="comment-input" rows="2" placeholder="댓글 작성"></textarea>
-        <button id="submit">등록</button>
-    </div>
-    <br>
+        messageDiv.appendChild(bubbleDiv);
+        chatbox.appendChild(messageDiv);
+        chatbox.scrollTop = chatbox.scrollHeight;
+    }
 
+    function likeComment(commentId, btn) {
+        if (!isAuthenticated) {
+            alert('추천하려면 로그인이 필요합니다.');
+            return;
+        }
 
-    <form style="margin: auto; width: 1280px;">
-        <label for="comment-sort">댓글 정렬:</label>
-        <select id="comment-sort" style="width:90px; height:40px; margin-bottom: 20px; border-radius: 20px; font-size: 15px; margin-top: 40px;">
-            <option value="popular">추천순</option>
-            <option value="newest">최신순</option>
-        </select>
-    </form>
+        $.ajax({
+            url: `/api/replies/${commentId}/like`,
+            type: 'POST',
+            beforeSend: function (xhr) {
+                if (csrfHeader && csrfToken) {
+                    xhr.setRequestHeader(csrfHeader, csrfToken);
+                }
+            },
+            success: function (updatedLikes) {
+                const likeSpan = btn.querySelector('.like-count');
+                if (likeSpan) {
+                    likeSpan.textContent = updatedLikes;
+                }
+            },
+            error: function () {
+                alert('추천 처리 중 오류가 발생했습니다.');
+            }
+        });
+    }
 
-    <div id=comments>
+    // 댓글 등록 이벤트
+    document.getElementById('submit').addEventListener('click', function () {
+        if (!isAuthenticated) {
+            alert('댓글을 작성하려면 로그인이 필요합니다.');
+            return;
+        }
 
-    </div>
-</div>
+        const commentInput = document.getElementById('comment-input');
+        const comment = commentInput.value.trim();
 
-        <script src="/static/js/notice_board.js"></script>
-        <script src ="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+        if (!comment) {
+            alert('댓글 내용을 입력해주세요.');
+            return;
+        }
+
+        $.ajax({
+            url: `/api/replies/${memberMbti}`,
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ text: comment }),
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(csrfHeader, csrfToken);
+            },
+            success: function (response) {
+                appendComment(response, true); // true → 최신 댓글을 상단에
+                commentInput.value = '';
+                const count = document.getElementById('count');
+                count.textContent = parseInt(count.textContent) + 1;
+            },
+            error: function (xhr, status, error) {
+                console.error('댓글 등록 실패:', error);
+                alert('댓글 등록 중 오류가 발생했습니다.');
+            }
+        });
+    });
+
+    // 댓글 입력 포커스 시 로그인 확인
+    document.getElementById('comment-input').addEventListener('focus', function () {
+        if (!isAuthenticated) {
+            this.blur();
+            alert('댓글을 작성하려면 로그인이 필요합니다.');
+        }
+    });
+
+    // 댓글 목록 초기 로딩
+    function loadComments() {
+        const sort = document.getElementById('comment-sort').value;
+
+        $.ajax({
+            url: `/api/replies/${memberMbti}?sort=${sort}`,
+            type: 'GET',
+            success: function (comments) {
+                const count = document.getElementById('count');
+                count.textContent = comments.length;
+                const commentsDiv = document.getElementById('comments');
+                commentsDiv.innerHTML = ''; // 기존 댓글 비우기
+                comments.forEach(comment => appendComment(comment, false));
+            },
+            error: function () {
+                console.error('댓글을 불러오는 데 실패했습니다.');
+            }
+        });
+    }
+
+    // 정렬 드롭다운 변경 시 자동 리로딩
+    document.getElementById('comment-sort').addEventListener('change', loadComments);
+
+    // 댓글 DOM에 추가
+    function appendComment(comment, prepend = false) {
+        const commentsDiv = document.getElementById('comments');
+        const commentEl = document.createElement('div');
+        commentEl.className = 'comment-item';
+
+        commentEl.innerHTML = `
+            <div class="comment-header">
+                <span class="comment-author">${comment.memberNickname || '익명'}</span>
+                <span class="comment-date">${formatDate(comment.timestamp)}</span>
+            </div>
+            <div class="comment-text">${comment.text}</div>
+            <div class="comment-actions">
+                <button class="like-button" onclick="likeComment(${comment.id}, this)">
+                    <span class="heart-icon">❤️</span>
+                    <span class="like-count">${comment.likes || 0}</span>
+                </button>
+            </div>
+        `;
+
+        if (prepend) {
+            commentsDiv.prepend(commentEl);
+        } else {
+            commentsDiv.appendChild(commentEl);
+        }
+    }
+
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleString();
+    }
+</script>
+
 </body>
 </html>

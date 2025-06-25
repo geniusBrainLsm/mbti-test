@@ -29,4 +29,10 @@ public class CommentLike {
     @CreatedDate
     @Column(name = "liked_at", nullable = false, updatable = false)
     private LocalDateTime likedAt;
+
+    @PrePersist
+    private void onCreate() {
+        this.likedAt = LocalDateTime.now();
+    }
+
 }

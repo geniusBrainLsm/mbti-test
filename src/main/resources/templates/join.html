@@ -4,98 +4,346 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>joinpage</title>
-    <link rel="stylesheet" href="../static/css/join.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>MBTI 회원가입</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-input, .mbti-select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #fff;
+        }
+
+        .form-input:focus, .mbti-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .mbti-select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        .email-section {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .email-input-wrapper {
+            flex: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .verification-section {
+            display: none;
+            margin-top: 15px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .verification-input-group {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+            margin-top: 10px;
+        }
+
+        .verification-input {
+            flex: 1;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .form-errors {
+            background: #fee;
+            border: 1px solid #fcc;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #c33;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+
+            .email-section {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .verification-input-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            top: 70%;
+            right: 10%;
+            animation-delay: -2s;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 40px;
+            height: 40px;
+            top: 40%;
+            left: 80%;
+            animation-delay: -4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+    </style>
 </head>
 <body>
-<input type="hidden" id="csrfToken" th:value="${_csrf.token}" />
-<form id="joinForm" name="joinForm" th:action="@{/member/join}" th:object="${joinForm}" method="post" onsubmit="return checkConfirm()">
+<div class="floating-elements">
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+</div>
 
-    <div th:replace="~{form_errors :: formErrorsFragment}"></div>
-    <div class="about-info">
-        <div><h2>MBTI 회원가입</h2></div>
+<div class="container">
+    <input type="hidden" id="csrfToken" th:value="${_csrf.token}" />
+    <form id="joinForm" name="joinForm" th:action="@{/member/join}" th:object="${joinForm}" method="post" onsubmit="return checkConfirm()">
 
+        <div th:replace="~{form_errors :: formErrorsFragment}" class="form-errors"></div>
 
-        <div class="input">
-            <div class="label"><label>MBTI</label></div>
-            <select name="memberMbti" class="mbti_select">
+        <h2>MBTI 회원가입</h2>
+
+        <div class="input-group">
+            <label class="label">MBTI</label>
+            <select name="memberMbti" class="mbti-select">
                 <option value="">MBTI를 선택하세요</option>
-                <option value="INTJ">INTJ</option>
-                <option value="INTP">INTP</option>
-                <option value="ENTJ">ENTJ</option>
-                <option value="ENTP">ENTP</option>
-                <option value="INFJ">INFJ</option>
-                <option value="INFP">INFP</option>
-                <option value="ENFJ">ENFJ</option>
-                <option value="ENFP">ENFP</option>
-                <option value="ISTJ">ISTJ</option>
-                <option value="ISFJ">ISFJ</option>
-                <option value="ESTJ">ESTJ</option>
-                <option value="ESFJ">ESFJ</option>
-                <option value="ISTP">ISTP</option>
-                <option value="ISFP">ISFP</option>
-                <option value="ESTP">ESTP</option>
-                <option value="ESFP">ESFP</option>
+                <option value="INTJ">INTJ - 건축가</option>
+                <option value="INTP">INTP - 논리술사</option>
+                <option value="ENTJ">ENTJ - 통솔자</option>
+                <option value="ENTP">ENTP - 토론자</option>
+                <option value="INFJ">INFJ - 옹호자</option>
+                <option value="INFP">INFP - 중재자</option>
+                <option value="ENFJ">ENFJ - 선도자</option>
+                <option value="ENFP">ENFP - 활동가</option>
+                <option value="ISTJ">ISTJ - 현실주의자</option>
+                <option value="ISFJ">ISFJ - 수호자</option>
+                <option value="ESTJ">ESTJ - 경영자</option>
+                <option value="ESFJ">ESFJ - 집정관</option>
+                <option value="ISTP">ISTP - 만능재주꾼</option>
+                <option value="ISFP">ISFP - 모험가</option>
+                <option value="ESTP">ESTP - 사업가</option>
+                <option value="ESFP">ESFP - 연예인</option>
             </select>
         </div>
 
-        <div class ="input">
-        <div class="label"><label>닉네임</label></div>
-        <input type="text" name="memberNickname" class="campus_name search" maxlength="20" placeholder="닉네임을 입력하세요" autocomplete="off">
-    </div>
-
-    <div class="input">
-        <div class="label"><label>이메일</label></div>
-        <input id="mail" type="text" name="memberEmail" class="campus_name search" maxlength="60" placeholder="이메일을 입력하세요" autocomplete="off">
-        <div class="input">
-            <button type="button" id="sendVerificationCode" onclick="sendNumber()">인증번호 발송</button>
+        <div class="input-group">
+            <label class="label">닉네임</label>
+            <input type="text" name="memberNickname" class="form-input" maxlength="20" placeholder="닉네임을 입력하세요" autocomplete="off">
         </div>
-        <input type="text" id="Confirm" name="vari" style="display: none" value="">
-        <div class="input" id="check_number">
-            <div class="label"><label>인증번호</label></div>
-            <input type="text" name="Authentication" id="number" maxlength="6" placeholder="인증번호를 입력하세요">
-            <button type="button" onclick="confirmNumber()" class="codecheck">인증번호 확인</button>
+
+        <div class="input-group">
+            <label class="label">이메일</label>
+            <div class="email-section">
+                <div class="email-input-wrapper">
+                    <input id="mail" type="email" name="memberEmail" class="form-input" maxlength="60" placeholder="이메일을 입력하세요" autocomplete="off">
+                </div>
+                <button type="button" id="sendVerificationCode" class="btn-primary" onclick="sendNumber()">인증번호 발송</button>
+            </div>
+
+            <input type="hidden" id="Confirm" name="vari" value="">
+
+            <div class="verification-section" id="check_number">
+                <label class="label">인증번호</label>
+                <div class="verification-input-group">
+                    <div class="verification-input">
+                        <input type="text" name="Authentication" id="number" class="form-input" maxlength="6" placeholder="인증번호를 입력하세요">
+                    </div>
+                    <button type="button" onclick="confirmNumber()" class="btn-primary">인증번호 확인</button>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="input">
-        <div class="label"><label>비밀번호</label></div>
-        <input type="password" name="memberPassword1" class="campus_name search" maxlength="20" placeholder="패스워드를 입력하세요" autocomplete="off">
-    </div>
-    <div class="input">
-        <div class="label"><label>비밀번호 확인</label></div>
-        <input type="password" name="memberPassword2" class="campus_name search" maxlength="20" placeholder="패스워드 중복확인" autocomplete="off">
-    </div>
+        <div class="input-group">
+            <label class="label">비밀번호</label>
+            <input type="password" name="memberPassword1" class="form-input" maxlength="20" placeholder="비밀번호를 입력하세요" autocomplete="off">
+        </div>
 
-    <ol class="campuses"></ol>
+        <div class="input-group">
+            <label class="label">비밀번호 확인</label>
+            <input type="password" name="memberPassword2" class="form-input" maxlength="20" placeholder="비밀번호를 다시 입력하세요" autocomplete="off">
+        </div>
 
-    <input type="submit" value="가입하기" id="btn">
-    </div>
-</form>
+        <button type="submit" class="btn-submit" id="btn">가입하기</button>
+    </form>
+</div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript">
     var checked = false;
     var verificationCooldown = false;
-    var cooldownDuration = 7000; // 5초 (5000 milliseconds)
+    var cooldownDuration = 7000;
 
     function sendNumber() {
         if (verificationCooldown) {
-            // 이미 버튼이 비활성화되어 있는 경우
             return;
         }
 
         var email = $("#mail").val();
 
-        // 이메일 형식 검사
         var emailFormat = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!emailFormat.test(email)) {
             alert("유효하지 않은 이메일 형식입니다.");
             return false;
         }
 
-        // 이메일 중복 확인
         $.ajax({
             url: "/checkEmail",
             type: "post",
@@ -108,7 +356,6 @@
                     alert("이미 사용중인 이메일입니다.");
                     return false;
                 } else {
-                    // 인증번호 발송 로직
                     $.ajax({
                         url: "/sendMail",
                         type: "post",
@@ -118,7 +365,7 @@
                             xhr.setRequestHeader("X-CSRF-TOKEN", $("#csrfToken").val());
                         },
                         success: function (data) {
-                            alert("인증번호 발송");
+                            alert("인증번호를 발송했습니다.");
                             $("#Confirm").attr("value", data);
                             $("#check_number").css("display", "block");
                             $('button').prop('disabled', false);
@@ -128,7 +375,6 @@
             }
         });
 
-        // "인증번호 발송" 버튼 비활성화 및 타이머 시작
         $("#sendVerificationCode").prop('disabled', true);
         startVerificationCooldown();
     }
@@ -136,7 +382,6 @@
     function startVerificationCooldown() {
         verificationCooldown = true;
         setTimeout(function () {
-            // 5초 후 버튼을 다시 활성화
             verificationCooldown = false;
             $("#sendVerificationCode").prop('disabled', false);
         }, cooldownDuration);
@@ -147,38 +392,38 @@
         var number2 = $("#Confirm").val();
 
         if (number1 == number2) {
-            alert("인증되었습니다.");
+            alert("인증이 완료되었습니다.");
             checked = true;
         } else {
-            alert("번호가 다릅니다.");
+            alert("인증번호가 일치하지 않습니다.");
             checked = false;
         }
     }
 
     function checkConfirm() {
         if (checked !== true) {
-            alert("인증을 완료해주세요");
-            return false; // 폼 제출은 취소되지만, 폼은 초기화되지 않습니다
+            alert("이메일 인증을 완료해주세요.");
+            return false;
         } else {
             var mbti = document.getElementsByName("memberMbti")[0].value;
             var nickname = document.getElementsByName("memberNickname")[0].value;
             var password1 = document.getElementsByName("memberPassword1")[0].value;
             var password2 = document.getElementsByName("memberPassword2")[0].value;
 
-            if (password1 !== password2) {
-                alert("비밀번호가 일치하지 않습니다.");
-                return false; // 폼 제출은 취소되지만, 폼은 초기화되지 않습니다
-            } else if (password1 === "" || password2 === "") {
-                alert("비밀번호를 입력해주세요.");
-                return false; // 폼 제출은 취소되지만, 폼은 초기화되지 않습니다
+            if (mbti === "") {
+                alert("MBTI를 선택해주세요.");
+                return false;
             } else if (nickname === "") {
                 alert("닉네임을 입력해주세요.");
-                return false; // 폼 제출은 취소되지만, 폼은 초기화되지 않습니다
-            } else if (mbti === "") {
-                alert("MBTI를 선택해주세요.");
-                return false; // 폼 제출은 취소되지만, 폼은 초기화되지 않습니다
+                return false;
+            } else if (password1 === "" || password2 === "") {
+                alert("비밀번호를 입력해주세요.");
+                return false;
+            } else if (password1 !== password2) {
+                alert("비밀번호가 일치하지 않습니다.");
+                return false;
             } else {
-                return true; // 폼 제출은 진행됩니다
+                return true;
             }
         }
     }
