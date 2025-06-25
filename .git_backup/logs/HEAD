@@ -1,0 +1,6 @@
+0000000000000000000000000000000000000000 a8a14c81f4b5193dd09bdd611ef1bdc1cf2214e6 geniusbrainlsm <geniusbrainlsm@gmail.com> 1750613067 +0900	clone: from https://github.com/geniusBrainLsm/MBTI_TEST
+a8a14c81f4b5193dd09bdd611ef1bdc1cf2214e6 cc4ca6fd8df5f8d057510a583879dc38966975d8 geniusbrainlsm <geniusbrainlsm@gmail.com> 1750675466 +0900	commit: wip : 작업내용 저장.
+cc4ca6fd8df5f8d057510a583879dc38966975d8 cb68c71a208bcbd9656c67d52a1a8700d6189a56 geniusbrainlsm <geniusbrainlsm@gmail.com> 1750751521 +0900	commit: wip : 작업내용 저장.
+cb68c71a208bcbd9656c67d52a1a8700d6189a56 8900142e7defc5a0a53a881c4292570591c70b42 geniusbrainlsm <geniusbrainlsm@gmail.com> 1750832581 +0900	commit: fix : gpt 모델 4.1로 변경, 전반적인 디자인 수정, 댓글 로직 리팩토링, mbti 질문 20개로 늘림.
+8900142e7defc5a0a53a881c4292570591c70b42 d4a159d17aae7a7d7103f126acb5cdfd89bcf002 geniusbrainlsm <geniusbrainlsm@gmail.com> 1750832753 +0900	commit: fix : properties git ignore에 추가
+d4a159d17aae7a7d7103f126acb5cdfd89bcf002 804a279a50b0a0aff177219cbfbb4e8c0c7a9d7c geniusbrainlsm <geniusbrainlsm@gmail.com> 1750835703 +0900	reset: moving to origin/main
